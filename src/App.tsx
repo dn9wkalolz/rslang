@@ -1,9 +1,8 @@
 import React from 'react';
+import LeoSprintGame from './Components/Leo-Sprint/LeoSprintGame';
 
-function App() {
-  return (
-    <div>Hello</div>
-  );
-}
+const App: React.FC = () => (
+  <LeoSprintGame />
+);
 
 export default App;

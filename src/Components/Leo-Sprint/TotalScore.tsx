@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TotalScore = () => (
+const TotalScore: React.FC = () => (
   <div>Score: 1000</div>
 );
 

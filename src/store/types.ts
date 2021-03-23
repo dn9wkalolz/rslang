@@ -1,0 +1,2 @@
+export const FETCH_WORDSET: string = 'LEO-SPRINT/FETCH_WORDSET';
+export const MOVE_NEXTWORD: string = 'LEO-SPRINT/MOVE_NEXTWORD';

@@ -1,9 +1,12 @@
 import React from 'react';
-import TotalScore from './TotalScore';
+import GameStatistic from './GameStatic';
+import LanguageQuest from './LanguageQuest';
+import './leosprint.scss';
 
-const LeoSprintGame = () => (
-  <div className="leosprint-container">
-    <TotalScore />
+const LeoSprintGame: React.FC = () => (
+  <div className="leosprint__container">
+    <GameStatistic />
+    <LanguageQuest />
   </div>
 );
 
