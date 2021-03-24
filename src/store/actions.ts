@@ -1,4 +1,4 @@
-import { FETCH_WORDSET, MOVE_NEXTWORD } from './types';
+import { FETCH_WORDSET, INCREMENT_SCORE, MOVE_NEXTWORD } from './types';
 
 export function fetchWordset(): Function {
   return async (dispatch: any) => {
@@ -11,5 +11,11 @@ export function fetchWordset(): Function {
 export function moveNextWord(): object {
   return {
     type: MOVE_NEXTWORD,
+  };
+}
+
+export function incrementScore() {
+  return {
+    type: INCREMENT_SCORE,
   };
 }
