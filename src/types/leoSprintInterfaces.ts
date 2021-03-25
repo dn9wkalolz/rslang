@@ -1,12 +1,3 @@
-export interface IWordsSet {
-  words: IWordSetElem[]
-}
-
-export interface IAction {
-  type: string
-  payload: any
-}
-
 export interface IWordSetElem {
   id: string
   group: number

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { incrementScore } from '../../store/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { incrementScore, rightHandler, wrongHandler } from '../../store/actions';
+import { RootState } from '../../store/rootReducer';
 import { IWordSetElem } from '../../types/leoSprintInterfaces';
 
 interface IClickHandler {
   e: React.MouseEvent
-  id?: string
+  id: string
   isWordsMatch: boolean
 }
 
@@ -14,10 +15,11 @@ const LanguageQuest: React.FC = () => {
   const [error, setError] = useState<any>(null);
   const [wordSet, setWordSet] = useState<IWordSetElem[]>([]);
   const [page, setPage] = useState<number>(0);
+  const group = useSelector((state: RootState) => state.leosprintState.difficulty);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch(`https://rslang-61.herokuapp.com/words?page=${page}&group=0`)
+    fetch(`https://rslang-61.herokuapp.com/words?page=${page}&group=${group}`)
       .then((response) => response.json())
       .then(
         (result) => {
@@ -31,12 +33,16 @@ const LanguageQuest: React.FC = () => {
       );
   }, [page]);
 
-  const scoreHandler = ({ e, isWordsMatch }: IClickHandler): void => {
+  const answerHandler = ({ e, isWordsMatch, id }: IClickHandler): void => {
     const { name } = e.target as HTMLButtonElement;
+    const answer = wordSet.filter((word) => word.id === id);
     const nameToBoolean = name === 'right';
     if (nameToBoolean === isWordsMatch) {
       dispatch(incrementScore());
+      dispatch(rightHandler(answer));
+      return;
     }
+    dispatch(wrongHandler(answer));
   };
 
   const getRandomIndex = (): number => Math.floor(Math.random() * wordSet.length);
@@ -47,7 +53,7 @@ const LanguageQuest: React.FC = () => {
   };
 
   const clickHandler = ({ e, id, isWordsMatch }: IClickHandler): void => {
-    scoreHandler({ e, isWordsMatch });
+    answerHandler({ e, isWordsMatch, id });
     if (wordSet.length === 1) {
       setIsLoaded(false);
       setPage(
