@@ -35,7 +35,7 @@ function OwnGameCard(props:any) {
       setIsChecking('');
       clearInput();
       updateCurrent();
-    }, 1000);
+    }, 650);
   }
 
   return (
@@ -55,9 +55,21 @@ function OwnGameCard(props:any) {
       <h2 className="own-game__card--word">{word.word}</h2>
       <p className="own-game__card--transcription">{word.transcription}</p>
       <h2 className="own-game__card--translation">{word.wordTranslate}</h2>
-      <input className="own-game__card--input" type="text" ref={ref} />
-      <button type="button" className="own-game__card--check" onClick={() => handleCheck()}>Check</button>
-      <button type="button" className="own-game__card--check" onClick={() => handleNext()}>Next</button>
+      <div className="own-game__card--form">
+        <input
+          className={`own-game__card--input ${isChecking ? 'disabled' : ''}`}
+          type="text"
+          ref={ref}
+        />
+        <button
+          type="button"
+          className={`own-game__card--check ${isChecking ? 'disabled' : ''}`}
+          onClick={() => handleCheck()}
+        >
+          Проверим?
+        </button>
+      </div>
+      <button type="button" className="own-game__card--next" onClick={() => handleNext()}>Следующее слово</button>
     </div>
   );
 }

@@ -1,24 +1,29 @@
 import React, { useState } from 'react';
-import data from './data';
 import OwnGameCard from './OwnGameCard/OwnGameCard';
 import './OwnGame.scss';
 
-export default function OwnGame() {
+export default function OwnGame(props:any) {
+  const { words } = props;
   const [current, setCurrent] = useState(0);
-  const words = data;
+  const [isFinished, setIsFinished] = useState(false);
 
   function updateCurrent() {
-    setCurrent(current + 1);
-    console.log(current);
+    if (current < words.length - 1) {
+      setCurrent(current + 1);
+    } else {
+      setIsFinished(true);
+    }
   }
 
-  return (
-    <div className="own-game">
-      <OwnGameCard
-        word={words[current]}
-        updateCurrent={updateCurrent}
-        key={words[current].word}
-      />
-    </div>
-  );
+  if (!isFinished) {
+    return (
+      <div className="own-game">
+        <OwnGameCard word={words[current]} updateCurrent={updateCurrent} />
+      </div>
+    );
+  } else {
+    return (
+      <div>Results:</div>
+    );
+  }
 }
