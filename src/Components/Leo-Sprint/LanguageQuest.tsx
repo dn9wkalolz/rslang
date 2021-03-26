@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { incrementScore, rightHandler, wrongHandler } from '../../store/actions';
+import {
+  incrementScore, rightHandler, setLoaded, wrongHandler,
+} from '../../store/actions';
 import { RootState } from '../../store/rootReducer';
 import { IWordSetElem } from '../../types/leoSprintInterfaces';
 
@@ -11,11 +13,13 @@ interface IClickHandler {
 }
 
 const LanguageQuest: React.FC = () => {
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  // const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [error, setError] = useState<any>(null);
   const [wordSet, setWordSet] = useState<IWordSetElem[]>([]);
   const [page, setPage] = useState<number>(0);
-  const group = useSelector((state: RootState) => state.leosprintState.difficulty);
+  const [group, isLoaded] = useSelector(
+    (state: RootState) => [state.leosprintState.difficulty, state.leosprintState.isLoaded],
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,10 +28,12 @@ const LanguageQuest: React.FC = () => {
       .then(
         (result) => {
           setWordSet(result);
-          setIsLoaded(true);
+          // setIsLoaded(true);
+          dispatch(setLoaded());
         },
         (err) => {
-          setIsLoaded(true);
+          // setIsLoaded(true);
+          dispatch(setLoaded());
           setError(err);
         },
       );
@@ -55,15 +61,12 @@ const LanguageQuest: React.FC = () => {
   const clickHandler = ({ e, id, isWordsMatch }: IClickHandler): void => {
     answerHandler({ e, isWordsMatch, id });
     if (wordSet.length === 1) {
-      setIsLoaded(false);
-      setPage(
-        (preState) => preState + 1,
-      );
+      // setIsLoaded(false);
+      dispatch(setLoaded());
+      setPage((preState) => preState + 1);
       return;
     }
-    setWordSet(
-      (prevState) => prevState.filter((word) => word.id !== id),
-    );
+    setWordSet((prevState) => prevState.filter((word) => word.id !== id));
   };
 
   if (error) {

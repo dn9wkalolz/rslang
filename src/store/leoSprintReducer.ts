@@ -7,6 +7,8 @@ import {
   TOGGLE_END,
   HANDLE_RIGHT,
   HANDLE_WRONG,
+  SET_LOADED,
+  CLEAR_GAME,
 } from './types';
 
 export interface IAction {
@@ -21,6 +23,7 @@ interface IInitialState {
   difficulty: string
   right: IWordSetElem[]
   wrong: IWordSetElem[]
+  isLoaded: boolean
 }
 
 const initialState: IInitialState = {
@@ -31,6 +34,7 @@ const initialState: IInitialState = {
   difficulty: '0',
   right: [],
   wrong: [],
+  isLoaded: false,
 };
 
 export const leoSprintReducer = (state = initialState, action:IAction) => {
@@ -49,6 +53,19 @@ export const leoSprintReducer = (state = initialState, action:IAction) => {
       return { ...state, right: [...state.right, ...action.payload] };
     case HANDLE_WRONG:
       return { ...state, wrong: [...state.wrong, ...action.payload] };
+    case SET_LOADED:
+      return { ...state, isLoaded: !state.isLoaded };
+    case CLEAR_GAME:
+      return {
+        ...state,
+        score: 0,
+        isStart: false,
+        isEnd: false,
+        difficulty: '0',
+        right: [],
+        wrong: [],
+        isLoaded: false,
+      };
     // case MOVE_NEXTWORD:
     //   return { ...state, words: state.words.slice(1) };
     // case FETCH_WORDSET:
