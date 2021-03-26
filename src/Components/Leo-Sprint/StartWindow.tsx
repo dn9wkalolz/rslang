@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeDifficulty, toggleStart } from '../../store/actions';
+import { changeDifficulty, toggleStart } from '../../store/leoSprintActions';
 import { RootState } from '../../store/rootReducer';
 
 const StartWindow: React.FC = () => {

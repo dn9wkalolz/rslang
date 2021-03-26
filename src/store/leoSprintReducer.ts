@@ -1,4 +1,4 @@
-import { IWordSetElem } from '../types/leoSprintInterfaces';
+import { IWordSetElem } from '../interfaces/commonInterfaces';
 import {
   INCREMENT_SCORE,
   TOGGLE_LOGIN,
@@ -66,8 +66,6 @@ export const leoSprintReducer = (state = initialState, action:IAction) => {
         wrong: [],
         isLoaded: false,
       };
-    // case MOVE_NEXTWORD:
-    //   return { ...state, words: state.words.slice(1) };
     // case FETCH_WORDSET:
     //   return { ...state, words: action.payload };
     default: return state;

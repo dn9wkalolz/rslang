@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleEnd } from '../../store/actions';
+import { toggleEnd } from '../../store/leoSprintActions';
 import { RootState } from '../../store/rootReducer';
 
 const Timer: React.FC = () => {

@@ -5,7 +5,7 @@ interface IAnswers {
   wordElem: IWordSetElem
 }
 
-const Answers: React.FC<IAnswers> = ({ wordElem }) => {
+const Page: React.FC<IAnswers> = ({ wordElem }) => {
   const {
     audio, word, transcription, wordTranslate,
   } = wordElem;
@@ -19,4 +19,4 @@ const Answers: React.FC<IAnswers> = ({ wordElem }) => {
   );
 };
 
-export default Answers;
+export default Page;

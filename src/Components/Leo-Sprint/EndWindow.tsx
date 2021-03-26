@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearGame } from '../../store/actions';
+import { clearGame } from '../../store/leoSprintActions';
 import { RootState } from '../../store/rootReducer';
-import { IWordSetElem } from '../../types/leoSprintInterfaces';
+import { IWordSetElem } from '../../interfaces/commonInterfaces';
 import Answers from './Answers';
 
 const EndWindow: React.FC = () => {

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   incrementScore, rightHandler, setLoaded, wrongHandler,
-} from '../../store/actions';
+} from '../../store/leoSprintActions';
 import { RootState } from '../../store/rootReducer';
-import { IWordSetElem } from '../../types/leoSprintInterfaces';
+import { IWordSetElem } from '../../interfaces/commonInterfaces';
 
 interface IClickHandler {
   e: React.MouseEvent
@@ -23,6 +23,21 @@ const LanguageQuest: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // const loginUser = async (user: any) => {
+    //   const rawResponse = await fetch('https://rslang-61.herokuapp.com/signin', {
+    //     method: 'POST',
+    //     headers: {
+    //       Accept: 'application/json',
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(user),
+    //   });
+    //   const content = await rawResponse.json();
+    //   sessionStorage.setItem('token', content.token);
+    //   sessionStorage.setItem('userId', content.userId);
+    // };
+    // loginUser({ email: 'test@user.com', password: 'qwertyuiop' });
+
     fetch(`https://rslang-61.herokuapp.com/words?page=${page}&group=${group}`)
       .then((response) => response.json())
       .then(

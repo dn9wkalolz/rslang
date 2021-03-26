@@ -1,8 +1,7 @@
-import { IWordSetElem } from '../types/leoSprintInterfaces';
+import { IWordSetElem } from '../interfaces/commonInterfaces';
 import {
   FETCH_WORDSET,
   INCREMENT_SCORE,
-  MOVE_NEXTWORD,
   TOGGLE_LOGIN,
   TOGGLE_START,
   CHANGE_DIFFICULTY,
@@ -19,10 +18,6 @@ export function fetchWordset(): Function {
     const json = await response.json();
     dispatch({ type: FETCH_WORDSET, payload: json });
   };
-}
-
-export function moveNextWord(): object {
-  return { type: MOVE_NEXTWORD };
 }
 
 export function incrementScore(): object {

@@ -1,8 +1,9 @@
 import React from 'react';
-import LeoSprintGame from './Components/Leo-Sprint/LeoSprintGame';
+import TextBook from './Components/TextBook/TextBook';
+// import LeoSprintGame from './Components/Leo-Sprint/LeoSprintGame';
 
 const App: React.FC = () => (
-  <LeoSprintGame />
+  <TextBook />
 );
 
 export default App;
