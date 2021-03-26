@@ -1,12 +1,14 @@
 import React, { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { OwnGameCardIsCorrect, OwnGameCardIsIncorrect, OwnGameCardSetCurrent } from './OwnGameCardSlice';
 import './OwnGameCard.scss';
 
 function OwnGameCard(props:any) {
-  const [isChecking, setIsChecking] = useState('');
-  const [isCorrect, setIsCorrect] = useState('');
-
-  const baseURL = 'https://rslang-61.herokuapp.com';
-  const { word, updateCurrent } = props;
+  const [isChecking, setIsChecking] = useState<string>('');
+  const [isCorrect, setIsCorrect] = useState<string>('');
+  const dispatch = useDispatch();
+  const BASE_URL:string = 'https://rslang-61.herokuapp.com';
+  const { word } = props;
   const ref = useRef<HTMLInputElement>(null);
 
   function clearInput():void {
@@ -21,8 +23,10 @@ function OwnGameCard(props:any) {
 
       if (ref.current?.value.toLowerCase() === word.word.toLowerCase()) {
         setIsCorrect('correct');
+        dispatch(OwnGameCardIsCorrect(word));
       } else {
         setIsCorrect('incorrect');
+        dispatch(OwnGameCardIsIncorrect(word));
       }
     }
   }
@@ -34,7 +38,7 @@ function OwnGameCard(props:any) {
       setIsCorrect('');
       setIsChecking('');
       clearInput();
-      updateCurrent();
+      dispatch(OwnGameCardSetCurrent());
     }, 650);
   }
 
@@ -50,7 +54,7 @@ function OwnGameCard(props:any) {
       key={word.wordTranslate}
     >
       <div className="own-game__card--image">
-        <img src={`${baseURL}/${word.image}`} alt={word.word} />
+        <img src={`${BASE_URL}/${word.image}`} alt={word.word} />
       </div>
       <h2 className="own-game__card--word">{word.word}</h2>
       <p className="own-game__card--transcription">{word.transcription}</p>
@@ -64,12 +68,12 @@ function OwnGameCard(props:any) {
         <button
           type="button"
           className={`own-game__card--check ${isChecking ? 'disabled' : ''}`}
-          onClick={() => handleCheck()}
+          onClick={handleCheck}
         >
           Проверим?
         </button>
       </div>
-      <button type="button" className="own-game__card--next" onClick={() => handleNext()}>Следующее слово</button>
+      <button type="button" className="own-game__card--next" onClick={handleNext}>Следующее слово</button>
     </div>
   );
 }

@@ -12,7 +12,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #F3F6F7;
+    background: linear-gradient(152.07deg, #ffe5d9 -19.19%, #caf0f8 153.49%);
 
     @media (min-width: 768px) {
       width: 50%;
@@ -71,7 +71,7 @@
 
     &--input,
     &--check,
-    &--next {      
+    &--next {
       padding: 5px 10px;
     }
 
@@ -108,7 +108,7 @@
 
       &.disabled {
         pointer-events: none;
-        opacity: .3;
+        opacity: .5;
       }
     }
 
@@ -153,7 +153,7 @@
           border: none;
           border-bottom-left-radius: 5px;
           border-top-left-radius: 5px;
-          background:  linear-gradient(152.07deg, #d81159 -19.19%, #f7aef8 153.49%);
+          background: linear-gradient(152.07deg, #d81159 -19.19%, #f7aef8 153.49%);
           color: #fff;
         }
       }

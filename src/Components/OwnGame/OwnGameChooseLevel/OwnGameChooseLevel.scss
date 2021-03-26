@@ -6,8 +6,13 @@
   align-items: center;
   flex-direction: column;
 
-  &--heading {
-    font-size: 20px;
+  &--title {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+
+  &--subtitle {
+    font-size: 24px;
     margin-bottom: 30px;
   }
 

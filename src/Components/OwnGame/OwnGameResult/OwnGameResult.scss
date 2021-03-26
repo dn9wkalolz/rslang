@@ -1,0 +1,21 @@
+.own-game__results--list-item {
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+
+  span {
+    display: inline-block;
+    margin: 0 5px;
+  }
+
+  .icon-volume-up {
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #000;
+  }
+}

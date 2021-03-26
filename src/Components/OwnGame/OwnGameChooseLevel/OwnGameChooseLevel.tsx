@@ -3,10 +3,10 @@ import OwnGame from '../OwnGame';
 import './OwnGameChooseLevel.scss';
 
 function OwnGameChooseLevel() {
-  const [isLoaded, setIsLoaded] = useState('');
+  const [isLoaded, setIsLoaded] = useState<string>('');
   const [words, setWords] = useState([]);
-  const groups = ['Изян', 'Легко', 'Норм', 'Уже сложнее', 'Сложно', 'Жесть'];
-  const PAGES = 29;
+  const GROUPS:Array<string> = ['Изян', 'Легко', 'Норм', 'Уже сложнее', 'Сложно', 'Жесть'];
+  const PAGES:number = 29;
 
   function choosePage(max:number):number {
     return Math.floor(Math.random() * Math.floor(max));
@@ -31,13 +31,14 @@ function OwnGameChooseLevel() {
   if (isLoaded === 'loaded') {
     return <OwnGame words={words} />;
   } else if (isLoaded === 'loading') {
-    return <div className="own-game__choose-level--loading">Loading...</div>;
+    return <div className="own-game__choose-level--loading">Идет загрузка...</div>;
   } else {
     return (
       <div className="own-game__choose-level">
-        <h2 className="own-game__choose-level--heading">Выберите уровень сложности &#128522;</h2>
+        <h1 className="own-game__choose-level--title">Переводчик</h1>
+        <h2 className="own-game__choose-level--subtitle">Выберите уровень сложности &#128522;</h2>
         <div className="own-game__choose-level--cards">
-          {groups.map((group, index) => <div className="own-game__choose-level--card" key={group}><button onClick={() => chooseLevel(index)} type="button">{group}</button></div>)}
+          {GROUPS.map((group, index) => <div className="own-game__choose-level--card" key={group}><button onClick={() => chooseLevel(index)} type="button">{group}</button></div>)}
         </div>
       </div>
     );

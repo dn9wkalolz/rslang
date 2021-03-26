@@ -1,29 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { selectOwnGame } from './OwnGameCard/OwnGameCardSlice';
 import OwnGameCard from './OwnGameCard/OwnGameCard';
+import OwnGameReuslts from './OwnGameResults/OwnGameResults';
 import './OwnGame.scss';
 
-export default function OwnGame(props:any) {
+function OwnGame(props:any) {
   const { words } = props;
-  const [current, setCurrent] = useState(0);
-  const [isFinished, setIsFinished] = useState(false);
+  const { current } = useSelector(selectOwnGame);
 
-  function updateCurrent() {
-    if (current < words.length - 1) {
-      setCurrent(current + 1);
-    } else {
-      setIsFinished(true);
-    }
-  }
-
-  if (!isFinished) {
+  if (current < words.length) {
     return (
       <div className="own-game">
-        <OwnGameCard word={words[current]} updateCurrent={updateCurrent} />
+        <OwnGameCard word={words[current]} />
       </div>
     );
   } else {
     return (
-      <div>Results:</div>
+      <OwnGameReuslts />
     );
   }
 }
+
+export default OwnGame;
