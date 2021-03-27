@@ -1,9 +1,11 @@
 import React from 'react';
-import OwnGameChooseLevel from './Components/OwnGame/OwnGameChooseLevel/OwnGameChooseLevel';
+// import OwnGameChooseLevel from './Components/OwnGame/OwnGameChooseLevel/OwnGameChooseLevel';
+import HomePage from './Components/HomePage/HomePage';
 
 function App() {
   return (
-    <OwnGameChooseLevel />
+    // <OwnGameChooseLevel />
+    <HomePage />
   );
 }
 
