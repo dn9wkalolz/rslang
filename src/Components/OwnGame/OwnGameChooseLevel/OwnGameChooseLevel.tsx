@@ -38,7 +38,11 @@ function OwnGameChooseLevel() {
         <h1 className="own-game__choose-level--title">Переводчик</h1>
         <h2 className="own-game__choose-level--subtitle">Выберите уровень сложности &#128522;</h2>
         <div className="own-game__choose-level--cards">
-          {GROUPS.map((group, index) => <div className="own-game__choose-level--card" key={group}><button onClick={() => chooseLevel(index)} type="button">{group}</button></div>)}
+          {GROUPS.map((group, index) => (
+            <div className="own-game__choose-level--card" key={group}>
+              <button onClick={() => chooseLevel(index)} type="button">{group}</button>
+            </div>
+          ))}
         </div>
       </div>
     );
