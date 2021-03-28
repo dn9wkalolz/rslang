@@ -4,6 +4,36 @@
   box-sizing: border-box;
 }
 
+html {
+  box-sizing: border-box;
+  height: 100%;
+  -ms-overflow-style: auto;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-left: 1px solid rgba(22, 241, 254, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: $color-blue;
+}
+
+::-moz-selection {
+  color: $color-white;
+  background: rgba(0, 159, 227, 0.5);
+}
+
+::selection {
+  color: $color-white;
+  background: rgba(0, 159, 227, 0.5);
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -22,10 +52,14 @@ main {
 
   @media (min-width: 768px) {
     padding: 20px 100px;
-    max-width: 1480px;
+    max-width: 1280px;
   }
 }
 
 section {
   position: relative;
+}
+
+a {
+  outline:none !important;
 }

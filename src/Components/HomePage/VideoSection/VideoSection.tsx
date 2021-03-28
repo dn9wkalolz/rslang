@@ -1,5 +1,5 @@
 import React from 'react';
-import homepageContent from '../../../data/content';
+import { homepageContent } from '../../../data/content';
 import './VideoSection.scss';
 
 const VideoSection: React.FC = () => {

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { OwnGameCardIsCorrect, OwnGameCardIsIncorrect, OwnGameCardSetCurrent } from './OwnGameCardSlice';
+import { ownGameContent } from '../../../data/content';
 import './OwnGameCard.scss';
 
 function OwnGameCard(props:any) {
@@ -70,10 +71,10 @@ function OwnGameCard(props:any) {
           className={`own-game__card--check ${isChecking ? 'disabled' : ''}`}
           onClick={handleCheck}
         >
-          Проверим?
+          {ownGameContent.checkButton}
         </button>
       </div>
-      <button type="button" className="own-game__card--next" onClick={handleNext}>Следующее слово</button>
+      <button type="button" className="own-game__card--next" onClick={handleNext}>{ownGameContent.nextButton}</button>
     </div>
   );
 }

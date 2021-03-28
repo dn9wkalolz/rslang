@@ -1,5 +1,6 @@
 import React from 'react';
-import homepageContent from '../../../data/content';
+import { NavLink } from 'react-router-dom';
+import { homepageContent } from '../../../data/content';
 import './GamesSection.scss';
 
 const GamesSection: React.FC = () => {
@@ -15,15 +16,15 @@ const GamesSection: React.FC = () => {
         </div>
         <div className="homepage__games-items">
           {
-            quizes.map((quiz:any) => (
-              <a className="homepage__games-item" href="/" key={quiz.key}>
+            quizes.map((quiz) => (
+              <NavLink to={quiz.link} className="homepage__games-item" key={quiz.key}>
                 <img src={quiz.img} alt={quiz.title} />
                 <div className="homepage__games-text">
                   <h3>{quiz.title}</h3>
                   <p>{quiz.subtitle}</p>
                   <p>{quiz.description}</p>
                 </div>
-              </a>
+              </NavLink>
             ))
           }
         </div>

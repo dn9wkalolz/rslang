@@ -1,5 +1,9 @@
+@import '../../../assets/css/base/variables.scss';
+@import '../../../assets/css/base/extends.scss';
+
 .own-game {
   &__card {
+    position: relative;
     width: 80vw;
     min-height: 450px;
     padding: 20px;
@@ -8,11 +12,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     background: linear-gradient(152.07deg, #ffe5d9 -19.19%, #caf0f8 153.49%);
+    font-size: $font-size-20;
 
     @media (min-width: 768px) {
       width: 50%;
@@ -21,7 +22,7 @@
 
 
     &--image {
-      width: 80vw;
+      width: 70vw;
       height: 50vw;
 
       @media (min-width: 768px) {
@@ -95,9 +96,10 @@
     &--check {
       border: none;
       border-radius: 5px;
-      background: linear-gradient(152.07deg, #16F1FE -19.19%, #009FE3 153.49%);
-      color: #fff;
+      color: $color-white;
       margin-top: 10px;
+
+      @extend %gradient;
 
       @media (min-width: 768px) {
         flex-direction: row;   
@@ -115,9 +117,10 @@
     &--next {
       margin: 25px 0 5px;
       border-radius: 5px;
-      background: linear-gradient(152.07deg, #16F1FE -19.19%, #009FE3 153.49%);
-      color: #fff;
+      color: $color-white;
       border: none;
+      
+      @extend %gradient;
     }
 
     &.checking,
@@ -142,7 +145,7 @@
           border-bottom-left-radius: 5px;
           border-top-left-radius: 5px;
           background:  linear-gradient(152.07deg, #43aa8b -19.19%, #80ffdb 153.49%);
-          color: #fff;
+          color: $color-white;
         }
       }
     }
@@ -154,7 +157,7 @@
           border-bottom-left-radius: 5px;
           border-top-left-radius: 5px;
           background: linear-gradient(152.07deg, #d81159 -19.19%, #f7aef8 153.49%);
-          color: #fff;
+          color: $color-white;
         }
       }
     }
@@ -162,12 +165,7 @@
 }
 
 @keyframes slideRight {
-  from {
-    left: 50%;
-  }
   to {
-    top: 0;
-    left: 200%;
-    transform: scale(0.7, 0.7) rotate(45deg);
+    transform: scale(0.7, 0.7) rotate(45deg) translateX(300vw);
   }
 }

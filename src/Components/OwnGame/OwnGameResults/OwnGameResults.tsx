@@ -7,6 +7,7 @@ import {
   OwnGameCardResetIsIncorrect,
 } from '../OwnGameCard/OwnGameCardSlice';
 import OwnGameResult from '../OwnGameResult/OwnGameResult';
+import { ownGameContent } from '../../../data/content';
 import './OwnGameResults.scss';
 
 const OwnGameReuslts: React.FC = () => {
@@ -22,14 +23,14 @@ const OwnGameReuslts: React.FC = () => {
   return (
     <div className="own-game__results">
       <div className="own-game__results--wrapper">
-        <h2 className="own-game__results--title">Ваши результаты:</h2>
+        <h2 className="own-game__results--title">{ownGameContent.results}</h2>
         <div className="own-game__results--lists">
           <div className="own-game__results--list">
-            <h3 className="own-game__results--subtitle">Изучено:</h3>
+            <h3 className="own-game__results--subtitle">{ownGameContent.learned}</h3>
             <OwnGameResult words={correct} />
           </div>
           <div className="own-game__results--list">
-            <h3 className="own-game__results--subtitle">Для повторения:</h3>
+            <h3 className="own-game__results--subtitle">{ownGameContent.tolearn}</h3>
             <OwnGameResult words={incorrect} />
           </div>
         </div>

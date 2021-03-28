@@ -1,3 +1,5 @@
+@import '../../../assets/css/base/variables.scss';
+
 .own-game__results--list-item {
   margin-bottom: 10px;
   text-align: left;
@@ -11,6 +13,6 @@
     cursor: pointer;
     background: none;
     border: none;
-    color: #000;
+    color: $color;
   }
 }

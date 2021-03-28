@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import OwnGame from '../OwnGame';
+import { ownGameContent } from '../../../data/content';
 import './OwnGameChooseLevel.scss';
 
 function OwnGameChooseLevel() {
   const [isLoaded, setIsLoaded] = useState<string>('');
   const [words, setWords] = useState([]);
-  const GROUPS:Array<string> = ['Изян', 'Легко', 'Норм', 'Уже сложнее', 'Сложно', 'Жесть'];
+  const GROUPS:Array<string> = ownGameContent.levels;
   const PAGES:number = 29;
 
   function choosePage(max:number):number {
@@ -31,12 +32,12 @@ function OwnGameChooseLevel() {
   if (isLoaded === 'loaded') {
     return <OwnGame words={words} />;
   } else if (isLoaded === 'loading') {
-    return <div className="own-game__choose-level--loading">Идет загрузка...</div>;
+    return <div className="own-game__choose-level--loading">{ownGameContent.loading}</div>;
   } else {
     return (
       <div className="own-game__choose-level">
-        <h1 className="own-game__choose-level--title">Переводчик</h1>
-        <h2 className="own-game__choose-level--subtitle">Выберите уровень сложности &#128522;</h2>
+        <h1 className="own-game__choose-level--title">{ownGameContent.title}</h1>
+        <h2 className="own-game__choose-level--subtitle">{ownGameContent.chooseLevel}</h2>
         <div className="own-game__choose-level--cards">
           {GROUPS.map((group, index) => (
             <div className="own-game__choose-level--card" key={group}>
