@@ -101,6 +101,10 @@
 
       @extend %gradient;
 
+      &:hover {
+        background: linear-gradient(152.07deg, #009FE3 -19.19%, #16F1FE 153.49%);
+      }
+
       @media (min-width: 768px) {
         flex-direction: row;   
         margin-top: 0;
@@ -121,6 +125,10 @@
       border: none;
       
       @extend %gradient;
+
+      &:hover {
+        background: linear-gradient(152.07deg, #009FE3 -19.19%, #16F1FE 153.49%);
+      }
     }
 
     &.checking,

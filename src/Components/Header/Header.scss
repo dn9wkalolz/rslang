@@ -84,6 +84,11 @@
         height: 40px;
         cursor: pointer;
         margin: 0 21px 5px 0;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          transform: rotate(90deg);
+        }
       }
 
       button {

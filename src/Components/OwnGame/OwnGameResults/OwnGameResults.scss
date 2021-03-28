@@ -1,4 +1,5 @@
 @import '../../../assets/css/base/variables.scss';
+@import '../../../assets/css/base/extends.scss';
 
 .own-game__results {
   padding: 50px 20px 20px;
@@ -49,9 +50,14 @@
   &--restart {
     border: none;
     border-radius: 5px;
-    background: linear-gradient(152.07deg, #16F1FE -19.19%, #009FE3 153.49%);
     padding: 5px 10px;
     color: $color-white;
     margin-top: 30px;
+
+    @extend %gradient;
+
+    &:hover {
+      background: linear-gradient(152.07deg, #009FE3 -19.19%, #16F1FE 153.49%);
+    }
   }
 }

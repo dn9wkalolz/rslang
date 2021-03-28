@@ -9,7 +9,7 @@ function OwnGame(props:any) {
   const { words } = props;
   const { current } = useSelector(selectOwnGame);
 
-  if (current < words.length) {
+  if (current < 3) {
     return (
       <div className="own-game">
         <OwnGameCard word={words[current]} />
