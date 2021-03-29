@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { IWordSetElem } from '../../interfaces/commonInterfaces';
 import { RootState } from '../../store/rootReducer';
-import Page from './Page';
+import Word from './Word';
 
 const Dictionary: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -35,10 +35,8 @@ const Dictionary: React.FC = () => {
   }
 
   return (
-    <div>
-      <ul>
-        {wordSet.map((wordElem) => (<Page key={wordElem.id} {...{ wordElem }} />))}
-      </ul>
+    <div className="textbook__dictionary">
+      {wordSet.map((wordElem) => (<Word key={wordElem.id} {...{ wordElem }} />))}
     </div>
   );
 };

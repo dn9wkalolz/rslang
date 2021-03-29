@@ -1,4 +1,4 @@
-import { CHANGE_GROUP, CHANGE_PAGE } from './types';
+import { SET_GROUP, CHANGE_PAGE, SET_PAGE } from './types';
 
 export interface IAction {
   type: string
@@ -17,9 +17,11 @@ const initialState: IInitialState = {
 export const textbookReducer = (state = initialState, action:IAction) => {
   switch (action.type) {
     case CHANGE_PAGE:
-      return { ...state, page: state.page + 1 };
-    case CHANGE_GROUP:
+      return { ...state, page: state.page + action.payload };
+    case SET_GROUP:
       return { ...state, group: action.payload };
+    case SET_PAGE:
+      return { ...state, page: action.payload };
     default: return state;
   }
 };

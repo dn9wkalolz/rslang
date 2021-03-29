@@ -1,21 +1,25 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { changeGroup } from '../../store/textbookActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { setGroup } from '../../store/textbookActions';
+import { textBookContent } from '../../data/content';
+import { RootState } from '../../store/rootReducer';
 
 const GroupMenu: React.FC = () => {
+  const currGroup = useSelector((state: RootState) => state.textbookState.group);
+  const { groups } = textBookContent;
   const dispatch = useDispatch();
-  const groups = Array.from({ length: 6 }, (el, idx) => idx);
   const buttonHandler = (group: number) => {
-    dispatch(changeGroup(group));
+    dispatch(setGroup(group));
   };
   return (
-    <ul>
+    <ul className="textbook__groups">
       {groups.map(
-        (group) => (
+        (group, idx) => (
           <li key={group}>
             <button
               type="button"
-              onClick={() => buttonHandler(group)}
+              className={currGroup === idx ? 'textbook__button button_active' : 'textbook__button'}
+              onClick={() => buttonHandler(idx)}
             >
               {group}
             </button>
