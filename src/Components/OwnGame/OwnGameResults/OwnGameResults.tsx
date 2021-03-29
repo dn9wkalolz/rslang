@@ -2,9 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectOwnGame,
-  OwnGameCardResetCurrent,
-  OwnGameCardResetIsCorrect,
-  OwnGameCardResetIsIncorrect,
+  OwnGameCardResetResults,
 } from '../OwnGameCard/OwnGameCardSlice';
 import OwnGameResult from '../OwnGameResult/OwnGameResult';
 import { ownGameContent } from '../../../data/content';
@@ -15,9 +13,7 @@ const OwnGameReuslts: React.FC = () => {
   const dispatch = useDispatch();
 
   function restartGame():void {
-    dispatch(OwnGameCardResetCurrent());
-    dispatch(OwnGameCardResetIsCorrect());
-    dispatch(OwnGameCardResetIsIncorrect());
+    dispatch(OwnGameCardResetResults());
   }
 
   return (

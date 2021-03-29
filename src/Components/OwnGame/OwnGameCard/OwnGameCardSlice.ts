@@ -13,12 +13,6 @@ export function OwnGameCardIsCorrect(word:object):OwnGameActionType {
   };
 }
 
-export function OwnGameCardResetIsCorrect():OwnGameActionType {
-  return {
-    type: 'OwnGame/ResetCorrect',
-  };
-}
-
 export function OwnGameCardIsIncorrect(word:object):OwnGameActionType {
   return {
     type: 'OwnGame/MarkIncorrect',
@@ -26,9 +20,9 @@ export function OwnGameCardIsIncorrect(word:object):OwnGameActionType {
   };
 }
 
-export function OwnGameCardResetIsIncorrect():OwnGameActionType {
+export function OwnGameCardResetResults():OwnGameActionType {
   return {
-    type: 'OwnGame/ResetIncorrect',
+    type: 'OwnGame/ResetResults',
   };
 }
 
@@ -48,16 +42,19 @@ export const OwnGameReducer = (state = OwnGameInitialState, action:OwnGameAction
   switch (action.type) {
     case 'OwnGame/MarkCorrect':
       return { ...state, correct: [...state.correct, action.payload] };
-    case 'OwnGame/ResetCorrect':
-      return { ...state, correct: [] };
     case 'OwnGame/MarkIncorrect':
       return { ...state, incorrect: [...state.incorrect, action.payload] };
-    case 'OwnGame/ResetIncorrect':
-      return { ...state, incorrect: [] };
     case 'OwnGame/UpdateCurrent':
       return { ...state, current: state.current + 1 };
     case 'OwnGame/ResetCurrent':
       return { ...state, current: 0 };
+    case 'OwnGame/ResetResults':
+      return {
+        ...state,
+        current: 0,
+        correct: [],
+        incorrect: [],
+      };
     default:
       return state;
   }
