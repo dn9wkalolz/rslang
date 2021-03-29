@@ -8,6 +8,8 @@ import Header from './Components/Header/Header';
 import HomePage from './Components/HomePage/HomePage';
 import Footer from './Components/Footer/Footer';
 import OwnGameChooseLevel from './Components/OwnGame/OwnGameChooseLevel/OwnGameChooseLevel';
+import LeoSprintGame from './Components/Leo-Sprint/LeoSprintGame';
+import TextBook from './Components/TextBook/TextBook';
 
 function App() {
   return (
@@ -19,6 +21,12 @@ function App() {
         </Route>
         <Route path="/games/translator">
           <OwnGameChooseLevel />
+        </Route>
+        <Route path="/games/sprint">
+          <LeoSprintGame />
+        </Route>
+        <Route path="/textbook">
+          <TextBook />
         </Route>
       </Switch>
       <Footer />
