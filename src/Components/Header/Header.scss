@@ -1,0 +1,103 @@
+@import '../../assets/css/base/variables.scss';
+@import '../../assets/css/base/extends.scss';
+
+.header {
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.15);
+
+  &__content {
+    display: flex;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+    justify-content: space-between;
+    font-size: $font-size-20;
+    max-height: 80px;
+
+    @media (min-width: 768px) {
+      padding: 0 100px;
+    }
+  }
+
+  &__logo {
+    margin-right: 51px;
+    display: flex;
+    align-items: flex-end;
+
+    img {
+      height: 80px;
+    }
+  }
+
+  &__nav {
+    display: flex;
+
+    &-items {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+
+    &-item {
+      margin-right: 35px;
+      position: relative;
+      padding-bottom: 15px;
+
+      a {
+        color: $color-gray;
+        text-decoration: none;
+        height: 100%;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+          color: $color-blue;
+        }
+
+        &.active {
+          color: $color;
+
+          &::before {
+            content: '';
+            width: 100%;
+            height: 3px;
+            border-radius: 3px 3px 0 0;
+            position: absolute;
+            bottom: 0;
+            left: 0;  
+
+            @extend %gradient;
+          }
+        }
+      }
+    }
+  }
+
+  &__settings {
+
+    &-items {
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    &-item {
+      img {
+        height: 40px;
+        cursor: pointer;
+        margin: 0 21px 5px 0;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          transform: rotate(90deg);
+        }
+      }
+
+      button {
+        border: none;
+        background: none;
+        margin-bottom: 15px;
+        color: $color-blue;
+        font-weight: 700;
+      }
+    }
+  }
+}

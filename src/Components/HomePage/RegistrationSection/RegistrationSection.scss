@@ -1,0 +1,18 @@
+@import '../../../assets/css/base/variables.scss';
+@import '../../../assets/css/base/extends.scss';
+
+.homepage__registration {
+  margin-bottom: 20px;
+  text-align: center;
+
+  &-title {
+    font-size: $font-size-70;
+    margin-bottom: 30px;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  &-button {
+    @extend %button;
+  }
+}
