@@ -1,0 +1,59 @@
+@import '../../assets/css/base/variables.scss';
+
+.footer {
+  box-shadow: inset 0px 1px 6px rgba(0, 0, 0, 0.15);
+  max-height: 100px;
+  padding-bottom: 10px;
+
+  &__content {
+    display: flex;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+    justify-content: space-between;
+    font-size: $font-size-20;
+
+    @media (min-width: 768px) {
+      padding: 0 100px;
+    }
+  }
+
+  &__logo {
+    display: flex;
+    align-items: flex-end;
+    
+    img {
+      height: 60px;
+    }
+  }
+
+  &__developers {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__developer {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    color: $color;
+    text-decoration: none;
+    margin-top: 20px;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      color: $color-blue;
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+    }
+  }
+
+  &__year {
+    display: flex;
+    align-items: flex-end;
+  }
+}
