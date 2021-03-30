@@ -8,7 +8,7 @@ const initialState = {
   isLogin: false,
   isStart: false,
   isEnd: false,
-  difficulty: 0,
+  level: 0,
   rightAnswers: [] as Array<WordType>,
   wrongAnswers: [] as Array<WordType>,
   isFetching: false,
@@ -20,7 +20,7 @@ export const audiocallReducer = (state = initialState, action: ActionsType): Ini
     case 'AUDIOCALL_TOGGLE_IS_FETCHING':
     case 'AUDIOCALL_TOGGLE_IS_START':
     case 'AUDIOCALL_TOGGLE_IS_END':
-    case 'AUDIOCALL_SET_DIFFICULTY':
+    case 'AUDIOCALL_SET_LEVEL':
     case 'AUDIOCALL_SET_WRONG_ANSWERS':
     case 'AUDIOCALL_SET_RIGHT_ANSWERS':
     case 'AUDIOCALL_CLEAR_GAME':
@@ -63,10 +63,10 @@ export const actions = {
       isLogin,
     },
   }) as const,
-  setDifficulty: (difficultyNumber: number) => ({
-    type: 'AUDIOCALL_SET_DIFFICULTY',
+  setLevel: (levelNumber: number) => ({
+    type: 'AUDIOCALL_SET_LEVEL',
     payload: {
-      difficultyNumber,
+      levelNumber,
     },
   } as const),
   incrementScore: () => ({
@@ -92,7 +92,7 @@ export const actions = {
       isLogin: false,
       isStart: false,
       isEnd: false,
-      difficulty: 0,
+      level: 0,
       rightAnswers: [] as Array<WordType>,
       wrongAnswers: [] as Array<WordType>,
       isFetching: false,
@@ -100,9 +100,9 @@ export const actions = {
   } as const),
 };
 
-export const requestWords = (): ThunkType => async (dispatch) => {
+export const requestWords = (level: number): ThunkType => async (dispatch) => {
   dispatch(actions.toggleIsFetching(true));
-  const words = await wordsAPI.requestWords();
+  const words = await wordsAPI.requestWords(level);
   dispatch(actions.toggleIsFetching(false));
   dispatch(actions.setWords(words));
 };

@@ -206,3 +206,8 @@ export const ownGameContent = {
   learned: 'Изучено:',
   tolearn: 'Для повторения',
 };
+
+export const audiocallGameContent = {
+  ...ownGameContent,
+  title: 'Аудиовызов',
+};

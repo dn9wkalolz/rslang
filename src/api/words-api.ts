@@ -1,9 +1,9 @@
 import instance from './api';
 
 const wordsAPI = {
-  requestWords(page = 0, group = 0) {
+  requestWords(level = 0, page = 0) {
     return instance
-      .get(`words?page=${page}&group=${group}`)
+      .get(`words?page=${page}&group=${level}`)
       .then((res) => res.data);
   },
 };

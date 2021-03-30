@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px">
+<style>
+.path{stroke-dasharray:1,200;stroke-dashoffset:0;animation:dash 1.5s ease-in-out infinite,color 6s ease-in-out infinite,rotate 2s linear infinite;stroke-linecap:round;transform-origin:center}
+@keyframes rotate{100%{transform:rotate(360deg);}}
+@keyframes dash{0%{stroke-dasharray:1,200;stroke-dashoffset:0;}50%{stroke-dasharray:89,200;stroke-dashoffset:-35px;}100%{stroke-dasharray:89,200;stroke-dashoffset:-124px;}}
+@keyframes color{100%,0%{stroke:#db4235;}40%{stroke:#0057e7;}66%{stroke:#008744;}80%,90%{stroke:#ffa700;}}
+</style>
+<circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5" stroke-miterlimit="10"/>
+</svg>
