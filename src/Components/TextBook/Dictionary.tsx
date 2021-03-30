@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { IWordSetElem } from '../../interfaces/commonInterfaces';
 import { RootState } from '../../store/rootReducer';
 import Word from './Word';
-
+import { baseUrl } from '../../data/content';
 
 const Dictionary: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -14,7 +14,7 @@ const Dictionary: React.FC = () => {
   );
   useEffect(() => {
     setIsLoaded(false);
-    fetch(`https://rslang-61.herokuapp.com/words?page=${page}&group=${group}`)
+    fetch(`${baseUrl}words?page=${page}&group=${group}`)
       .then((response) => response.json())
       .then(
         (result) => {

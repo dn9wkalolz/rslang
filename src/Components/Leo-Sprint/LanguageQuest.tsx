@@ -13,7 +13,6 @@ interface IClickHandler {
 }
 
 const LanguageQuest: React.FC = () => {
-  // const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [error, setError] = useState<any>(null);
   const [wordSet, setWordSet] = useState<IWordSetElem[]>([]);
   const [page, setPage] = useState<number>(0);
@@ -23,31 +22,29 @@ const LanguageQuest: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // const loginUser = async (user: any) => {
-    //   const rawResponse = await fetch('https://rslang-61.herokuapp.com/signin', {
-    //     method: 'POST',
-    //     headers: {
-    //       Accept: 'application/json',
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(user),
-    //   });
-    //   const content = await rawResponse.json();
-    //   sessionStorage.setItem('token', content.token);
-    //   sessionStorage.setItem('userId', content.userId);
-    // };
-    // loginUser({ email: 'test@user.com', password: 'qwertyuiop' });
+    const loginUser = async (user: any) => {
+      const rawResponse = await fetch('https://rslang-61.herokuapp.com/signin', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      });
+      const content = await rawResponse.json();
+      sessionStorage.setItem('token', content.token);
+      sessionStorage.setItem('userId', content.userId);
+    };
+    loginUser({ email: 'test@user.com', password: 'qwertyuiop' });
 
     fetch(`https://rslang-61.herokuapp.com/words?page=${page}&group=${group}`)
       .then((response) => response.json())
       .then(
         (result) => {
           setWordSet(result);
-          // setIsLoaded(true);
           dispatch(setLoaded());
         },
         (err) => {
-          // setIsLoaded(true);
           dispatch(setLoaded());
           setError(err);
         },

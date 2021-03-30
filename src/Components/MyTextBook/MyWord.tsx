@@ -1,12 +1,12 @@
 import React from 'react';
 import { baseUrl } from '../../data/content';
-import { IWordSetElem } from '../../interfaces/commonInterfaces';
+import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 
 interface IAnswers {
-  wordElem: IWordSetElem
+  wordElem: IPaginatedWordSetElem
 }
 
-const Word: React.FC<IAnswers> = ({ wordElem }) => {
+const MyWord: React.FC<IAnswers> = ({ wordElem }) => {
   const {
     audio,
     word,
@@ -16,16 +16,16 @@ const Word: React.FC<IAnswers> = ({ wordElem }) => {
     textExample,
     textMeaningTranslate,
     textExampleTranslate,
-    id,
-    page,
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    _id,
   } = wordElem;
   const urlBase = 'https://rslang-61.herokuapp.com/';
   const sound = new Audio(urlBase + audio);
   const token = sessionStorage.getItem('token');
   const userId = sessionStorage.getItem('userId');
 
-  const setHardDifficulty = (wordId: string, wordPage: number) => {
-    const wordDescribe = { difficulty: 'hard', optional: { wordPage } };
+  const setHardDifficulty = (wordId: string) => {
+    const wordDescribe = { difficulty: 'hard' };
     fetch(`${baseUrl}users/${userId}/words/${wordId}`, {
       method: 'PUT',
       headers: {
@@ -39,8 +39,8 @@ const Word: React.FC<IAnswers> = ({ wordElem }) => {
       .then((result) => console.log(result));
   };
 
-  const deleteWord = (wordId: string, wordPage: number) => {
-    const wordDescribe = { difficulty: 'deleted', optional: { wordPage } };
+  const deleteWord = (wordId: string) => {
+    const wordDescribe = { difficulty: 'deleted' };
     fetch(`${baseUrl}users/${userId}/words/${wordId}`, {
       method: 'PUT',
       headers: {
@@ -71,12 +71,12 @@ const Word: React.FC<IAnswers> = ({ wordElem }) => {
           <span>{textExampleTranslate}</span>
         </div>
         <div>
-          <button type="button" onClick={() => setHardDifficulty(id, page)}>Сложно</button>
-          <button type="button" onClick={() => deleteWord(id, page)}>Удалить</button>
+          <button type="button" onClick={() => setHardDifficulty(_id)}>Сложно</button>
+          <button type="button" onClick={() => deleteWord(_id)}>Удалить</button>
         </div>
       </div>
     </div>
   );
 };
 
-export default Word;
+export default MyWord;
