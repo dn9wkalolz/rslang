@@ -1,16 +1,17 @@
 import wordsAPI from '../api/words-api';
-import { WordType } from '../types/types';
+import { WordsType } from '../types/types';
 import { InferActionsTypes, BaseThunkType } from './rootReducer';
 
 const initialState = {
-  words: [] as Array<WordType>,
+  words: [] as WordsType,
+  currentWordIndex: 0,
   score: 0,
   isLogin: false,
   isStart: false,
   isEnd: false,
   level: 0,
-  rightAnswers: [] as Array<WordType>,
-  wrongAnswers: [] as Array<WordType>,
+  rightAnswers: [] as WordsType,
+  wrongAnswers: [] as WordsType,
   isFetching: false,
 };
 
@@ -25,6 +26,7 @@ export const audiocallReducer = (state = initialState, action: ActionsType): Ini
     case 'AUDIOCALL_SET_RIGHT_ANSWERS':
     case 'AUDIOCALL_CLEAR_GAME':
     case 'AUDIOCALL_TOGGLE_IS_LOGIN':
+    case 'AUDIOCALL_SET_CURRENT_WORD_INDEX':
       return { ...state, ...action.payload };
     case 'AUDIOCALL_INCREMENT_SCORE':
       return { ...state, score: state.score + 1 };
@@ -33,7 +35,7 @@ export const audiocallReducer = (state = initialState, action: ActionsType): Ini
 };
 
 export const actions = {
-  setWords: (words: Array<WordType>) => ({
+  setWords: (words: WordsType) => ({
     type: 'AUDIO_CALL_SET_WORDS',
     payload: {
       words,
@@ -69,16 +71,22 @@ export const actions = {
       levelNumber,
     },
   } as const),
+  setCurrentWordIndex: (currentWordIndex: number) => ({
+    type: 'AUDIOCALL_SET_CURRENT_WORD_INDEX',
+    payload: {
+      currentWordIndex,
+    },
+  } as const),
   incrementScore: () => ({
     type: 'AUDIOCALL_INCREMENT_SCORE',
   } as const),
-  setWrongAnswers: (wrongAnswers: Array<WordType>) => ({
+  setWrongAnswers: (wrongAnswers: WordsType) => ({
     type: 'AUDIOCALL_SET_WRONG_ANSWERS',
     payload: {
       wrongAnswers,
     },
   } as const),
-  setRightAnswers: (rightAnswers: Array<WordType>) => ({
+  setRightAnswers: (rightAnswers: WordsType) => ({
     type: 'AUDIOCALL_SET_RIGHT_ANSWERS',
     payload: {
       rightAnswers,
@@ -87,14 +95,14 @@ export const actions = {
   clearGame: () => ({
     type: 'AUDIOCALL_CLEAR_GAME',
     payload: {
-      words: [] as Array<WordType>,
+      words: [] as WordsType,
       score: 0,
       isLogin: false,
       isStart: false,
       isEnd: false,
       level: 0,
-      rightAnswers: [] as Array<WordType>,
-      wrongAnswers: [] as Array<WordType>,
+      rightAnswers: [] as WordsType,
+      wrongAnswers: [] as WordsType,
       isFetching: false,
     },
   } as const),

@@ -14,3 +14,5 @@ export type WordType = {
   textMeaningTranslate: string,
   textExampleTranslate: string,
 };
+
+export type WordsType = Array<WordType>;

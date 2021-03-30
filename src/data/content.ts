@@ -209,5 +209,6 @@ export const ownGameContent = {
 
 export const audiocallGameContent = {
   ...ownGameContent,
+  description: 'Тренировка, развивающая навыки речи и перевода.',
   title: 'Аудиовызов',
 };

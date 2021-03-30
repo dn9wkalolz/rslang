@@ -10,7 +10,7 @@ import Footer from './Components/Footer/Footer';
 import OwnGameChooseLevel from './Components/OwnGame/OwnGameChooseLevel/OwnGameChooseLevel';
 import LeoSprintGame from './Components/Leo-Sprint/LeoSprintGame';
 import TextBook from './Components/TextBook/TextBook';
-import AudiocallStartScreen from './Components/Audiocall/AudiocallStartScreen';
+import AudiocallStartScreen from './Components/Audiocall/AudiocallStartScreen/AudiocallStartScreen';
 
 function App() {
   return (

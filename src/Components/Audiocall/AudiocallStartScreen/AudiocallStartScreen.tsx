@@ -1,10 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { actions, requestWords } from '../../store/audiocallReduser';
-import { RootState } from '../../store/rootReducer';
-import Preloader from '../common/Preloader/Preloader';
-import { audiocallGameContent } from '../../data/content';
+import { actions, requestWords } from '../../../store/audiocallReduser';
+import { RootState } from '../../../store/rootReducer';
+import Preloader from '../../common/Preloader/Preloader';
+import { audiocallGameContent } from '../../../data/content';
 import './AudiocallStartScreen.scss';
+import AudiocallGame from '../AudiocallGame';
 
 const AudiocallStartScreen: React.FC = () => {
   const level = useSelector((state: RootState) => state.audiocall.level);
@@ -23,12 +24,13 @@ const AudiocallStartScreen: React.FC = () => {
   }
 
   if (words.length) {
-    return <div><h1>Audiocall game will be here soon!</h1></div>;
+    return <AudiocallGame words={words} />;
   }
 
   return (
     <div className="audiocall-game__choose-level">
       <h1 className="audiocall-game__choose-level--title">{audiocallGameContent.title}</h1>
+      <h3 className="audiocall-game__choose-level--description">{audiocallGameContent.description}</h3>
       <h2 className="audiocall-game__choose-level--subtitle">{audiocallGameContent.chooseLevel}</h2>
       <div className="audiocall-game__choose-level--cards">
         {LEVEL_NAMES.map((lev, index) => (

@@ -1,5 +1,5 @@
-@import '../../assets/css/base/variables.scss';
-@import '../../assets/css/base/extends.scss';
+@import '../../../assets/css/base/variables.scss';
+@import '../../../assets/css/base/extends.scss';
 
 .audiocall-game__choose-level {
   width: 100%;
@@ -17,6 +17,11 @@
   &--title {
     font-size: $font-size-30;
     margin-bottom: 30px;
+  }
+
+  &--description {
+    font-size: $font-size-20;
+    margin-bottom: 25px;
   }
 
   &--subtitle {
