@@ -25,6 +25,7 @@ module.exports = {
     "react/prop-types": "off",
     "import/prefer-default-export": "off",
     "no-nested-ternary": "off",
-    "no-else-return": "off"
+    "no-else-return": "off",
+    'import/no-cycle': 'off',
   },
 };
