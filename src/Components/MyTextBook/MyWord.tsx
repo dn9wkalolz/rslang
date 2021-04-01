@@ -3,11 +3,11 @@ import { baseUrl } from '../../data/content';
 import { usePutMethod } from '../../data/requestMethods';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 
-interface IAnswers {
+interface IWords {
   wordElem: IPaginatedWordSetElem
 }
 
-const MyWord: React.FC<IAnswers> = ({ wordElem }) => {
+const MyWord: React.FC<IWords> = ({ wordElem }) => {
   const {
     audio,
     word,
@@ -18,6 +18,7 @@ const MyWord: React.FC<IAnswers> = ({ wordElem }) => {
     textMeaningTranslate,
     textExampleTranslate,
     _id,
+    userWord,
   } = wordElem;
   const sound = new Audio(baseUrl + audio);
 
@@ -46,8 +47,19 @@ const MyWord: React.FC<IAnswers> = ({ wordElem }) => {
           <span>{textExampleTranslate}</span>
         </div>
         <div>
-          <button type="button" onClick={() => setHardDifficulty(_id)}>Сложно</button>
-          <button type="button" onClick={() => deleteWord(_id)}>Удалить</button>
+          <button
+            disabled={userWord?.difficulty === 'hard'}
+            type="button"
+            onClick={() => setHardDifficulty(_id)}
+          >
+            Сложно
+          </button>
+          <button
+            type="button"
+            onClick={() => deleteWord(_id)}
+          >
+            Удалить
+          </button>
         </div>
       </div>
     </div>

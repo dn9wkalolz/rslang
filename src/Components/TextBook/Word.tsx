@@ -4,15 +4,16 @@ import { baseUrl } from '../../data/content';
 import { usePostMethod, usePutMethod } from '../../data/requestMethods';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 import { RootState } from '../../store/rootReducer';
-import { changeStateWord } from '../../store/textbookActions';
+import { changePage, changeStateWord, setPagesButtons } from '../../store/textbookActions';
 
-interface IAnswers {
+interface IWords {
   wordElem: IPaginatedWordSetElem
 }
 
-const Word: React.FC<IAnswers> = ({ wordElem }) => {
+const Word: React.FC<IWords> = ({ wordElem }) => {
   const {
     audio,
+    page,
     word,
     transcription,
     wordTranslate,
@@ -25,9 +26,24 @@ const Word: React.FC<IAnswers> = ({ wordElem }) => {
   } = wordElem;
   const sound = new Audio(baseUrl + audio);
   const dispatch = useDispatch();
-  const paginatedWordSet: IPaginatedWordSetElem[] = useSelector(
-    (state: RootState) => state.textbookState.paginatedWordSet,
+  const [
+    paginatedWordSet,
+    pagesWord,
+    pagesButtons,
+  ]: [IPaginatedWordSetElem[], IPaginatedWordSetElem[], number[]] = useSelector(
+    (state: RootState) => [
+      state.textbookState.paginatedWordSet,
+      state.textbookState.pagesWord,
+      state.textbookState.pagesButtons],
   );
+
+  const updatePageButtons = (currPage: number) => {
+    const updatedButtons = pagesButtons.filter((pageButton) => pageButton !== currPage);
+    const pagePrediction = currPage + 1;
+    const changingPage = pagePrediction > updatedButtons.length ? -1 : 1;
+    dispatch(setPagesButtons(updatedButtons));
+    dispatch(changePage(changingPage));
+  };
 
   const assignHardDifficylty = (wordEl: IPaginatedWordSetElem) => {
     wordEl.userWord = { difficulty: 'hard' };
@@ -51,12 +67,15 @@ const Word: React.FC<IAnswers> = ({ wordElem }) => {
     dispatch(changeStateWord(sortedPaginationWordset));
   };
 
-  const deleteWord = (wordId: string) => {
+  const deleteWord = (wordId: string, currPage: number) => {
     const sortedPaginationWordset = paginatedWordSet.filter((wordEl) => wordEl._id !== wordId);
     if (userWord?.difficulty) {
       usePutMethod(wordId, 'deleted');
     } else if (!userWord?.difficulty) {
       usePostMethod(wordId, 'deleted');
+    }
+    if (pagesWord.length === 1) {
+      updatePageButtons(currPage);
     }
     dispatch(changeStateWord(sortedPaginationWordset));
   };
@@ -87,7 +106,7 @@ const Word: React.FC<IAnswers> = ({ wordElem }) => {
           </button>
           <button
             type="button"
-            onClick={() => deleteWord(_id)}
+            onClick={() => deleteWord(_id, page)}
           >
             Удалить
           </button>

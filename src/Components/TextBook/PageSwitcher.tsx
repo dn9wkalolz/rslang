@@ -4,8 +4,16 @@ import { RootState } from '../../store/rootReducer';
 import { changePage } from '../../store/textbookActions';
 
 const PageSwitcher: React.FC = () => {
-  const [page, group] = useSelector(
-    (state: RootState) => [state.textbookState.page, state.textbookState.group],
+  const [
+    page,
+    group,
+    pagesButtons,
+  ]: [number, number, number[]] = useSelector(
+    (state: RootState) => [
+      state.textbookState.page,
+      state.textbookState.group,
+      state.textbookState.pagesButtons,
+    ],
   );
   const dispatch = useDispatch();
   const switchPage = (e: React.MouseEvent) => {
@@ -20,7 +28,7 @@ const PageSwitcher: React.FC = () => {
         name="decrement"
         type="button"
         onClick={switchPage}
-        disabled={page === 0}
+        disabled={page === pagesButtons[0]}
       >
         Предыдущая страница
       </button>
@@ -32,7 +40,7 @@ const PageSwitcher: React.FC = () => {
         name="increment"
         type="button"
         onClick={switchPage}
-        disabled={page === 29}
+        disabled={page === pagesButtons.length}
       >
         Следующая страница
       </button>

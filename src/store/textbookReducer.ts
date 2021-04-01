@@ -1,6 +1,12 @@
 import { IPaginatedWordSetElem } from '../interfaces/commonInterfaces';
 import {
-  SET_GROUP, CHANGE_PAGE, SET_PAGE, SET_SECTION, SET_PAGINATEDWORDSET, DELETE_WORD,
+  SET_GROUP,
+  CHANGE_PAGE,
+  SET_PAGE,
+  SET_PAGINATEDWORDSET,
+  DELETE_WORD,
+  SET_PAGEBUTTONS,
+  SET_PAGESWORD,
 } from './types';
 
 export interface IAction {
@@ -10,15 +16,17 @@ export interface IAction {
 interface IInitialState {
   group: number
   page: number
-  section: string
   paginatedWordSet: IPaginatedWordSetElem[]
+  pagesButtons: number[]
+  pagesWord: IPaginatedWordSetElem[]
 }
 
 const initialState: IInitialState = {
   group: 0,
   page: 0,
-  section: 'hard',
   paginatedWordSet: [],
+  pagesButtons: [],
+  pagesWord: [],
 };
 
 export const textbookReducer = (state = initialState, action:IAction) => {
@@ -29,12 +37,14 @@ export const textbookReducer = (state = initialState, action:IAction) => {
       return { ...state, group: action.payload };
     case SET_PAGE:
       return { ...state, page: action.payload };
-    case SET_SECTION:
-      return { ...state, section: action.payload };
     case SET_PAGINATEDWORDSET:
       return { ...state, paginatedWordSet: action.payload };
+    case SET_PAGESWORD:
+      return { ...state, pagesWord: action.payload };
     case DELETE_WORD:
       return { ...state, paginatedWordSet: action.payload };
+    case SET_PAGEBUTTONS:
+      return { ...state, pagesButtons: action.payload };
     default: return state;
   }
 };

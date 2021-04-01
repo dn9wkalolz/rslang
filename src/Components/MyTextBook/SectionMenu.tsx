@@ -1,11 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSection } from '../../store/textbookActions';
+import { setSection } from '../../store/vocabularyActions';
 import { textBookContent } from '../../data/content';
 import { RootState } from '../../store/rootReducer';
 
-const MyTextbookGroupMenu: React.FC = () => {
-  const currSection = useSelector((state: RootState) => state.textbookState.section);
+const SectionMenu: React.FC = () => {
+  const currSection = useSelector((state: RootState) => state.vocabularyState.section);
   const { sections } = textBookContent;
   const dispatch = useDispatch();
   const buttonHandler = (section: string) => {
@@ -30,4 +30,4 @@ const MyTextbookGroupMenu: React.FC = () => {
   );
 };
 
-export default MyTextbookGroupMenu;
+export default SectionMenu;

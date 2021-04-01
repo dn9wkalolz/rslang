@@ -210,9 +210,9 @@ export const ownGameContent = {
 export const textBookContent = {
   groups: ['Раздел 1', 'Раздел 2', 'Раздел 3', 'Раздел 4', 'Раздел 5', 'Раздел 6'],
   sections: [
-    { id: 0, name: 'Изучаемые слова', category: 'learned' },
-    { id: 1, name: 'Сложные слова', category: 'hard' },
-    { id: 2, name: 'Удаленные слова', category: 'deleted' },
+    { id: 0, name: 'Изучаемые слова', category: '{"$or":[{"userWord.difficulty":"hard"}, {"userWord.difficulty":"learned"}]}' },
+    { id: 1, name: 'Сложные слова', category: '{"userWord.difficulty":"hard"}' },
+    { id: 2, name: 'Удаленные слова', category: '{"userWord.difficulty":"deleted"}' },
   ],
 };
 
