@@ -27,5 +27,8 @@ module.exports = {
     "no-nested-ternary": "off",
     "no-else-return": "off",
     "react/no-danger": "off",
+    "no-underscore-dangle": 'off',
+    "no-param-reassign": 'off',
+    "@typescript-eslint/naming-convention": 'off',
   },
 };

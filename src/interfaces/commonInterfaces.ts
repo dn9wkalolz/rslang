@@ -14,6 +14,10 @@ export interface IWordSetElem {
   textMeaningTranslate: string
   textExampleTranslate: string
 }
+
+interface IUserWord {
+  difficulty?: string
+}
 export interface IPaginatedWordSetElem {
   _id: string
   group: number
@@ -29,4 +33,5 @@ export interface IPaginatedWordSetElem {
   wordTranslate: string
   textMeaningTranslate: string
   textExampleTranslate: string
+  userWord?: IUserWord
 }

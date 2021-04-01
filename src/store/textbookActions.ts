@@ -1,5 +1,6 @@
+import { IPaginatedWordSetElem } from '../interfaces/commonInterfaces';
 import {
-  SET_GROUP, CHANGE_PAGE, SET_PAGE, SET_SECTION,
+  SET_GROUP, CHANGE_PAGE, SET_PAGE, SET_SECTION, SET_PAGINATEDWORDSET, DELETE_WORD,
 } from './types';
 
 export function setGroup(payload: number): object {
@@ -16,4 +17,12 @@ export function changePage(payload: number): object {
 
 export function setSection(payload: string): object {
   return { type: SET_SECTION, payload };
+}
+
+export function setPaginatedWordSet(payload: IPaginatedWordSetElem[]) {
+  return { type: SET_PAGINATEDWORDSET, payload };
+}
+
+export function changeStateWord(payload: IPaginatedWordSetElem[]) {
+  return { type: DELETE_WORD, payload };
 }

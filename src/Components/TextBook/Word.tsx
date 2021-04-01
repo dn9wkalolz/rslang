@@ -1,9 +1,13 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { baseUrl } from '../../data/content';
-import { IWordSetElem } from '../../interfaces/commonInterfaces';
+import { usePostMethod, usePutMethod } from '../../data/requestMethods';
+import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
+import { RootState } from '../../store/rootReducer';
+import { changeStateWord } from '../../store/textbookActions';
 
 interface IAnswers {
-  wordElem: IWordSetElem
+  wordElem: IPaginatedWordSetElem
 }
 
 const Word: React.FC<IAnswers> = ({ wordElem }) => {
@@ -16,47 +20,50 @@ const Word: React.FC<IAnswers> = ({ wordElem }) => {
     textExample,
     textMeaningTranslate,
     textExampleTranslate,
-    id,
-    page,
+    _id,
+    userWord,
   } = wordElem;
-  const urlBase = 'https://rslang-61.herokuapp.com/';
-  const sound = new Audio(urlBase + audio);
-  const token = sessionStorage.getItem('token');
-  const userId = sessionStorage.getItem('userId');
+  const sound = new Audio(baseUrl + audio);
+  const dispatch = useDispatch();
+  const paginatedWordSet: IPaginatedWordSetElem[] = useSelector(
+    (state: RootState) => state.textbookState.paginatedWordSet,
+  );
 
-  const setHardDifficulty = (wordId: string, wordPage: number) => {
-    const wordDescribe = { difficulty: 'hard', optional: { wordPage } };
-    fetch(`${baseUrl}users/${userId}/words/${wordId}`, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(wordDescribe),
-    })
-      .then((response) => response.json())
-      .then((result) => console.log(result));
+  const assignHardDifficylty = (wordEl: IPaginatedWordSetElem) => {
+    wordEl.userWord = { difficulty: 'hard' };
+    return { ...wordElem };
   };
 
-  const deleteWord = (wordId: string, wordPage: number) => {
-    const wordDescribe = { difficulty: 'deleted', optional: { wordPage } };
-    fetch(`${baseUrl}users/${userId}/words/${wordId}`, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+  const setHardDifficulty = (wordId: string) => {
+    const sortedPaginationWordset = paginatedWordSet.map(
+      (wordEl) => {
+        if (wordEl._id === wordId) {
+          return assignHardDifficylty(wordEl);
+        }
+        return wordEl;
       },
-      body: JSON.stringify(wordDescribe),
-    })
-      .then((response) => response.json())
-      .then((result) => console.log(result));
+    );
+    if (userWord?.difficulty) {
+      usePutMethod(wordId, 'hard');
+    } else if (!userWord?.difficulty) {
+      usePostMethod(wordId, 'hard');
+    }
+    dispatch(changeStateWord(sortedPaginationWordset));
+  };
+
+  const deleteWord = (wordId: string) => {
+    const sortedPaginationWordset = paginatedWordSet.filter((wordEl) => wordEl._id !== wordId);
+    if (userWord?.difficulty) {
+      usePutMethod(wordId, 'deleted');
+    } else if (!userWord?.difficulty) {
+      usePostMethod(wordId, 'deleted');
+    }
+    dispatch(changeStateWord(sortedPaginationWordset));
   };
 
   return (
     <div className="textbook__word">
-      <div><img className="textbook__word-img" src={urlBase + image} alt={word} /></div>
+      <div><img className="textbook__word-img" src={baseUrl + image} alt={word} /></div>
       <div className="textbook__word-cover">
         <div className="textbook__word-description">
           <span>{`${word} ${transcription} ${wordTranslate}`}</span>
@@ -71,8 +78,19 @@ const Word: React.FC<IAnswers> = ({ wordElem }) => {
           <span>{textExampleTranslate}</span>
         </div>
         <div>
-          <button type="button" onClick={() => setHardDifficulty(id, page)}>Сложно</button>
-          <button type="button" onClick={() => deleteWord(id, page)}>Удалить</button>
+          <button
+            disabled={userWord?.difficulty === 'hard'}
+            type="button"
+            onClick={() => setHardDifficulty(_id)}
+          >
+            Сложно
+          </button>
+          <button
+            type="button"
+            onClick={() => deleteWord(_id)}
+          >
+            Удалить
+          </button>
         </div>
       </div>
     </div>

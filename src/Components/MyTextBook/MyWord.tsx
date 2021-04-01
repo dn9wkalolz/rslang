@@ -1,5 +1,6 @@
 import React from 'react';
 import { baseUrl } from '../../data/content';
+import { usePutMethod } from '../../data/requestMethods';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 
 interface IAnswers {
@@ -16,47 +17,21 @@ const MyWord: React.FC<IAnswers> = ({ wordElem }) => {
     textExample,
     textMeaningTranslate,
     textExampleTranslate,
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     _id,
   } = wordElem;
-  const urlBase = 'https://rslang-61.herokuapp.com/';
-  const sound = new Audio(urlBase + audio);
-  const token = sessionStorage.getItem('token');
-  const userId = sessionStorage.getItem('userId');
+  const sound = new Audio(baseUrl + audio);
 
   const setHardDifficulty = (wordId: string) => {
-    const wordDescribe = { difficulty: 'hard' };
-    fetch(`${baseUrl}users/${userId}/words/${wordId}`, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(wordDescribe),
-    })
-      .then((response) => response.json())
-      .then((result) => console.log(result));
+    usePutMethod(wordId, 'hard');
   };
 
   const deleteWord = (wordId: string) => {
-    const wordDescribe = { difficulty: 'deleted' };
-    fetch(`${baseUrl}users/${userId}/words/${wordId}`, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(wordDescribe),
-    })
-      .then((response) => response.json())
-      .then((result) => console.log(result));
+    usePutMethod(wordId, 'deleted');
   };
 
   return (
     <div className="textbook__word">
-      <div><img className="textbook__word-img" src={urlBase + image} alt={word} /></div>
+      <div><img className="textbook__word-img" src={baseUrl + image} alt={word} /></div>
       <div className="textbook__word-cover">
         <div className="textbook__word-description">
           <span>{`${word} ${transcription} ${wordTranslate}`}</span>
