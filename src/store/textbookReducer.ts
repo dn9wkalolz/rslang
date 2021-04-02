@@ -13,7 +13,7 @@ export interface IAction {
   type: string
   payload: any
 }
-interface IInitialState {
+export interface ITextbookState {
   group: number
   page: number
   paginatedWordSet: IPaginatedWordSetElem[]
@@ -21,7 +21,7 @@ interface IInitialState {
   pagesWord: IPaginatedWordSetElem[]
 }
 
-const initialState: IInitialState = {
+const initialState: ITextbookState = {
   group: 0,
   page: 0,
   paginatedWordSet: [],

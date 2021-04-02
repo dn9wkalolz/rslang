@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { header } from '../../data/content';
 import './Header.scss';
@@ -7,6 +7,23 @@ const Header: React.FC = () => {
   const {
     logo, settings, pages, auth,
   } = header;
+
+  useEffect(() => {
+    const loginUser = async (user: any) => {
+      const rawResponse = await fetch('https://rslang-61.herokuapp.com/signin', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      });
+      const content = await rawResponse.json();
+      sessionStorage.setItem('token', content.token);
+      sessionStorage.setItem('userId', content.userId);
+    };
+    loginUser({ email: 'test@user.com', password: 'qwertyuiop' });
+  }, []);
 
   return (
     <header className="header">

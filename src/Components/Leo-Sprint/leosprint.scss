@@ -30,12 +30,4 @@
             margin-left: 10px;
         }
     }
-    &__start-window,&__end-window {
-        margin: 0 auto;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
 }

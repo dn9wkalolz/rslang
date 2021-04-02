@@ -1,43 +1,68 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeDifficulty, toggleStart } from '../../store/leoSprintActions';
-import { RootState } from '../../store/rootReducer';
+import { baseUrl, ownGameContent } from '../../data/content';
+import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
+import { changeDifficulty, selectLeosprintGame, toggleStart } from '../../store/leoSprintActions';
+import { setPagesWord, setPaginatedWordSet } from '../../store/textbookActions';
 
 const StartWindow: React.FC = () => {
-  const difficulty = useSelector((state: RootState) => state.leosprintState.difficulty);
+  const [isLoaded, setIsLoaded] = useState<boolean>(true);
+  const [error, setError] = useState<any>(null);
+  const GROUPS:string[] = ownGameContent.levels;
+  const { page } = useSelector(selectLeosprintGame);
   const dispatch = useDispatch();
 
-  const selectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(changeDifficulty(e.target.value));
+  const fetchData = (group:number) => {
+    const userId = sessionStorage.getItem('userId');
+    const token = sessionStorage.getItem('token');
+    const filterString = '{"$or":[{"userWord.difficulty":"hard"}, {"userWord.difficulty":"learned"}, {"userWord.difficulty":"restored"}, {"userWord":null}]}';
+    setIsLoaded(false);
+    fetch(`${baseUrl}users/${userId}/aggregatedWords?group=${group}&wordsPerPage=600&filter=${filterString}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then(
+        (result) => {
+          const { paginatedResults }: { paginatedResults: IPaginatedWordSetElem[] } = result[0];
+          const pagesWord = paginatedResults.filter((word) => word.page === page);
+          dispatch(setPaginatedWordSet(paginatedResults));
+          dispatch(setPagesWord(pagesWord));
+          dispatch(toggleStart());
+        },
+        (err) => {
+          setIsLoaded(true);
+          setError(err);
+        },
+      );
   };
 
-  const startHandler = () => {
-    dispatch(toggleStart());
+  const chooseLevel = (group:number) => {
+    dispatch(changeDifficulty(group));
+    fetchData(group);
   };
+
+  if (error) {
+    return <div>{`Ошибка: ${error.message}`}</div>;
+  }
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="leosprint__start-window">
-      <h2>Leo Sprint</h2>
-      <h3>Цель: указать соответствует ли слово переводу</h3>
-      <button
-        type="button"
-        onClick={startHandler}
-      >
-        Начать
-      </button>
-      <select
-        value={difficulty}
-        onChange={selectHandler}
-        name="difficulty"
-        className="leosprint__difficulty"
-      >
-        <option value="0">1</option>
-        <option value="1">2</option>
-        <option value="2">3</option>
-        <option value="3">4</option>
-        <option value="4">5</option>
-        <option value="5">6</option>
-      </select>
+    <div className="own-game__choose-level">
+      <h1 className="own-game__choose-level--title">{ownGameContent.title}</h1>
+      <h2 className="own-game__choose-level--subtitle">{ownGameContent.chooseLevel}</h2>
+      <div className="own-game__choose-level--cards">
+        {GROUPS.map((group, index) => (
+          <div className="own-game__choose-level--card" key={group}>
+            <button onClick={() => chooseLevel(index)} type="button">{group}</button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

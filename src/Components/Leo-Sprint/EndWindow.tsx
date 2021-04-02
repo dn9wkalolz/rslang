@@ -1,12 +1,11 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearGame } from '../../store/leoSprintActions';
-import { RootState } from '../../store/rootReducer';
-import { IWordSetElem } from '../../interfaces/commonInterfaces';
+import { clearGame, selectLeosprintGame } from '../../store/leoSprintActions';
+import { ILeosprintState } from '../../store/leoSprintReducer';
 import Answers from './Answers';
 
 const EndWindow: React.FC = () => {
-  const { right, wrong } = useSelector((state: RootState) => state.leosprintState);
+  const { right, wrong }: ILeosprintState = useSelector(selectLeosprintGame);
   const dispatch = useDispatch();
   const onStart = () => {
     dispatch(clearGame());
@@ -16,13 +15,13 @@ const EndWindow: React.FC = () => {
       <h2>Ошибок</h2>
       <ul>
         {wrong.map(
-          (wordElem: IWordSetElem) => (<Answers key={wordElem.id} {...{ wordElem }} />),
+          (wordElem) => (<Answers key={wordElem._id} {...{ wordElem }} />),
         )}
       </ul>
       <h2>Знаю</h2>
       <ul>
         {right.map(
-          (wordElem: IWordSetElem) => (<Answers key={wordElem.id} {...{ wordElem }} />),
+          (wordElem) => (<Answers key={wordElem._id} {...{ wordElem }} />),
         )}
       </ul>
       <button type="button" onClick={onStart}>Новая Игра</button>

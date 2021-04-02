@@ -1,4 +1,5 @@
 import { IPaginatedWordSetElem } from '../interfaces/commonInterfaces';
+import { RootState } from './rootReducer';
 import {
   SET_GROUP,
   CHANGE_PAGE,
@@ -8,6 +9,8 @@ import {
   SET_PAGEBUTTONS,
   SET_PAGESWORD,
 } from './types';
+
+export const selectTextbookState = (state: RootState) => state.textbookState;
 
 export function setGroup(payload: number): object {
   return { type: SET_GROUP, payload };

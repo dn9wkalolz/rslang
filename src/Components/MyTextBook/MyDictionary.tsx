@@ -14,7 +14,6 @@ import { getPageLimit } from '../../data/commonAppMethods';
 
 const MyDictionary: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  // const [wordSet, setWordSet] = useState<IPaginatedWordSetElem[]>([]);
   const [error, setError] = useState<any>(null);
   const [
     section,
@@ -50,8 +49,9 @@ const MyDictionary: React.FC = () => {
           const { paginatedResults }: { paginatedResults: IPaginatedWordSetElem[] } = result[0];
           const pageButtons = Math.ceil(paginatedResults.length / 20);
           const [min, max] = getPageLimit(page);
-          const pagesWord = paginatedResults.filter((word, idx) => idx >= min && idx <= max);
-          dispatch(setVocabularyPage(page)); // dodelatb
+          const pagesWord = paginatedResults.filter((_, idx) => idx >= min && idx <= max);
+          const calculatedPage = page > pageButtons ? 0 : page;
+          dispatch(setVocabularyPage(calculatedPage));
           dispatch(setVocabularyPagesButtons(pageButtons));
           dispatch(setVocabularyPaginatedWordSet(paginatedResults));
           dispatch(setVocabularyPagesWord(pagesWord));
@@ -65,9 +65,11 @@ const MyDictionary: React.FC = () => {
   }, [section, group]);
 
   useEffect(() => {
+    const pageButtons = Math.ceil(paginatedWordSet.length / 20);
     const [min, max] = getPageLimit(page);
-    const pagesWord = paginatedWordSet.filter((word, idx) => idx >= min && idx <= max);
+    const pagesWord = paginatedWordSet.filter((_, idx) => idx >= min && idx <= max);
     dispatch(setVocabularyPagesWord(pagesWord));
+    dispatch(setVocabularyPagesButtons(pageButtons));
   }, [page, paginatedWordSet]);
 
   if (error) {

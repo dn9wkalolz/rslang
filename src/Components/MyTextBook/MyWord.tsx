@@ -1,13 +1,17 @@
 import React from 'react';
-import { baseUrl } from '../../data/content';
-import { usePutMethod } from '../../data/requestMethods';
+import { useSelector, useDispatch } from 'react-redux';
+import { baseUrl, textBookContent } from '../../data/content';
+import { usePutMethod, usePutMethodToRestore } from '../../data/requestMethods';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
+import { RootState } from '../../store/rootReducer';
+import { setVocabularyPaginatedWordSet } from '../../store/vocabularyActions';
 
 interface IWords {
   wordElem: IPaginatedWordSetElem
 }
 
 const MyWord: React.FC<IWords> = ({ wordElem }) => {
+  const dispatch = useDispatch();
   const {
     audio,
     word,
@@ -20,14 +24,33 @@ const MyWord: React.FC<IWords> = ({ wordElem }) => {
     _id,
     userWord,
   } = wordElem;
+  const [
+    currSection,
+    paginatedWordSet,
+  ]: [string, IPaginatedWordSetElem[]] = useSelector(
+    (state: RootState) => [state.vocabularyState.section, state.vocabularyState.paginatedWordSet],
+  );
+  const { sections } = textBookContent;
+  const hardSection = sections[1].category;
+  const deletedSection = sections[2].category;
   const sound = new Audio(baseUrl + audio);
 
   const setHardDifficulty = (wordId: string) => {
+    const sortedPaginationWordset = paginatedWordSet.filter((wordEl) => wordEl._id !== wordId);
     usePutMethod(wordId, 'hard');
+    dispatch(setVocabularyPaginatedWordSet(sortedPaginationWordset));
   };
 
   const deleteWord = (wordId: string) => {
+    const sortedPaginationWordset = paginatedWordSet.filter((wordEl) => wordEl._id !== wordId);
     usePutMethod(wordId, 'deleted');
+    dispatch(setVocabularyPaginatedWordSet(sortedPaginationWordset));
+  };
+
+  const restoreWord = (wordId: string) => {
+    const sortedPaginationWordset = paginatedWordSet.filter((wordEl) => wordEl._id !== wordId);
+    usePutMethodToRestore(wordId);
+    dispatch(setVocabularyPaginatedWordSet(sortedPaginationWordset));
   };
 
   return (
@@ -47,18 +70,28 @@ const MyWord: React.FC<IWords> = ({ wordElem }) => {
           <span>{textExampleTranslate}</span>
         </div>
         <div>
+          {currSection === hardSection ? null : (
+            <button
+              disabled={userWord?.difficulty === 'hard'}
+              type="button"
+              onClick={() => setHardDifficulty(_id)}
+            >
+              Сложно
+            </button>
+          )}
+          {currSection === deletedSection ? null : (
+            <button
+              type="button"
+              onClick={() => deleteWord(_id)}
+            >
+              Удалить
+            </button>
+          )}
           <button
-            disabled={userWord?.difficulty === 'hard'}
             type="button"
-            onClick={() => setHardDifficulty(_id)}
+            onClick={() => restoreWord(_id)}
           >
-            Сложно
-          </button>
-          <button
-            type="button"
-            onClick={() => deleteWord(_id)}
-          >
-            Удалить
+            Восстановить
           </button>
         </div>
       </div>

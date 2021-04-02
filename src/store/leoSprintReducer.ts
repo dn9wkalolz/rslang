@@ -1,4 +1,4 @@
-import { IWordSetElem } from '../interfaces/commonInterfaces';
+import { IPaginatedWordSetElem } from '../interfaces/commonInterfaces';
 import {
   INCREMENT_SCORE,
   TOGGLE_LOGIN,
@@ -7,34 +7,36 @@ import {
   TOGGLE_END,
   HANDLE_RIGHT,
   HANDLE_WRONG,
-  SET_LOADED,
   CLEAR_GAME,
+  SET_LEOSPRINTPAGE,
 } from './types';
 
 export interface IAction {
   type: string
   payload: any
 }
-interface IInitialState {
+export interface ILeosprintState {
   score: number
   isLogin: boolean
   isStart: boolean
   isEnd: boolean
-  difficulty: string
-  right: IWordSetElem[]
-  wrong: IWordSetElem[]
-  isLoaded: boolean
+  difficulty: number
+  right: IPaginatedWordSetElem[]
+  wrong: IPaginatedWordSetElem[]
+  // isLoaded: boolean
+  page: number
 }
 
-const initialState: IInitialState = {
+const initialState: ILeosprintState = {
   score: 0,
   isLogin: false,
   isStart: false,
   isEnd: false,
-  difficulty: '0',
+  difficulty: 0,
   right: [],
   wrong: [],
-  isLoaded: false,
+  // isLoaded: false,
+  page: 0,
 };
 
 export const leoSprintReducer = (state = initialState, action:IAction) => {
@@ -53,8 +55,8 @@ export const leoSprintReducer = (state = initialState, action:IAction) => {
       return { ...state, right: [...state.right, ...action.payload] };
     case HANDLE_WRONG:
       return { ...state, wrong: [...state.wrong, ...action.payload] };
-    case SET_LOADED:
-      return { ...state, isLoaded: !state.isLoaded };
+    // case SET_LOADED:
+    //   return { ...state, isLoaded: !state.isLoaded };
     case CLEAR_GAME:
       return {
         ...state,
@@ -64,8 +66,10 @@ export const leoSprintReducer = (state = initialState, action:IAction) => {
         difficulty: '0',
         right: [],
         wrong: [],
-        isLoaded: false,
+        // isLoaded: false,
       };
+    case SET_LEOSPRINTPAGE:
+      return { ...state, page: action.payload };
     // case FETCH_WORDSET:
     //   return { ...state, words: action.payload };
     default: return state;

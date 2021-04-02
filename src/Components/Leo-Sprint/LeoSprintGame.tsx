@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useLastLocation } from 'react-router-last-location';
 import { RootState } from '../../store/rootReducer';
 import EndWindow from './EndWindow';
 import GameStatistic from './GameStatic';
@@ -8,13 +9,17 @@ import './leosprint.scss';
 import StartWindow from './StartWindow';
 
 const LeoSprintGame: React.FC = () => {
-  const [login, start, end] = useSelector(
-    (state: RootState): boolean[] => {
-      const { isLogin, isStart, isEnd } = state.leosprintState;
-      return [isLogin, isStart, isEnd];
+  const lastLocation = useLastLocation();
+  const [start, end] = useSelector(
+    (state: RootState) => {
+      const { isStart, isEnd } = state.leosprintState;
+      return [isStart, isEnd];
     },
   );
-  if (!login && !start) {
+  // if (!login && !start) {
+  //   return <StartWindow />;
+  // }
+  if (lastLocation?.pathname !== '/textbook' && !start) {
     return <StartWindow />;
   }
   if (end) {

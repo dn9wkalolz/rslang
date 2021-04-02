@@ -1,16 +1,16 @@
 import React from 'react';
-import { IWordSetElem } from '../../interfaces/commonInterfaces';
+import { baseUrl } from '../../data/content';
+import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 
 interface IAnswers {
-  wordElem: IWordSetElem
+  wordElem: IPaginatedWordSetElem
 }
 
 const Answers: React.FC<IAnswers> = ({ wordElem }) => {
   const {
     audio, word, transcription, wordTranslate,
   } = wordElem;
-  const url = `https://rslang-61.herokuapp.com/${audio}`;
-  const sound = new Audio(url);
+  const sound = new Audio(baseUrl + audio);
   return (
     <li>
       <button type="button" onClick={() => sound.play()}>Play</button>

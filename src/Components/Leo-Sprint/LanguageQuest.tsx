@@ -1,59 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  incrementScore, rightHandler, setLoaded, wrongHandler,
+  incrementScore, rightHandler, selectLeosprintGame, setLeosprintPage, wrongHandler,
 } from '../../store/leoSprintActions';
-import { RootState } from '../../store/rootReducer';
-import { IWordSetElem } from '../../interfaces/commonInterfaces';
+import { selectTextbookState, setPagesWord } from '../../store/textbookActions';
+import { ITextbookState } from '../../store/textbookReducer';
 
 interface IClickHandler {
   e: React.MouseEvent
-  id: string
+  _id: string
   isWordsMatch: boolean
 }
 
 const LanguageQuest: React.FC = () => {
-  const [error, setError] = useState<any>(null);
-  const [wordSet, setWordSet] = useState<IWordSetElem[]>([]);
-  const [page, setPage] = useState<number>(0);
-  const [group, isLoaded] = useSelector(
-    (state: RootState) => [state.leosprintState.difficulty, state.leosprintState.isLoaded],
-  );
+  const { page } = useSelector(selectLeosprintGame);
+  const { pagesWord, paginatedWordSet }: ITextbookState = useSelector(selectTextbookState);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const loginUser = async (user: any) => {
-      const rawResponse = await fetch('https://rslang-61.herokuapp.com/signin', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-      });
-      const content = await rawResponse.json();
-      sessionStorage.setItem('token', content.token);
-      sessionStorage.setItem('userId', content.userId);
-    };
-    loginUser({ email: 'test@user.com', password: 'qwertyuiop' });
-
-    fetch(`https://rslang-61.herokuapp.com/words?page=${page}&group=${group}`)
-      .then((response) => response.json())
-      .then(
-        (result) => {
-          setWordSet(result);
-          dispatch(setLoaded());
-        },
-        (err) => {
-          dispatch(setLoaded());
-          setError(err);
-        },
-      );
+    const filteredPagesWord = paginatedWordSet.filter((word) => word.page === page);
+    dispatch(setPagesWord(filteredPagesWord));
   }, [page]);
 
-  const answerHandler = ({ e, isWordsMatch, id }: IClickHandler): void => {
+  const answerHandler = ({ e, isWordsMatch, _id }: IClickHandler): void => {
     const { name } = e.target as HTMLButtonElement;
-    const answer = wordSet.filter((word) => word.id === id);
+    const answer = pagesWord.filter((word) => word._id === _id);
     const nameToBoolean = name === 'right';
     if (nameToBoolean === isWordsMatch) {
       dispatch(incrementScore());
@@ -63,34 +34,26 @@ const LanguageQuest: React.FC = () => {
     dispatch(wrongHandler(answer));
   };
 
-  const getRandomIndex = (): number => Math.floor(Math.random() * wordSet.length);
+  const getRandomIndex = (): number => Math.floor(Math.random() * pagesWord.length);
 
   const getRandomTranslate = (): string => {
-    const { wordTranslate } = wordSet[getRandomIndex()];
+    const { wordTranslate } = pagesWord[getRandomIndex()];
     return wordTranslate;
   };
 
-  const clickHandler = ({ e, id, isWordsMatch }: IClickHandler): void => {
-    answerHandler({ e, isWordsMatch, id });
-    if (wordSet.length === 1) {
-      // setIsLoaded(false);
-      dispatch(setLoaded());
-      setPage((preState) => preState + 1);
+  const clickHandler = ({ e, _id, isWordsMatch }: IClickHandler): void => {
+    answerHandler({ e, isWordsMatch, _id });
+    if (pagesWord.length === 1) {
+      dispatch(setLeosprintPage(page + 1)); // DODELATb!!!!
       return;
     }
-    setWordSet((prevState) => prevState.filter((word) => word.id !== id));
+    const filteredPagesWord = pagesWord.filter((word) => word._id !== _id);
+    dispatch(setPagesWord(filteredPagesWord));
   };
 
-  if (error) {
-    return <div>{`Ошибка: ${error.message}`}</div>;
-  }
-  if (!isLoaded) {
-    return <div>Loading..</div>;
-  }
-
   const {
-    image, word, wordTranslate, id,
-  } = wordSet[getRandomIndex()];
+    image, word, wordTranslate, _id,
+  } = pagesWord[getRandomIndex()];
   const randomTranslate = getRandomTranslate();
   const isWordsMatch = wordTranslate === randomTranslate;
 
@@ -106,7 +69,7 @@ const LanguageQuest: React.FC = () => {
           name="wrong"
           type="button"
           className="leosprint__buttons__wrong"
-          onClick={(e) => clickHandler({ e, id, isWordsMatch })}
+          onClick={(e) => clickHandler({ e, _id, isWordsMatch })}
         >
           неверно
         </button>
@@ -114,7 +77,7 @@ const LanguageQuest: React.FC = () => {
           name="right"
           type="button"
           className="leosprint__buttons__right"
-          onClick={(e) => clickHandler({ e, id, isWordsMatch })}
+          onClick={(e) => clickHandler({ e, _id, isWordsMatch })}
         >
           верно
         </button>

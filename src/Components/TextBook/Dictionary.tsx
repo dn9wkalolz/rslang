@@ -29,7 +29,7 @@ const Dictionary: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const filterString = '{"$or":[{"userWord.difficulty":"hard"}, {"userWord.difficulty":"learned"}, {"userWord":null}]}';
+    const filterString = '{"$or":[{"userWord.difficulty":"hard"}, {"userWord.difficulty":"learned"}, {"userWord.difficulty":"restored"}, {"userWord":null}]}';
     setIsLoaded(false);
     fetch(`${baseUrl}users/${userId}/aggregatedWords?group=${group}&wordsPerPage=600&filter=${filterString}`, {
       method: 'GET',
