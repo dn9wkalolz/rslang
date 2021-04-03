@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { baseUrl, ownGameContent } from '../../data/content';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
-import { changeDifficulty, selectLeosprintGame, toggleStart } from '../../store/leoSprintActions';
-import { setPagesWord, setPaginatedWordSet } from '../../store/textbookActions';
+import { changeDifficulty, setLeosprintPage, toggleStart } from '../../store/leoSprintActions';
+import { setPagesButtons, setPagesWord, setPaginatedWordSet } from '../../store/textbookActions';
 
 const StartWindow: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
   const GROUPS:string[] = ownGameContent.levels;
-  const { page } = useSelector(selectLeosprintGame);
   const dispatch = useDispatch();
 
   const fetchData = (group:number) => {
@@ -28,7 +27,11 @@ const StartWindow: React.FC = () => {
       .then(
         (result) => {
           const { paginatedResults }: { paginatedResults: IPaginatedWordSetElem[] } = result[0];
-          const pagesWord = paginatedResults.filter((word) => word.page === page);
+          const pageButtons = paginatedResults.map((word) => word.page);
+          const uniquePageButtons = Array.from(new Set(pageButtons));
+          const pagesWord = paginatedResults.filter((word) => word.page === uniquePageButtons[0]);
+          dispatch(setLeosprintPage(uniquePageButtons[0]));
+          dispatch(setPagesButtons(uniquePageButtons));
           dispatch(setPaginatedWordSet(paginatedResults));
           dispatch(setPagesWord(pagesWord));
           dispatch(toggleStart());

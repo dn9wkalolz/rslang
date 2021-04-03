@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { baseUrl, textBookContent } from '../../data/content';
 import { usePutMethod, usePutMethodToRestore } from '../../data/requestMethods';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
-import { RootState } from '../../store/rootReducer';
-import { setVocabularyPaginatedWordSet } from '../../store/vocabularyActions';
+import { selectVocabularyState, setVocabularyPaginatedWordSet } from '../../store/vocabularyActions';
 
 interface IWords {
   wordElem: IPaginatedWordSetElem
@@ -24,12 +23,7 @@ const MyWord: React.FC<IWords> = ({ wordElem }) => {
     _id,
     userWord,
   } = wordElem;
-  const [
-    currSection,
-    paginatedWordSet,
-  ]: [string, IPaginatedWordSetElem[]] = useSelector(
-    (state: RootState) => [state.vocabularyState.section, state.vocabularyState.paginatedWordSet],
-  );
+  const { section, paginatedWordSet } = useSelector(selectVocabularyState);
   const { sections } = textBookContent;
   const hardSection = sections[1].category;
   const deletedSection = sections[2].category;
@@ -70,7 +64,7 @@ const MyWord: React.FC<IWords> = ({ wordElem }) => {
           <span>{textExampleTranslate}</span>
         </div>
         <div>
-          {currSection === hardSection ? null : (
+          {section === hardSection ? null : (
             <button
               disabled={userWord?.difficulty === 'hard'}
               type="button"
@@ -79,7 +73,7 @@ const MyWord: React.FC<IWords> = ({ wordElem }) => {
               Сложно
             </button>
           )}
-          {currSection === deletedSection ? null : (
+          {section === deletedSection ? null : (
             <button
               type="button"
               onClick={() => deleteWord(_id)}

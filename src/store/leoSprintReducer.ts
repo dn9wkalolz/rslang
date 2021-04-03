@@ -1,7 +1,6 @@
 import { IPaginatedWordSetElem } from '../interfaces/commonInterfaces';
 import {
   INCREMENT_SCORE,
-  TOGGLE_LOGIN,
   TOGGLE_START,
   CHANGE_DIFFICULTY,
   TOGGLE_END,
@@ -17,7 +16,7 @@ export interface IAction {
 }
 export interface ILeosprintState {
   score: number
-  isLogin: boolean
+  // isLogin: boolean
   isStart: boolean
   isEnd: boolean
   difficulty: number
@@ -29,7 +28,7 @@ export interface ILeosprintState {
 
 const initialState: ILeosprintState = {
   score: 0,
-  isLogin: false,
+  // isLogin: false,
   isStart: false,
   isEnd: false,
   difficulty: 0,
@@ -43,8 +42,8 @@ export const leoSprintReducer = (state = initialState, action:IAction) => {
   switch (action.type) {
     case INCREMENT_SCORE:
       return { ...state, score: state.score + 1 };
-    case TOGGLE_LOGIN:
-      return { ...state, isLogin: !state.isLogin };
+    // case TOGGLE_LOGIN:
+    //   return { ...state, isLogin: !state.isLogin };
     case TOGGLE_START:
       return { ...state, isStart: !state.isStart };
     case TOGGLE_END:

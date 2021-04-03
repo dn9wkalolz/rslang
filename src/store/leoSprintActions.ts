@@ -4,7 +4,6 @@ import { RootState } from './rootReducer';
 import {
   FETCH_WORDSET,
   INCREMENT_SCORE,
-  TOGGLE_LOGIN,
   TOGGLE_START,
   CHANGE_DIFFICULTY,
   TOGGLE_END,
@@ -28,9 +27,9 @@ export function incrementScore(): object {
   return { type: INCREMENT_SCORE };
 }
 
-export function toggleLogin(): object {
-  return { type: TOGGLE_LOGIN };
-}
+// export function toggleLogin(): object {
+//   return { type: TOGGLE_LOGIN };
+// }
 
 export function toggleStart(): object {
   return { type: TOGGLE_START };

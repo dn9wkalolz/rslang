@@ -1,29 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
-import { RootState } from '../../store/rootReducer';
 import Word from './Word';
 import { baseUrl } from '../../data/content';
 import {
+  selectTextbookState,
   setPage, setPagesButtons, setPagesWord, setPaginatedWordSet,
 } from '../../store/textbookActions';
+import { setLeosprintPage } from '../../store/leoSprintActions';
 
 const Dictionary: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [error, setError] = useState<any>(null);
-  const [
-    page,
-    group,
-    paginatedWordSet,
-    wordSet,
-  ]: [number, number, IPaginatedWordSetElem[], IPaginatedWordSetElem[]] = useSelector(
-    (state: RootState) => [
-      state.textbookState.page,
-      state.textbookState.group,
-      state.textbookState.paginatedWordSet,
-      state.textbookState.pagesWord,
-    ],
-  );
+  const {
+    page, group, paginatedWordSet, pagesWord,
+  } = useSelector(selectTextbookState);
   const userId = sessionStorage.getItem('userId');
   const token = sessionStorage.getItem('token');
   const dispatch = useDispatch();
@@ -44,11 +35,12 @@ const Dictionary: React.FC = () => {
           const { paginatedResults }: { paginatedResults: IPaginatedWordSetElem[] } = result[0];
           const pageButtons = paginatedResults.map((word) => word.page);
           const uniquePageButtons = Array.from(new Set(pageButtons));
-          const pagesWord = paginatedResults.filter((word) => word.page === page);
+          const wordSet = paginatedResults.filter((word) => word.page === page);
           dispatch(setPage(uniquePageButtons[0]));
+          dispatch(setLeosprintPage(uniquePageButtons[0]));
           dispatch(setPagesButtons(uniquePageButtons));
           dispatch(setPaginatedWordSet(paginatedResults));
-          dispatch(setPagesWord(pagesWord));
+          dispatch(setPagesWord(wordSet));
           setIsLoaded(true);
         },
         (err) => {
@@ -59,8 +51,8 @@ const Dictionary: React.FC = () => {
   }, [group]);
 
   useEffect(() => {
-    const pagesWord = paginatedWordSet.filter((word) => word.page === page);
-    dispatch(setPagesWord(pagesWord));
+    const wordSet = paginatedWordSet.filter((word) => word.page === page);
+    dispatch(setPagesWord(wordSet));
   }, [page, paginatedWordSet]);
 
   if (error) {
@@ -72,7 +64,7 @@ const Dictionary: React.FC = () => {
 
   return (
     <div className="textbook__dictionary">
-      {wordSet.map((wordElem) => (<Word key={wordElem._id} {...{ wordElem }} />))}
+      {pagesWord.map((wordElem) => (<Word key={wordElem._id} {...{ wordElem }} />))}
     </div>
   );
 };

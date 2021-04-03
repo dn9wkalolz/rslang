@@ -14,7 +14,9 @@ interface IClickHandler {
 
 const LanguageQuest: React.FC = () => {
   const { page } = useSelector(selectLeosprintGame);
-  const { pagesWord, paginatedWordSet }: ITextbookState = useSelector(selectTextbookState);
+  const {
+    pagesWord, paginatedWordSet, pagesButtons,
+  }: ITextbookState = useSelector(selectTextbookState);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -44,7 +46,9 @@ const LanguageQuest: React.FC = () => {
   const clickHandler = ({ e, _id, isWordsMatch }: IClickHandler): void => {
     answerHandler({ e, isWordsMatch, _id });
     if (pagesWord.length === 1) {
-      dispatch(setLeosprintPage(page + 1)); // DODELATb!!!!
+      const pagePrediction = page + 1;
+      const changingPage = pagePrediction > pagesButtons.length - 1 ? 0 : pagePrediction;
+      dispatch(setLeosprintPage(changingPage));
       return;
     }
     const filteredPagesWord = pagesWord.filter((word) => word._id !== _id);

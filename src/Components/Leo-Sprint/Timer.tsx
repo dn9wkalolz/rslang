@@ -11,7 +11,7 @@ const Timer: React.FC = () => {
   };
 
   useEffect(() => {
-    if (stopWatch === 10) {
+    if (stopWatch === 20) {
       dispatch(toggleEnd());
       return;
     }

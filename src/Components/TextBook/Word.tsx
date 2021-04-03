@@ -3,8 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { baseUrl } from '../../data/content';
 import { usePostMethod, usePutMethod } from '../../data/requestMethods';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
-import { RootState } from '../../store/rootReducer';
-import { changePage, changeStateWord, setPagesButtons } from '../../store/textbookActions';
+import {
+  changePage, changeStateWord, selectTextbookState, setPagesButtons,
+} from '../../store/textbookActions';
 
 interface IWords {
   wordElem: IPaginatedWordSetElem
@@ -24,18 +25,10 @@ const Word: React.FC<IWords> = ({ wordElem }) => {
     _id,
     userWord,
   } = wordElem;
+  const { paginatedWordSet, pagesWord, pagesButtons } = useSelector(selectTextbookState);
+
   const sound = new Audio(baseUrl + audio);
   const dispatch = useDispatch();
-  const [
-    paginatedWordSet,
-    pagesWord,
-    pagesButtons,
-  ]: [IPaginatedWordSetElem[], IPaginatedWordSetElem[], number[]] = useSelector(
-    (state: RootState) => [
-      state.textbookState.paginatedWordSet,
-      state.textbookState.pagesWord,
-      state.textbookState.pagesButtons],
-  );
 
   const updatePageButtons = (currPage: number) => {
     const updatedButtons = pagesButtons.filter((pageButton) => pageButton !== currPage);

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
-import { RootState } from '../../store/rootReducer';
 import { baseUrl } from '../../data/content';
 import MyWord from './MyWord';
 import {
+  selectVocabularyState,
   setVocabularyPage,
   setVocabularyPagesButtons,
   setVocabularyPagesWord,
@@ -15,21 +15,9 @@ import { getPageLimit } from '../../data/commonAppMethods';
 const MyDictionary: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [error, setError] = useState<any>(null);
-  const [
-    section,
-    group,
-    wordSet,
-    paginatedWordSet,
-    page,
-  ]: [string, number, IPaginatedWordSetElem[], IPaginatedWordSetElem[], number] = useSelector(
-    (state: RootState) => [
-      state.vocabularyState.section,
-      state.vocabularyState.group,
-      state.vocabularyState.pagesWord,
-      state.vocabularyState.paginatedWordSet,
-      state.vocabularyState.page,
-    ],
-  );
+  const {
+    section, group, pagesWord, paginatedWordSet, page,
+  } = useSelector(selectVocabularyState);
   const dispatch = useDispatch();
   const userId = sessionStorage.getItem('userId');
   const token = sessionStorage.getItem('token');
@@ -49,12 +37,12 @@ const MyDictionary: React.FC = () => {
           const { paginatedResults }: { paginatedResults: IPaginatedWordSetElem[] } = result[0];
           const pageButtons = Math.ceil(paginatedResults.length / 20);
           const [min, max] = getPageLimit(page);
-          const pagesWord = paginatedResults.filter((_, idx) => idx >= min && idx <= max);
+          const wordSet = paginatedResults.filter((_, idx) => idx >= min && idx <= max);
           const calculatedPage = page > pageButtons ? 0 : page;
           dispatch(setVocabularyPage(calculatedPage));
           dispatch(setVocabularyPagesButtons(pageButtons));
           dispatch(setVocabularyPaginatedWordSet(paginatedResults));
-          dispatch(setVocabularyPagesWord(pagesWord));
+          dispatch(setVocabularyPagesWord(wordSet));
           setIsLoaded(true);
         },
         (err) => {
@@ -67,8 +55,8 @@ const MyDictionary: React.FC = () => {
   useEffect(() => {
     const pageButtons = Math.ceil(paginatedWordSet.length / 20);
     const [min, max] = getPageLimit(page);
-    const pagesWord = paginatedWordSet.filter((_, idx) => idx >= min && idx <= max);
-    dispatch(setVocabularyPagesWord(pagesWord));
+    const wordSet = paginatedWordSet.filter((_, idx) => idx >= min && idx <= max);
+    dispatch(setVocabularyPagesWord(wordSet));
     dispatch(setVocabularyPagesButtons(pageButtons));
   }, [page, paginatedWordSet]);
 
@@ -81,7 +69,7 @@ const MyDictionary: React.FC = () => {
 
   return (
     <div className="textbook__dictionary">
-      {wordSet.map((wordElem) => (<MyWord key={wordElem._id} {...{ wordElem }} />))}
+      {pagesWord.map((wordElem) => (<MyWord key={wordElem._id} {...{ wordElem }} />))}
     </div>
   );
 };
