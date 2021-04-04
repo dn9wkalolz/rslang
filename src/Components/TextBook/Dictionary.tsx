@@ -4,7 +4,6 @@ import { IWordSetElem } from '../../interfaces/commonInterfaces';
 import { RootState } from '../../store/rootReducer';
 import Word from './Word';
 
-
 const Dictionary: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [wordSet, setWordSet] = useState<IWordSetElem[]>([]);

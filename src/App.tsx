@@ -10,6 +10,7 @@ import Footer from './Components/Footer/Footer';
 import OwnGameChooseLevel from './Components/OwnGame/OwnGameChooseLevel/OwnGameChooseLevel';
 import LeoSprintGame from './Components/Leo-Sprint/LeoSprintGame';
 import TextBook from './Components/TextBook/TextBook';
+import SavannahChooseLevel from './Components/Savannah/SavannahChooseLevel/SavannahChooseLevel';
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
       <Switch>
         <Route exact path="/">
           <HomePage />
+        </Route>
+        <Route path="/games/savannah">
+          <SavannahChooseLevel />
         </Route>
         <Route path="/games/translator">
           <OwnGameChooseLevel />

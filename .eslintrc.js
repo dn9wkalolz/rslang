@@ -27,5 +27,6 @@ module.exports = {
     "no-nested-ternary": "off",
     "no-else-return": "off",
     "react/no-danger": "off",
+    "linebreak-style": "off",
   },
 };
