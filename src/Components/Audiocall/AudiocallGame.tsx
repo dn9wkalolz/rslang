@@ -3,24 +3,45 @@ import { useSelector } from 'react-redux';
 import './AudiocallGame.scss';
 import { WordsType } from '../../types/types';
 import { RootState } from '../../store/rootReducer';
+import AudiocallGameCard from './AudiocallGameCard/AudiocallGameCard';
+import AudiocallGameReuslts from './AudiocallGameResults/AudiocallGameResults';
 
 type PropsType = {
   words: WordsType
+  onPageChanged: (page: number) => void
+  currentPage: number
+  rightAnswers: WordsType
+  wrongAnswers: WordsType
 };
 
-const AudiocallGame: React.FC<PropsType> = ({ words }) => {
+const AudiocallGame: React.FC<PropsType> = ({
+  words,
+  onPageChanged,
+  currentPage,
+  rightAnswers,
+  wrongAnswers,
+}) => {
   const currentWordIndex = useSelector((state: RootState) => state.audiocall.currentWordIndex);
 
   if (currentWordIndex < words.length) {
     return (
       <div className="own-game">
-        <h1>Audiocall Card </h1>
+        <AudiocallGameCard
+          word={words[currentWordIndex]}
+          currentWordIndex={currentWordIndex}
+          words={words}
+        />
       </div>
     );
   }
 
   return (
-    <h1>OwnGameReuslts </h1>
+    <AudiocallGameReuslts
+      onPageChanged={onPageChanged}
+      currentPage={currentPage}
+      rightAnswers={rightAnswers}
+      wrongAnswers={wrongAnswers}
+    />
   );
 };
 

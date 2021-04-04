@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { actions, requestWords } from '../../../store/audiocallReduser';
+import { requestWords } from '../../../store/audiocallReduser';
 import { RootState } from '../../../store/rootReducer';
 import Preloader from '../../common/Preloader/Preloader';
 import { audiocallGameContent } from '../../../data/content';
@@ -8,15 +8,24 @@ import './AudiocallStartScreen.scss';
 import AudiocallGame from '../AudiocallGame';
 
 const AudiocallStartScreen: React.FC = () => {
-  const level = useSelector((state: RootState) => state.audiocall.level);
-  const isFetching = useSelector((state: RootState) => state.audiocall.isFetching);
-  const words = useSelector((state: RootState) => state.audiocall.words);
+  const {
+    rightAnswers,
+    wrongAnswers,
+    level,
+    currentPage,
+    isFetching,
+    words,
+  } = useSelector((state: RootState) => state.audiocall);
+
   const dispatch = useDispatch();
   const LEVEL_NAMES = audiocallGameContent.levels;
 
-  const setLevel = (levelNumber: number) => {
-    dispatch(actions.setLevel(levelNumber));
-    dispatch(requestWords(level));
+  const onLevelChanged = (levelNumber: number) => {
+    dispatch(requestWords(levelNumber, currentPage));
+  };
+
+  const onPageChanged = (page: number) => {
+    dispatch(requestWords(level, page));
   };
 
   if (isFetching) {
@@ -24,7 +33,17 @@ const AudiocallStartScreen: React.FC = () => {
   }
 
   if (words.length) {
-    return <AudiocallGame words={words} />;
+    return (
+      <>
+        <AudiocallGame
+          words={words}
+          onPageChanged={onPageChanged}
+          currentPage={currentPage}
+          rightAnswers={rightAnswers}
+          wrongAnswers={wrongAnswers}
+        />
+      </>
+    );
   }
 
   return (
@@ -35,7 +54,7 @@ const AudiocallStartScreen: React.FC = () => {
       <div className="audiocall-game__choose-level--cards">
         {LEVEL_NAMES.map((lev, index) => (
           <div className="audiocall-game__choose-level--card" key={lev}>
-            <button onClick={() => setLevel(index)} type="button">{lev}</button>
+            <button onClick={() => onLevelChanged(index)} type="button">{lev}</button>
           </div>
         ))}
       </div>

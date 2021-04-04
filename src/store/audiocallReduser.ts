@@ -1,5 +1,5 @@
 import wordsAPI from '../api/words-api';
-import { WordsType } from '../types/types';
+import { WordsType, WordType } from '../types/types';
 import { InferActionsTypes, BaseThunkType } from './rootReducer';
 
 const initialState = {
@@ -10,6 +10,7 @@ const initialState = {
   isStart: false,
   isEnd: false,
   level: 0,
+  currentPage: 0,
   rightAnswers: [] as WordsType,
   wrongAnswers: [] as WordsType,
   isFetching: false,
@@ -22,14 +23,17 @@ export const audiocallReducer = (state = initialState, action: ActionsType): Ini
     case 'AUDIOCALL_TOGGLE_IS_START':
     case 'AUDIOCALL_TOGGLE_IS_END':
     case 'AUDIOCALL_SET_LEVEL':
-    case 'AUDIOCALL_SET_WRONG_ANSWERS':
-    case 'AUDIOCALL_SET_RIGHT_ANSWERS':
     case 'AUDIOCALL_CLEAR_GAME':
     case 'AUDIOCALL_TOGGLE_IS_LOGIN':
     case 'AUDIOCALL_SET_CURRENT_WORD_INDEX':
+    case 'AUDIOCALL_SET_CURRENT_PAGE':
       return { ...state, ...action.payload };
     case 'AUDIOCALL_INCREMENT_SCORE':
       return { ...state, score: state.score + 1 };
+    case 'AUDIOCALL_SET_WRONG_ANSWERS':
+      return { ...state, wrongAnswers: [...state.wrongAnswers, action.wrongAnswer] };
+    case 'AUDIOCALL_SET_RIGHT_ANSWERS':
+      return { ...state, rightAnswers: [...state.rightAnswers, action.rightAnswer] };
     default: return state;
   }
 };
@@ -65,10 +69,10 @@ export const actions = {
       isLogin,
     },
   }) as const,
-  setLevel: (levelNumber: number) => ({
+  setLevel: (level: number) => ({
     type: 'AUDIOCALL_SET_LEVEL',
     payload: {
-      levelNumber,
+      level,
     },
   } as const),
   setCurrentWordIndex: (currentWordIndex: number) => ({
@@ -80,37 +84,36 @@ export const actions = {
   incrementScore: () => ({
     type: 'AUDIOCALL_INCREMENT_SCORE',
   } as const),
-  setWrongAnswers: (wrongAnswers: WordsType) => ({
-    type: 'AUDIOCALL_SET_WRONG_ANSWERS',
+  setCurrentPage: (currentPage: number) => ({
+    type: 'AUDIOCALL_SET_CURRENT_PAGE',
     payload: {
-      wrongAnswers,
+      currentPage,
     },
   } as const),
-  setRightAnswers: (rightAnswers: WordsType) => ({
+  setWrongAnswers: (wrongAnswer: WordType) => ({
+    type: 'AUDIOCALL_SET_WRONG_ANSWERS',
+    wrongAnswer,
+  } as const),
+  setRightAnswers: (rightAnswer: WordType) => ({
     type: 'AUDIOCALL_SET_RIGHT_ANSWERS',
-    payload: {
-      rightAnswers,
-    },
+    rightAnswer,
   } as const),
   clearGame: () => ({
     type: 'AUDIOCALL_CLEAR_GAME',
     payload: {
-      words: [] as WordsType,
-      score: 0,
-      isLogin: false,
-      isStart: false,
-      isEnd: false,
-      level: 0,
-      rightAnswers: [] as WordsType,
-      wrongAnswers: [] as WordsType,
-      isFetching: false,
+      ...initialState,
     },
   } as const),
 };
 
-export const requestWords = (level: number): ThunkType => async (dispatch) => {
+export const requestWords = (level: number, currentPage: number): ThunkType => async (dispatch) => {
+  dispatch(actions.clearGame());
   dispatch(actions.toggleIsFetching(true));
-  const words = await wordsAPI.requestWords(level);
+  dispatch(actions.setLevel(level));
+  dispatch(actions.setCurrentPage(currentPage));
+
+  const words = await wordsAPI.requestWords(level, currentPage);
+
   dispatch(actions.toggleIsFetching(false));
   dispatch(actions.setWords(words));
 };
