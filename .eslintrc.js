@@ -27,5 +27,6 @@ module.exports = {
     "no-nested-ternary": "off",
     "no-else-return": "off",
     'import/no-cycle': 'off',
+    "no-else-return": "off",
   },
 };
