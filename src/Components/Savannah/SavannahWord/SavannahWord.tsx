@@ -36,7 +36,6 @@ function SavannahWord(props:any) {
       dispatch(SavannahWordIsIncorrect(word));
       takeLife();
       handleNext();
-      console.log(lives);
     }, 5000);
     return () => clearTimeout(timer);
   }, [word]);
