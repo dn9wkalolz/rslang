@@ -10,6 +10,8 @@ import Footer from './Components/Footer/Footer';
 import OwnGameChooseLevel from './Components/OwnGame/OwnGameChooseLevel/OwnGameChooseLevel';
 import LeoSprintGame from './Components/Leo-Sprint/LeoSprintGame';
 import TextBook from './Components/TextBook/TextBook';
+import Register from './pages/Register';
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -27,6 +29,12 @@ function App() {
         </Route>
         <Route path="/textbook">
           <TextBook />
+        </Route>
+        <Route path="/register">
+          <Register />
+        </Route>
+        <Route path="/login">
+          <Login />
         </Route>
       </Switch>
       <Footer />
