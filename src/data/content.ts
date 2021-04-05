@@ -82,20 +82,13 @@ export const homepageContent = {
       {
         name: 'Алексей',
         game: 'Разработка игры "Аудиовызов"',
-        page: 'Реализация страницы "Статистика"',
+        page: 'Реализация авторизации',
         img: homepageImages.Dev1,
         key: 'dev1',
       },
       {
-        name: 'Андрей',
-        game: 'Разработка игры "Саванна"',
-        page: 'Реализация страницы "Учебник"',
-        img: homepageImages.Dev2,
-        key: 'dev2',
-      },
-      {
         name: 'Валерия',
-        game: 'Разработка игры "Переводчик"',
+        game: 'Разработка игр "Саванна" и "Переводчик"',
         page: 'Реализация страницы "Главная"',
         img: homepageImages.Dev3,
         key: 'dev3',
@@ -103,7 +96,7 @@ export const homepageContent = {
       {
         name: 'Сергей',
         game: 'Разработка игры "Спринт"',
-        page: 'Реализация страницы "Словарь"',
+        page: 'Реализация страниц "Словарь" и "Учебник"',
         img: homepageImages.Dev4,
         key: 'dev4',
       },
@@ -116,6 +109,7 @@ export const homepageContent = {
 };
 
 export const header = {
+  burger: homepageImages.Burger,
   logo: {
     img: homepageImages.Logo,
     imagAlt: 'RSLang',
@@ -124,6 +118,7 @@ export const header = {
   settings: {
     img: homepageImages.Settings,
     imgAlt: 'Настройки',
+    name: 'Настройки',
   },
   pages: [
     {
@@ -178,11 +173,6 @@ export const footer = {
       key: 'AlDemi',
     },
     {
-      name: 'Андрей',
-      github: 'https://github.com/AndreiMilashevich',
-      key: 'AndreiMilashevich',
-    },
-    {
       name: 'Валерия',
       github: 'https://github.com/Valimisael',
       key: 'Valimisael',
@@ -212,6 +202,8 @@ export const audiocallGameContent = {
   description: 'Тренировка, развивающая навыки речи и перевода.',
   title: 'Аудиовызов',
   continueButton: 'Продолжить',
+};
+
 export const textBookContent = {
   groups: ['Раздел 1', 'Раздел 2', 'Раздел 3', 'Раздел 4', 'Раздел 5', 'Раздел 6'],
 };

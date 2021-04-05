@@ -1,18 +1,16 @@
 import React from 'react';
 import { homepageContent } from '../../../data/content';
+import createMarkup from '../../../helpers/markup-helper';
 import './HeroSection.scss';
 
 const HeroSection: React.FC = () => {
   const { hero } = homepageContent;
+  const title = createMarkup(hero.title);
 
   return (
     <section className="homepage__hero">
       <div className="homepage__hero-content">
-        <h1 className="homepage__hero-title">
-          Начни изучать
-          <b> английский </b>
-          прямо сейчас
-        </h1>
+        <h1 className="homepage__hero-title" dangerouslySetInnerHTML={title} />
         <div className="homepage__hero-description">{hero.description}</div>
         <button className="homepage__hero-button" type="button">{hero.button}</button>
       </div>
