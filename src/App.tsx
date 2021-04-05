@@ -10,6 +10,7 @@ import Footer from './Components/Footer/Footer';
 import OwnGameChooseLevel from './Components/OwnGame/OwnGameChooseLevel/OwnGameChooseLevel';
 import LeoSprintGame from './Components/Leo-Sprint/LeoSprintGame';
 import TextBook from './Components/TextBook/TextBook';
+import AudiocallStartScreen from './Components/Audiocall/AudiocallStartScreen/AudiocallStartScreen';
 import SavannahChooseLevel from './Components/Savannah/SavannahChooseLevel/SavannahChooseLevel';
 
 function App() {
@@ -25,6 +26,9 @@ function App() {
         </Route>
         <Route path="/games/translator">
           <OwnGameChooseLevel />
+        </Route>
+        <Route path="/games/audiocall">
+          <AudiocallStartScreen />
         </Route>
         <Route path="/games/sprint">
           <LeoSprintGame />

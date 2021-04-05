@@ -26,6 +26,7 @@ module.exports = {
     "import/prefer-default-export": "off",
     "no-nested-ternary": "off",
     "no-else-return": "off",
+    'import/no-cycle': 'off',
     "react/no-danger": "off",
     "linebreak-style": "off",
   },
