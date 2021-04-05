@@ -12,6 +12,8 @@ import LeoSprintGame from './Components/Leo-Sprint/LeoSprintGame';
 import TextBook from './Components/TextBook/TextBook';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import AudiocallStartScreen from './Components/Audiocall/AudiocallStartScreen/AudiocallStartScreen';
+import SavannahChooseLevel from './Components/Savannah/SavannahChooseLevel/SavannahChooseLevel';
 
 function App() {
   return (
@@ -21,8 +23,14 @@ function App() {
         <Route exact path="/">
           <HomePage />
         </Route>
+        <Route path="/games/savannah">
+          <SavannahChooseLevel />
+        </Route>
         <Route path="/games/translator">
           <OwnGameChooseLevel />
+        </Route>
+        <Route path="/games/audiocall">
+          <AudiocallStartScreen />
         </Route>
         <Route path="/games/sprint">
           <LeoSprintGame />
