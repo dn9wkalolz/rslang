@@ -1,0 +1,37 @@
+@import '../../../assets/css/base/variables.scss';
+@import '../../../assets/css/base/extends.scss';
+
+.savannah {
+  position: relative;
+
+  &__card {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+
+    &--task {
+      position: absolute;
+      z-index: -1;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: wordFall 5s linear forwards;
+    }
+  }
+
+  &__lives {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+  }
+}
+
+@keyframes wordFall {
+  from {
+    top: 20px;
+  } to {
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

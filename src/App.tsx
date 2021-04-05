@@ -11,6 +11,7 @@ import OwnGameChooseLevel from './Components/OwnGame/OwnGameChooseLevel/OwnGameC
 import LeoSprintGame from './Components/Leo-Sprint/LeoSprintGame';
 import TextBook from './Components/TextBook/TextBook';
 import AudiocallStartScreen from './Components/Audiocall/AudiocallStartScreen/AudiocallStartScreen';
+import SavannahChooseLevel from './Components/Savannah/SavannahChooseLevel/SavannahChooseLevel';
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
       <Switch>
         <Route exact path="/">
           <HomePage />
+        </Route>
+        <Route path="/games/savannah">
+          <SavannahChooseLevel />
         </Route>
         <Route path="/games/translator">
           <OwnGameChooseLevel />

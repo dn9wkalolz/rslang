@@ -4,12 +4,14 @@ import { OwnGameReducer } from '../Components/OwnGame/OwnGameCard/OwnGameCardSli
 import { textbookReducer } from './textbookReducer';
 import { leoSprintReducer } from './leoSprintReducer';
 import { audiocallReducer } from './audiocallReduser';
+import { SavannahReducer } from '../Components/Savannah/SavannahWord/SavannahWordSlice';
 
 export const rootReducer = combineReducers({
   audiocall: audiocallReducer,
   OwnGame: OwnGameReducer,
   leosprintState: leoSprintReducer,
   textbookState: textbookReducer,
+  Savannah: SavannahReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
