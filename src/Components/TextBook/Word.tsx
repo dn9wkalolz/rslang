@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { baseUrl } from '../../data/content';
-import { usePostMethod, usePutMethod } from '../../data/requestMethods';
+import { useFetchWithCondition } from '../../data/requestMethods';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 import {
   changePage, changeStateWord, selectTextbookState, setPagesButtons,
@@ -52,21 +52,13 @@ const Word: React.FC<IWords> = ({ wordElem }) => {
         return wordEl;
       },
     );
-    if (userWord?.difficulty) {
-      usePutMethod(wordId, 'hard');
-    } else if (!userWord?.difficulty) {
-      usePostMethod(wordId, 'hard');
-    }
+    useFetchWithCondition(wordId, 'hard', !!userWord?.difficulty);
     dispatch(changeStateWord(sortedPaginationWordset));
   };
 
   const deleteWord = (wordId: string, currPage: number) => {
     const sortedPaginationWordset = paginatedWordSet.filter((wordEl) => wordEl._id !== wordId);
-    if (userWord?.difficulty) {
-      usePutMethod(wordId, 'deleted');
-    } else if (!userWord?.difficulty) {
-      usePostMethod(wordId, 'deleted');
-    }
+    useFetchWithCondition(wordId, 'deleted', !!userWord?.difficulty);
     if (pagesWord.length === 1) {
       updatePageButtons(currPage);
     }

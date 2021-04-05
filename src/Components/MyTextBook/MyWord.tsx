@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { baseUrl, textBookContent } from '../../data/content';
-import { usePutMethod, usePutMethodToRestore } from '../../data/requestMethods';
+import { useFetchWithCondition } from '../../data/requestMethods';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 import { selectVocabularyState, setVocabularyPaginatedWordSet } from '../../store/vocabularyActions';
 
@@ -31,19 +31,19 @@ const MyWord: React.FC<IWords> = ({ wordElem }) => {
 
   const setHardDifficulty = (wordId: string) => {
     const sortedPaginationWordset = paginatedWordSet.filter((wordEl) => wordEl._id !== wordId);
-    usePutMethod(wordId, 'hard');
+    useFetchWithCondition(wordId, 'hard', true);
     dispatch(setVocabularyPaginatedWordSet(sortedPaginationWordset));
   };
 
   const deleteWord = (wordId: string) => {
     const sortedPaginationWordset = paginatedWordSet.filter((wordEl) => wordEl._id !== wordId);
-    usePutMethod(wordId, 'deleted');
+    useFetchWithCondition(wordId, 'deleted', true);
     dispatch(setVocabularyPaginatedWordSet(sortedPaginationWordset));
   };
 
   const restoreWord = (wordId: string) => {
     const sortedPaginationWordset = paginatedWordSet.filter((wordEl) => wordEl._id !== wordId);
-    usePutMethodToRestore(wordId);
+    useFetchWithCondition(wordId, 'restored', true);
     dispatch(setVocabularyPaginatedWordSet(sortedPaginationWordset));
   };
 

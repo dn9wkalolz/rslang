@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { baseUrl, ownGameContent } from '../../data/content';
+import { baseUrl, ownGameContent, textBookContent } from '../../data/content';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 import { changeDifficulty, setLeosprintPage, toggleStart } from '../../store/leoSprintActions';
 import { setPagesButtons, setPagesWord, setPaginatedWordSet } from '../../store/textbookActions';
@@ -57,7 +57,7 @@ const StartWindow: React.FC = () => {
 
   return (
     <div className="own-game__choose-level">
-      <h1 className="own-game__choose-level--title">{ownGameContent.title}</h1>
+      <h1 className="own-game__choose-level--title">{textBookContent.title}</h1>
       <h2 className="own-game__choose-level--subtitle">{ownGameContent.chooseLevel}</h2>
       <div className="own-game__choose-level--cards">
         {GROUPS.map((group, index) => (

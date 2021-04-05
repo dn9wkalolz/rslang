@@ -208,6 +208,7 @@ export const ownGameContent = {
 };
 
 export const textBookContent = {
+  title: 'Спринт',
   groups: ['Раздел 1', 'Раздел 2', 'Раздел 3', 'Раздел 4', 'Раздел 5', 'Раздел 6'],
   sections: [
     { id: 0, name: 'Изучаемые слова', category: '{"$or":[{"userWord.difficulty":"hard"}, {"userWord.difficulty":"learned"}]}' },
