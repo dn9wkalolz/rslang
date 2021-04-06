@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { header } from '../../data/content';
 import './Header.scss';
@@ -7,6 +8,11 @@ const Header: React.FC = () => {
   const {
     logo, settings, pages, auth,
   } = header;
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+
+  function toggleMenu() {
+    setMenuOpen(!menuOpen);
+  }
 
   useEffect(() => {
     // const createUser = async (user: any) => {
@@ -43,10 +49,11 @@ const Header: React.FC = () => {
   return (
     <header className="header">
       <div className="header__content">
-        <nav className="header__nav">
+        <nav className={`header__nav ${menuOpen ? 'open' : ''}`}>
           <a href={logo.link} className="header__logo">
             <img src={logo.img} alt={logo.imagAlt} />
           </a>
+          <input type="button" className="header__nav-burger" onClick={toggleMenu} />
           <ul className="header__nav-items">
             {
               pages.map((page) => (
@@ -59,10 +66,10 @@ const Header: React.FC = () => {
         </nav>
         <div className="header__settings">
           <ul className="header__settings-items">
-            <li className="header__settings-item">
+            <li className="header__settings-item settings">
               <img src={settings.img} alt={settings.imgAlt} />
             </li>
-            <li className="header__settings-item">
+            <li className="header__settings-item auth">
               <button type="button">{auth.login}</button>
             </li>
           </ul>

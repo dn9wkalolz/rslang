@@ -26,9 +26,11 @@ module.exports = {
     "import/prefer-default-export": "off",
     "no-nested-ternary": "off",
     "no-else-return": "off",
+    'import/no-cycle': 'off',
     "react/no-danger": "off",
     "no-underscore-dangle": 'off',
     "no-param-reassign": 'off',
     "@typescript-eslint/naming-convention": 'off',
+    "linebreak-style": "off",
   },
 };

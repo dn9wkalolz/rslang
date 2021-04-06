@@ -6,7 +6,11 @@
     font-size: $font-size-30;
     margin-bottom: 30px;
     font-weight: 500;
-    text-align: right;
+    text-align: center;
+
+    @media (min-width: 1024px) {
+      text-align: right;
+    }
   }
 
   &-content {
@@ -30,7 +34,7 @@
     @extend %shadow;
 
     @media (min-width: 768px) {
-      width: calc(50% - 40px);
+      width: calc(33.33% - 20px);
       margin-bottom: 80px;
     }
 
