@@ -1,11 +1,11 @@
-import homepageImages from './media';
+import Images from './media';
 
 export const homepageContent = {
   hero: {
     title: 'Начни изучать <b> английский </b> прямо сейчас',
     description: 'Наше приложение позволяет выучить 4000 наиболее употребляемых английских слов по современной методике интервального повторения',
     button: 'Начать',
-    img: homepageImages.HomepageBanner,
+    img: Images.HomepageBanner,
     imgAlt: 'Начни изучать английский прямо сейчас',
   },
   video: {
@@ -17,26 +17,26 @@ export const homepageContent = {
     pluses: [
       {
         text: 'Статистика твоего прогресса',
-        img: homepageImages.Pie,
+        img: Images.Pie,
         key: 'pie',
       },
       {
         text: 'Игровая форма обучения',
-        img: homepageImages.Game,
+        img: Images.Game,
         key: 'game',
       },
       {
         text: 'Занятия в любом месте',
-        img: homepageImages.Globe,
+        img: Images.Globe,
         key: 'globe',
       },
       {
         text: 'В любое время',
-        img: homepageImages.Time,
+        img: Images.Time,
         key: 'time',
       },
     ],
-    image: homepageImages.HomepageFeatures,
+    image: Images.HomepageFeatures,
   },
   games: {
     title: 'Игры',
@@ -45,7 +45,7 @@ export const homepageContent = {
         title: 'Саванна',
         subtitle: 'Способствует употреблению  выученных слов в разговоре',
         description: 'Успей выбрать правильный перевод до того как слово коснётся земли',
-        img: homepageImages.HomepageSavannah,
+        img: Images.HomepageSavannah,
         key: 'savannah',
         link: '/games/savannah',
       },
@@ -53,7 +53,7 @@ export const homepageContent = {
         title: 'Аудиовызов',
         subtitle: 'Улучшает восприятие английской речи',
         description: 'После проигрывания английского  слова, нужно выбрать правильный перевод',
-        img: homepageImages.HomepageAudioCall,
+        img: Images.HomepageAudioCall,
         key: 'audiocall',
         link: '/games/audiocall',
       },
@@ -61,7 +61,7 @@ export const homepageContent = {
         title: 'Спринт',
         subtitle: 'Развивает словарный запас',
         description: 'Нужно выбрать правильный или неправильный перевод английского слова указан на экране',
-        img: homepageImages.HomepageSprint,
+        img: Images.HomepageSprint,
         key: 'sprint',
         link: '/games/sprint',
       },
@@ -69,12 +69,12 @@ export const homepageContent = {
         title: 'Переводчик',
         subtitle: 'Тренирует правописание',
         description: 'Переводи русские слова на английский язык',
-        img: homepageImages.HomepageTranslator,
+        img: Images.HomepageTranslator,
         key: 'translator',
         link: '/games/translator',
       },
     ],
-    image: homepageImages.HomepageGames,
+    image: Images.HomepageGames,
   },
   team: {
     title: 'Над проектом работали',
@@ -83,21 +83,21 @@ export const homepageContent = {
         name: 'Алексей',
         game: 'Разработка игры "Аудиовызов"',
         page: 'Реализация авторизации',
-        img: homepageImages.Dev1,
+        img: Images.Dev1,
         key: 'dev1',
       },
       {
         name: 'Валерия',
         game: 'Разработка игр "Саванна" и "Переводчик"',
         page: 'Реализация страницы "Главная"',
-        img: homepageImages.Dev3,
+        img: Images.Dev3,
         key: 'dev3',
       },
       {
         name: 'Сергей',
         game: 'Разработка игры "Спринт"',
         page: 'Реализация страниц "Словарь" и "Учебник"',
-        img: homepageImages.Dev4,
+        img: Images.Dev4,
         key: 'dev4',
       },
     ],
@@ -109,14 +109,14 @@ export const homepageContent = {
 };
 
 export const header = {
-  burger: homepageImages.Burger,
+  burger: Images.Burger,
   logo: {
-    img: homepageImages.Logo,
+    img: Images.Logo,
     imagAlt: 'RSLang',
     link: '/',
   },
   settings: {
-    img: homepageImages.Settings,
+    img: Images.Settings,
     imgAlt: 'Настройки',
     name: 'Настройки',
   },
@@ -160,11 +160,11 @@ export const header = {
 
 export const footer = {
   course: {
-    img: homepageImages.RSSLogo,
+    img: Images.RSSLogo,
     imgAlt: 'RSSchool',
     link: 'https://rs.school/js/',
   },
-  githubLogo: homepageImages.GitHubLogo,
+  githubLogo: Images.GitHubLogo,
   year: '2021 год',
   developers: [
     {
@@ -188,13 +188,32 @@ export const footer = {
 export const ownGameContent = {
   title: 'Переводчик',
   chooseLevel: 'Выберите уровень сложности',
-  levels: ['Изян', 'Легко', 'Норм', 'Уже сложнее', 'Сложно', 'Жесть'],
+  levels: ['Уровень 1', 'Уровень 2', 'Уровень 3', 'Уровень 4', 'Уровень 5', 'Уровень 6'],
   loading: 'Идет загрузка...',
   checkButton: 'Проверим?',
   nextButton: 'Следующее слово',
-  results: 'Ваши результаты:',
-  learned: 'Изучено:',
-  tolearn: 'Для повторения',
+  results: 'Результаты',
+  learned: 'Верно',
+  tolearn: 'Ошибок',
+  fullscreen: Images.Fullscreen,
+  fullscreenAlt: 'Во весь экран',
+  play: {
+    img: Images.Play,
+    imgAlt: 'Прослушать',
+  },
+  wrong: {
+    img: Images.WrongIcon,
+    imgAlt: 'Ошибок',
+  },
+  right: {
+    img: Images.CheckIcon,
+    imgAlt: 'Верно',
+  },
+  restart: 'Сыграть еще раз',
+};
+
+export const SavannahContent = {
+  title: 'Саванна',
 };
 
 export const audiocallGameContent = {

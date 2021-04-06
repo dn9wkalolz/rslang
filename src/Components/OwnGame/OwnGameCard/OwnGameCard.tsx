@@ -57,9 +57,11 @@ function OwnGameCard(props:any) {
       <div className="own-game__card--image">
         <img src={`${BASE_URL}/${word.image}`} alt={word.word} />
       </div>
-      <h2 className="own-game__card--word">{word.word}</h2>
-      <p className="own-game__card--transcription">{word.transcription}</p>
-      <h2 className="own-game__card--translation">{word.wordTranslate}</h2>
+      <div className="own-game__card--content">
+        <h2 className="own-game__card--word">{word.word}</h2>
+        <p className="own-game__card--transcription">{word.transcription}</p>
+        <h2 className="own-game__card--translation">{word.wordTranslate}</h2>
+      </div>
       <div className="own-game__card--form">
         <input
           className={`own-game__card--input ${isChecking ? 'disabled' : ''}`}
@@ -68,13 +70,13 @@ function OwnGameCard(props:any) {
         />
         <button
           type="button"
-          className={`own-game__card--check ${isChecking ? 'disabled' : ''}`}
+          className={`own-game__card--check ${isChecking ? 'hidden' : ''}`}
           onClick={handleCheck}
         >
           {ownGameContent.checkButton}
         </button>
+        <button type="button" className="own-game__card--next" onClick={handleNext}>{ownGameContent.nextButton}</button>
       </div>
-      <button type="button" className="own-game__card--next" onClick={handleNext}>{ownGameContent.nextButton}</button>
     </div>
   );
 }

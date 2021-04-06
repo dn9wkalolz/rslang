@@ -2,26 +2,45 @@
 @import '../../../assets/css/base/extends.scss';
 
 .own-game__choose-level {
+  position: relative;
   width: 100%;
   min-height: calc(100vh - 180px);
+  overflow-x: hidden;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
   padding: 20px;
+  margin: 60px auto 0;
+  padding: 20px;
+  background-image: url('../../../assets/img/Own-game-bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 
-  @media (min-width: 768px) {
-    padding: 20px 100px;
+  &.translator {
+    background-image: url('../../../assets/img/Own-game-bg.jpg');
+  }
+
+  &.savannah {
+    background-image: url('../../../assets/img/Savannah-bg.jpg');
+  }
+
+  @media (min-width: 1024px) {
+    margin: 80px auto 0;
+    padding: 20px 50px;
   }
 
   &--title {
     font-size: $font-size-30;
     margin-bottom: 30px;
+    color: $color-white;
   }
 
   &--subtitle {
     font-size: $font-size-20;
     margin-bottom: 30px;
+    color: $color-white;
   }
 
   &--cards {
@@ -54,9 +73,10 @@
       height: 40vw;
       border-radius: 15px;
       border: none;
-      color: $color-white;
+      color: $color-black;
+      font-weight: 700;
 
-      @extend %gradient;
+      @extend %card;
 
       @media (min-width: 768px) {
         width: 200px;

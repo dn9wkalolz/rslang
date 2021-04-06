@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { header } from '../../data/content';
 import './Header.scss';

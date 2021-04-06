@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { selectSavannah } from './SavannahWord/SavannahWordSlice';
 import SavannahWord from './SavannahWord/SavannahWord';
 import './Savannah.scss';
+import { ownGameContent } from '../../data/content';
 import SavannahResults from './SavannahResults/SavannahResults';
 
 function Savannah(props:any) {
@@ -10,6 +11,18 @@ function Savannah(props:any) {
   const { current, outOfLives } = useSelector(selectSavannah);
   const [translations, setTranslations] = useState<Array<[]>>([]);
   const prevCurrent = useRef<number>(0);
+  const [fullscreen, setFullscreen] = useState<boolean>(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  function handleFullscreen() {
+    if (!fullscreen) {
+      ref.current?.requestFullscreen();
+      setFullscreen(!fullscreen);
+    } else {
+      document.exitFullscreen();
+      setFullscreen(!fullscreen);
+    }
+  }
 
   function renderOptions() {
     setTranslations([]);
@@ -54,13 +67,21 @@ function Savannah(props:any) {
 
   if (current < words.length && outOfLives === false) {
     return (
-      <div className="savannah">
+      <div className="own-game savannah" ref={ref}>
+        <button className="own-game__fullscreen" type="button" onClick={handleFullscreen}>
+          <img src={ownGameContent.fullscreen} alt={ownGameContent.fullscreenAlt} />
+        </button>
         <SavannahWord word={words[current]} words={words} translations={translations} />
       </div>
     );
   } else {
     return (
-      <SavannahResults />
+      <div className="own-game savannah" ref={ref}>
+        <button className="own-game__fullscreen" type="button" onClick={handleFullscreen}>
+          <img src={ownGameContent.fullscreen} alt={ownGameContent.fullscreenAlt} />
+        </button>
+        <SavannahResults />
+      </div>
     );
   }
 }

@@ -26,8 +26,14 @@ function App() {
           <Route exact path="/">
             <HomePage />
           </Route>
+          <Route path="/games/savannah">
+            <SavannahChooseLevel />
+          </Route>
           <Route path="/games/translator">
             <OwnGameChooseLevel />
+          </Route>
+          <Route path="/games/audiocall">
+            <AudiocallStartScreen />
           </Route>
           <Route path="/games/sprint">
             <LeoSprintGame />
@@ -35,40 +41,18 @@ function App() {
           <Route path="/textbook">
             <TextBook />
           </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
           <Route path="/vocabulary">
             <MyTextBook />
           </Route>
         </Switch>
         <Footer />
       </LastLocationProvider>
-      <Header />
-      <Switch>
-        <Route exact path="/">
-          <HomePage />
-        </Route>
-        <Route path="/games/savannah">
-          <SavannahChooseLevel />
-        </Route>
-        <Route path="/games/translator">
-          <OwnGameChooseLevel />
-        </Route>
-        <Route path="/games/audiocall">
-          <AudiocallStartScreen />
-        </Route>
-        <Route path="/games/sprint">
-          <LeoSprintGame />
-        </Route>
-        <Route path="/textbook">
-          <TextBook />
-        </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-      </Switch>
-      <Footer />
     </BrowserRouter>
   );
 }
