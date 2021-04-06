@@ -1,23 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { IWordSetElem } from '../../interfaces/commonInterfaces';
-import { RootState } from '../../store/rootReducer';
+import { useSelector, useDispatch } from 'react-redux';
+import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 import Word from './Word';
+import { baseUrl } from '../../data/content';
+import {
+  selectTextbookState,
+  setPage, setPagesButtons, setPagesWord, setPaginatedWordSet,
+} from '../../store/textbookActions';
+import { setLeosprintPage } from '../../store/leoSprintActions';
 
 const Dictionary: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const [wordSet, setWordSet] = useState<IWordSetElem[]>([]);
   const [error, setError] = useState<any>(null);
-  const [page, group] = useSelector(
-    (state: RootState) => [state.textbookState.page, state.textbookState.group],
-  );
+  const {
+    page, group, paginatedWordSet, pagesWord,
+  } = useSelector(selectTextbookState);
+  const userId = sessionStorage.getItem('userId');
+  const token = sessionStorage.getItem('token');
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    const filterString = '{"$or":[{"userWord.difficulty":"hard"}, {"userWord.difficulty":"learned"}, {"userWord.difficulty":"restored"}, {"userWord":null}]}';
     setIsLoaded(false);
-    fetch(`https://rslang-61.herokuapp.com/words?page=${page}&group=${group}`)
+    fetch(`${baseUrl}users/${userId}/aggregatedWords?group=${group}&wordsPerPage=600&filter=${filterString}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      },
+    })
       .then((response) => response.json())
       .then(
         (result) => {
-          setWordSet(result);
+          const { paginatedResults }: { paginatedResults: IPaginatedWordSetElem[] } = result[0];
+          const pageButtons = paginatedResults.map((word) => word.page);
+          const uniquePageButtons = Array.from(new Set(pageButtons)).sort((a, b) => a - b);
+          const wordSet = paginatedResults.filter((word) => word.page === page);
+          dispatch(setPage(uniquePageButtons[0]));
+          dispatch(setLeosprintPage(uniquePageButtons[0]));
+          dispatch(setPagesButtons(uniquePageButtons));
+          dispatch(setPaginatedWordSet(paginatedResults));
+          dispatch(setPagesWord(wordSet));
           setIsLoaded(true);
         },
         (err) => {
@@ -25,18 +48,23 @@ const Dictionary: React.FC = () => {
           setError(err);
         },
       );
-  }, [group, page]);
+  }, [group]);
+
+  useEffect(() => {
+    const wordSet = paginatedWordSet.filter((word) => word.page === page);
+    dispatch(setPagesWord(wordSet));
+  }, [page, paginatedWordSet]);
 
   if (error) {
     return <div>{`Ошибка: ${error.message}`}</div>;
   }
   if (!isLoaded) {
-    return <div>Loading..</div>;
+    return <div>Loading...</div>;
   }
 
   return (
     <div className="textbook__dictionary">
-      {wordSet.map((wordElem) => (<Word key={wordElem.id} {...{ wordElem }} />))}
+      {pagesWord.map((wordElem) => (<Word key={wordElem._id} {...{ wordElem }} />))}
     </div>
   );
 };

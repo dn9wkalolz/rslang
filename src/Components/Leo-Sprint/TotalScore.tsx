@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store/rootReducer';
+import { selectLeosprintGame } from '../../store/leoSprintActions';
 
 const TotalScore: React.FC = () => {
-  const score = useSelector((state: RootState) => state.leosprintState.score);
+  const { score } = useSelector(selectLeosprintGame);
   return <div>{`Score: ${score}`}</div>;
 };
 

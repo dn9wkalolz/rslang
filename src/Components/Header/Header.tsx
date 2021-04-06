@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { header } from '../../data/content';
@@ -12,6 +13,38 @@ const Header: React.FC = () => {
   function toggleMenu() {
     setMenuOpen(!menuOpen);
   }
+
+  useEffect(() => {
+    // const createUser = async (user: any) => {
+    //   const rawResponse = await fetch('https://rslang-61.herokuapp.com/users', {
+    //     method: 'POST',
+    //     headers: {
+    //       Accept: 'application/json',
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(user),
+    //   });
+    //   const content = await rawResponse.json();
+
+    //   console.log(content);
+    // };
+
+    // createUser({ email: 'lopux@user.com', password: 'qwertyuiop' });
+    const loginUser = async (user: any) => {
+      const rawResponse = await fetch('https://rslang-61.herokuapp.com/signin', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      });
+      const content = await rawResponse.json();
+      sessionStorage.setItem('token', content.token);
+      sessionStorage.setItem('userId', content.userId);
+    };
+    loginUser({ email: 'lopux@user.com', password: 'qwertyuiop' });
+  }, []);
 
   return (
     <header className="header">

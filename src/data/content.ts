@@ -205,5 +205,20 @@ export const audiocallGameContent = {
 };
 
 export const textBookContent = {
+  title: 'Спринт',
   groups: ['Раздел 1', 'Раздел 2', 'Раздел 3', 'Раздел 4', 'Раздел 5', 'Раздел 6'],
+  sections: [
+    { id: 0, name: 'Изучаемые слова', category: '{"$or":[{"userWord.difficulty":"hard"}, {"userWord.difficulty":"learned"}]}' },
+    { id: 1, name: 'Сложные слова', category: '{"userWord.difficulty":"hard"}' },
+    { id: 2, name: 'Удаленные слова', category: '{"userWord.difficulty":"deleted"}' },
+  ],
 };
+
+export const DIFFICULTY = {
+  RESTORED: 'restored',
+  HARD: 'hard',
+  DELETED: 'deleted',
+  LEARNED: 'learned',
+};
+
+export const baseUrl = 'https://rslang-61.herokuapp.com/';

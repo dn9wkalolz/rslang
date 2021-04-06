@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux';
+import { vocabularyReducer } from './vocabularyReducer';
 import { Action, combineReducers } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { OwnGameReducer } from '../Components/OwnGame/OwnGameCard/OwnGameCardSlice';
@@ -11,6 +13,7 @@ export const rootReducer = combineReducers({
   OwnGame: OwnGameReducer,
   leosprintState: leoSprintReducer,
   textbookState: textbookReducer,
+  vocabularyState: vocabularyReducer,
   Savannah: SavannahReducer,
 });
 
