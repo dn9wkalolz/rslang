@@ -195,8 +195,10 @@ export const ownGameContent = {
   results: 'Результаты',
   learned: 'Верно',
   tolearn: 'Ошибок',
-  fullscreen: Images.Fullscreen,
-  fullscreenAlt: 'Во весь экран',
+  screen: {
+    img: Images.Fullscreen,
+    imgAlt: 'Во весь экран',
+  },
   play: {
     img: Images.Play,
     imgAlt: 'Прослушать',

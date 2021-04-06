@@ -13,6 +13,7 @@ function Savannah(props:any) {
   const prevCurrent = useRef<number>(0);
   const [fullscreen, setFullscreen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
+  const { screen } = ownGameContent;
 
   function handleFullscreen() {
     if (!fullscreen) {
@@ -69,7 +70,7 @@ function Savannah(props:any) {
     return (
       <div className="own-game savannah" ref={ref}>
         <button className="own-game__fullscreen" type="button" onClick={handleFullscreen}>
-          <img src={ownGameContent.fullscreen} alt={ownGameContent.fullscreenAlt} />
+          <img src={screen.img} alt={screen.imgAlt} />
         </button>
         <SavannahWord word={words[current]} words={words} translations={translations} />
       </div>
@@ -78,7 +79,7 @@ function Savannah(props:any) {
     return (
       <div className="own-game savannah" ref={ref}>
         <button className="own-game__fullscreen" type="button" onClick={handleFullscreen}>
-          <img src={ownGameContent.fullscreen} alt={ownGameContent.fullscreenAlt} />
+          <img src={screen.img} alt={screen.imgAlt} />
         </button>
         <SavannahResults />
       </div>

@@ -11,6 +11,7 @@ function OwnGame(props:any) {
   const { current } = useSelector(selectOwnGame);
   const [fullscreen, setFullscreen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
+  const { screen } = ownGameContent;
 
   function handleFullscreen() {
     if (!fullscreen) {
@@ -26,7 +27,7 @@ function OwnGame(props:any) {
     return (
       <div className="own-game translator" ref={ref}>
         <button className="own-game__fullscreen" type="button" onClick={handleFullscreen}>
-          <img src={ownGameContent.fullscreen} alt={ownGameContent.fullscreenAlt} />
+          <img src={screen.img} alt={screen.imgAlt} />
         </button>
         <OwnGameCard word={words[current]} />
       </div>
@@ -35,7 +36,7 @@ function OwnGame(props:any) {
     return (
       <div className="own-game translator" ref={ref}>
         <button className="own-game__fullscreen" type="button" onClick={handleFullscreen}>
-          <img src={ownGameContent.fullscreen} alt={ownGameContent.fullscreenAlt} />
+          <img src={screen.img} alt={screen.imgAlt} />
         </button>
         <OwnGameReuslts />
       </div>
