@@ -16,13 +16,13 @@
 // }
 
 interface IOptional {
-  wrong?: number
-  right?: number
+  wrong: number
+  right: number
 }
 
 export interface IUserWord {
-  difficulty?: string
-  optional?: IOptional
+  difficulty: string
+  optional: IOptional
 }
 export interface IPaginatedWordSetElem {
   _id: string
@@ -39,5 +39,5 @@ export interface IPaginatedWordSetElem {
   wordTranslate: string
   textMeaningTranslate: string
   textExampleTranslate: string
-  userWord?: IUserWord
+  userWord: IUserWord
 }

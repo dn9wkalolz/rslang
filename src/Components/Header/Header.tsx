@@ -9,6 +9,21 @@ const Header: React.FC = () => {
   } = header;
 
   useEffect(() => {
+    // const createUser = async (user: any) => {
+    //   const rawResponse = await fetch('https://rslang-61.herokuapp.com/users', {
+    //     method: 'POST',
+    //     headers: {
+    //       Accept: 'application/json',
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(user),
+    //   });
+    //   const content = await rawResponse.json();
+
+    //   console.log(content);
+    // };
+
+    // createUser({ email: 'lopux@user.com', password: 'qwertyuiop' });
     const loginUser = async (user: any) => {
       const rawResponse = await fetch('https://rslang-61.herokuapp.com/signin', {
         method: 'POST',
@@ -22,7 +37,7 @@ const Header: React.FC = () => {
       sessionStorage.setItem('token', content.token);
       sessionStorage.setItem('userId', content.userId);
     };
-    loginUser({ email: 'test@user.com', password: 'qwertyuiop' });
+    loginUser({ email: 'lopux@user.com', password: 'qwertyuiop' });
   }, []);
 
   return (

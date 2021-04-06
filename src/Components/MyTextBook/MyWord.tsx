@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { baseUrl, textBookContent } from '../../data/content';
+import { baseUrl, DIFFICULTY, textBookContent } from '../../data/content';
 import { useFetchWithCondition } from '../../data/requestMethods';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 import { selectVocabularyState, setVocabularyPaginatedWordSet } from '../../store/vocabularyActions';
@@ -10,6 +10,7 @@ interface IWords {
 }
 
 const MyWord: React.FC<IWords> = ({ wordElem }) => {
+  const { HARD, DELETED, RESTORED } = DIFFICULTY;
   const dispatch = useDispatch();
   const {
     audio,
@@ -25,25 +26,44 @@ const MyWord: React.FC<IWords> = ({ wordElem }) => {
   } = wordElem;
   const { section, paginatedWordSet } = useSelector(selectVocabularyState);
   const { sections } = textBookContent;
+  const learnedSection = sections[0].category;
   const hardSection = sections[1].category;
   const deletedSection = sections[2].category;
   const sound = new Audio(baseUrl + audio);
 
+  const assignWordsetProperty = (wordEl: IPaginatedWordSetElem, difficulty: string) => {
+    wordEl.userWord = { ...wordEl.userWord, difficulty };
+    return { ...wordElem };
+  };
+
   const setHardDifficulty = (wordId: string) => {
+    if (section === learnedSection) {
+      const changedPaginationWordset = paginatedWordSet.map(
+        (wordEl) => {
+          if (wordEl._id === wordId) {
+            return assignWordsetProperty(wordEl, HARD);
+          }
+          return wordEl;
+        },
+      );
+      useFetchWithCondition(wordId, HARD, userWord);
+      dispatch(setVocabularyPaginatedWordSet(changedPaginationWordset));
+      return;
+    }
     const sortedPaginationWordset = paginatedWordSet.filter((wordEl) => wordEl._id !== wordId);
-    useFetchWithCondition(wordId, 'hard', true);
+    useFetchWithCondition(wordId, HARD, userWord);
     dispatch(setVocabularyPaginatedWordSet(sortedPaginationWordset));
   };
 
   const deleteWord = (wordId: string) => {
     const sortedPaginationWordset = paginatedWordSet.filter((wordEl) => wordEl._id !== wordId);
-    useFetchWithCondition(wordId, 'deleted', true);
+    useFetchWithCondition(wordId, DELETED, userWord);
     dispatch(setVocabularyPaginatedWordSet(sortedPaginationWordset));
   };
 
   const restoreWord = (wordId: string) => {
     const sortedPaginationWordset = paginatedWordSet.filter((wordEl) => wordEl._id !== wordId);
-    useFetchWithCondition(wordId, 'restored', true);
+    useFetchWithCondition(wordId, RESTORED, userWord);
     dispatch(setVocabularyPaginatedWordSet(sortedPaginationWordset));
   };
 
@@ -88,6 +108,12 @@ const MyWord: React.FC<IWords> = ({ wordElem }) => {
             Восстановить
           </button>
         </div>
+        {section === learnedSection ? (
+          <div>
+            {`Правильно угадано: ${wordElem.userWord?.optional.right || 0} 
+                Ошибок: ${wordElem.userWord?.optional.wrong || 0}`}
+          </div>
+        ) : null}
       </div>
     </div>
   );

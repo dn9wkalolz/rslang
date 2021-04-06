@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useFetchToSetRightAnswer, useFetchToSetWrongAnswer, useFetchWithCondition } from '../../data/requestMethods';
+import { DIFFICULTY } from '../../data/content';
+import { useFetchWithCondition } from '../../data/requestMethods';
 import {
   incrementScore, rightHandler, selectLeosprintGame, setLeosprintPage, wrongHandler,
 } from '../../store/leoSprintActions';
@@ -13,6 +14,7 @@ interface IClickHandler {
 }
 
 const LanguageQuest: React.FC = () => {
+  const { LEARNED } = DIFFICULTY;
   const { page } = useSelector(selectLeosprintGame);
   const {
     pagesWord, paginatedWordSet, pagesButtons,
@@ -40,17 +42,14 @@ const LanguageQuest: React.FC = () => {
     if (nameToBoolean === condition) {
       dispatch(incrementScore());
       dispatch(rightHandler(answer));
-      useFetchToSetRightAnswer(id, userWord?.optional);
+      useFetchWithCondition(id, LEARNED, userWord, { wrong: 0, right: 1 });
       return;
     }
     dispatch(wrongHandler(answer));
-    useFetchToSetWrongAnswer(id, userWord?.optional);
+    useFetchWithCondition(id, LEARNED, userWord, { wrong: 1, right: 0 });
   };
 
   const clickHandler = ({ e, condition, id }: IClickHandler): void => {
-    if (userWord?.difficulty !== 'hard') {
-      useFetchWithCondition(id, 'learned', !!userWord?.difficulty);
-    }
     answerHandler({ e, condition, id });
     if (pagesWord.length === 1) {
       const pagePrediction = page + 1;

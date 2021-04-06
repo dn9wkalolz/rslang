@@ -1,118 +1,45 @@
-import { baseUrl } from './content';
+import { baseUrl, DIFFICULTY } from './content';
 
 const token = sessionStorage.getItem('token');
 const userId = sessionStorage.getItem('userId');
 
-export const useFetchWithCondition = (wordId: string, difficulty: string, condition: boolean) => {
+export const useFetchWithCondition = (
+  wordId: string, difficulty: string, userWord: any, increment?: any,
+) => {
+  const { HARD, LEARNED } = DIFFICULTY;
+  if (!userWord) {
+    fetch(`${baseUrl}users/${userId}/words/${wordId}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        difficulty,
+        optional: { wrong: increment?.wrong || 0, right: increment?.right || 0 },
+      }),
+    })
+      .then((response) => response.json())
+      .then((result) => console.log(result));
+    return;
+  }
+  const { wrong, right } = userWord.optional;
   fetch(`${baseUrl}users/${userId}/words/${wordId}`, {
-    method: condition ? 'PUT' : 'POST',
+    method: 'PUT',
     headers: {
       Authorization: `Bearer ${token}`,
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ difficulty }),
+    body: JSON.stringify({
+      difficulty: userWord.difficulty === HARD && difficulty === LEARNED ? HARD : difficulty,
+      optional: {
+        wrong: difficulty === LEARNED ? wrong + increment.wrong : wrong,
+        right: difficulty === LEARNED ? right + increment.right : right,
+      },
+    }),
   })
     .then((response) => response.json())
     .then((result) => console.log(result));
-};
-
-// export const useFetchWithCondition2 = (wordId: string, difficulty: string, userWord: any) => {
-//   if (!userWord) {
-//     fetch(`${baseUrl}users/${userId}/words/${wordId}`, {
-//       method: 'POST',
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//         Accept: 'application/json',
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({ difficulty, optional: {wrong: 0, right: 0} }),
-//     })
-//       .then((response) => response.json())
-//       .then((result) => console.log(result));
-//     return;
-//   }
-//   fetch(`${baseUrl}users/${userId}/words/${wordId}`, {
-//     method: 'PUT',
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//       Accept: 'application/json',
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({ difficulty, optional: {wrong: userWord.opt, right: 0} }),
-//   })
-//     .then((response) => response.json())
-//     .then((result) => console.log(result));
-// };
-
-export const useFetchToSetWrongAnswer = (wordId: string, optional: any) => {
-  fetch(`${baseUrl}users/${userId}/words/${wordId}`, {
-    method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      optional: {
-        ...optional,
-        wrong: optional?.wrong !== undefined ? optional?.wrong + 1 : 1,
-      },
-    }),
-  })
-    .then((response) => response.json())
-    .then((result) => console.log(result))
-    .catch(() => {
-      fetch(`${baseUrl}users/${userId}/words/${wordId}`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          optional: {
-            wrong: 1,
-          },
-        }),
-      })
-        .then((response) => response.json())
-        .then((result) => console.log(result));
-    });
-};
-
-export const useFetchToSetRightAnswer = (wordId: string, optional: any) => {
-  fetch(`${baseUrl}users/${userId}/words/${wordId}`, {
-    method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      optional: {
-        ...optional,
-        right: optional?.right !== undefined ? optional?.right + 1 : 1,
-      },
-    }),
-  })
-    .then((response) => response.json())
-    .then((result) => console.log(result))
-    .catch(() => {
-      fetch(`${baseUrl}users/${userId}/words/${wordId}`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          optional: {
-            right: 1,
-          },
-        }),
-      })
-        .then((response) => response.json())
-        .then((result) => console.log(result));
-    });
 };

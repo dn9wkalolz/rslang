@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { baseUrl } from '../../data/content';
+import { baseUrl, DIFFICULTY } from '../../data/content';
 import { useFetchWithCondition } from '../../data/requestMethods';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 import {
@@ -12,6 +12,7 @@ interface IWords {
 }
 
 const Word: React.FC<IWords> = ({ wordElem }) => {
+  const { HARD, DELETED } = DIFFICULTY;
   const {
     audio,
     page,
@@ -38,8 +39,12 @@ const Word: React.FC<IWords> = ({ wordElem }) => {
     dispatch(changePage(changingPage));
   };
 
-  const assignHardDifficylty = (wordEl: IPaginatedWordSetElem) => {
-    wordEl.userWord = { difficulty: 'hard' };
+  const assignWordsetProperty = (wordEl: IPaginatedWordSetElem, difficulty: string) => {
+    if (!userWord) {
+      wordEl.userWord = { difficulty, optional: { wrong: 0, right: 0 } };
+      return { ...wordElem };
+    }
+    wordEl.userWord = { ...wordEl.userWord, difficulty };
     return { ...wordElem };
   };
 
@@ -47,18 +52,18 @@ const Word: React.FC<IWords> = ({ wordElem }) => {
     const sortedPaginationWordset = paginatedWordSet.map(
       (wordEl) => {
         if (wordEl._id === wordId) {
-          return assignHardDifficylty(wordEl);
+          return assignWordsetProperty(wordEl, HARD);
         }
         return wordEl;
       },
     );
-    useFetchWithCondition(wordId, 'hard', !!userWord?.difficulty);
+    useFetchWithCondition(wordId, HARD, userWord);
     dispatch(changeStateWord(sortedPaginationWordset));
   };
 
   const deleteWord = (wordId: string, currPage: number) => {
     const sortedPaginationWordset = paginatedWordSet.filter((wordEl) => wordEl._id !== wordId);
-    useFetchWithCondition(wordId, 'deleted', !!userWord?.difficulty);
+    useFetchWithCondition(wordId, DELETED, userWord);
     if (pagesWord.length === 1) {
       updatePageButtons(currPage);
     }

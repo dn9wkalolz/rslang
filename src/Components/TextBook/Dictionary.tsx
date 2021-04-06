@@ -34,7 +34,7 @@ const Dictionary: React.FC = () => {
         (result) => {
           const { paginatedResults }: { paginatedResults: IPaginatedWordSetElem[] } = result[0];
           const pageButtons = paginatedResults.map((word) => word.page);
-          const uniquePageButtons = Array.from(new Set(pageButtons));
+          const uniquePageButtons = Array.from(new Set(pageButtons)).sort((a, b) => a - b);
           const wordSet = paginatedResults.filter((word) => word.page === page);
           dispatch(setPage(uniquePageButtons[0]));
           dispatch(setLeosprintPage(uniquePageButtons[0]));

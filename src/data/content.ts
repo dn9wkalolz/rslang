@@ -217,4 +217,11 @@ export const textBookContent = {
   ],
 };
 
+export const DIFFICULTY = {
+  RESTORED: 'restored',
+  HARD: 'hard',
+  DELETED: 'deleted',
+  LEARNED: 'learned',
+};
+
 export const baseUrl = 'https://rslang-61.herokuapp.com/';
