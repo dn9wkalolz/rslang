@@ -1,12 +1,21 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { header } from '../../data/content';
 import './Header.scss';
+import { RootState } from '../../store/rootReducer';
+import { logout } from '../../store/authReducer';
 
 const Header: React.FC = () => {
+  const dispatch = useDispatch();
+  const { isAuth, name } = useSelector((state: RootState) => state.auth);
   const {
     logo, settings, pages, auth,
   } = header;
+
+  const onLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <header className="header">
@@ -31,7 +40,13 @@ const Header: React.FC = () => {
               <img src={settings.img} alt={settings.imgAlt} />
             </li>
             <li className="header__settings-item">
-              <button type="button">{auth.login}</button>
+              {isAuth ? (
+                <>
+                  {name}
+                  {' '}
+                  <button onClick={onLogout} type="button">{auth.logout}</button>
+                </>
+              ) : <NavLink to="/login">{auth.login}</NavLink>}
             </li>
           </ul>
         </div>

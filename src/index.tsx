@@ -9,11 +9,12 @@ import './assets/css/reset.css';
 import './assets/css/base/fontello.css';
 import './assets/css/base/common.scss';
 
-const store = createStore(rootReducer, compose(
-  applyMiddleware(thunk),
-  // eslint-disable-next-line no-underscore-dangle
-  (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
-));
+// @ts-ignore
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk)),
+);
 
 const app = (
   <Provider store={store}>

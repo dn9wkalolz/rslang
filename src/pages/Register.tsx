@@ -1,27 +1,38 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {
   Box,
-  Button,
   Container,
   Link,
   TextField,
   Typography,
 } from '@material-ui/core';
+import LoadingButton from '@material-ui/lab/LoadingButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { createUser } from '../store/authReducer';
+import { RootState } from '../store/rootReducer';
 
 type FormValues = {
-  firstName: string
+  name: string
   email: string
   password: string
 };
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const { isFetching, isRegister } = useSelector((state: RootState) => state.auth);
+
   const submit = (data: FormValues) => {
-    console.log('Form data: ', data);
+    const { email, password, name } = data;
+    dispatch(createUser(email, password, name));
   };
+
+  if (isRegister) {
+    return <Redirect to="/login" />;
+  }
 
   return (
     <>
@@ -33,13 +44,13 @@ const Register = () => {
           <Formik
             initialValues={{
               email: '',
-              firstName: '',
+              name: '',
               password: '',
             }}
             validationSchema={
               Yup.object().shape({
                 email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                firstName: Yup.string().max(255).required('First name is required'),
+                name: Yup.string().max(255).required('Name is required'),
                 password: Yup
                   .string()
                   .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character')
@@ -76,15 +87,15 @@ const Register = () => {
                   </Typography>
                 </Box>
                 <TextField
-                  error={Boolean(touched.firstName && errors.firstName)}
+                  error={Boolean(touched.name && errors.name)}
                   fullWidth
-                  helperText={touched.firstName && errors.firstName}
-                  label="First name"
+                  helperText={touched.name && errors.name}
+                  label="Name"
                   margin="normal"
-                  name="firstName"
+                  name="name"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.firstName}
+                  value={values.name}
                   variant="outlined"
                 />
                 <TextField
@@ -114,16 +125,17 @@ const Register = () => {
                   variant="outlined"
                 />
                 <Box>
-                  <Button
+                  <LoadingButton
                     color="primary"
                     disabled={isSubmitting}
+                    pending={isFetching}
                     fullWidth
                     size="large"
                     type="submit"
                     variant="contained"
                   >
                     Зарегистрироваться
-                  </Button>
+                  </LoadingButton>
                 </Box>
                 <Typography
                   color="textSecondary"

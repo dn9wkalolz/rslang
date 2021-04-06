@@ -212,6 +212,7 @@ export const audiocallGameContent = {
   description: 'Тренировка, развивающая навыки речи и перевода.',
   title: 'Аудиовызов',
   continueButton: 'Продолжить',
+};
 export const textBookContent = {
   groups: ['Раздел 1', 'Раздел 2', 'Раздел 3', 'Раздел 4', 'Раздел 5', 'Раздел 6'],
 };
