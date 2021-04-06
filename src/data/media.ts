@@ -17,6 +17,7 @@ import GitHubLogo from '../assets/img/Github.png';
 import RSSLogo from '../assets/img/RSS-logo.png';
 import Logo from '../assets/img/Logo.png';
 import Settings from '../assets/img/Settings.png';
+import Burger from '../assets/img/Burger.png';
 
 const homepageImages = {
   HomepageBanner,
@@ -38,6 +39,7 @@ const homepageImages = {
   RSSLogo,
   Logo,
   Settings,
+  Burger,
 };
 
 export default homepageImages;
