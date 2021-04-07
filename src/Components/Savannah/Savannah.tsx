@@ -66,25 +66,18 @@ function Savannah(props:any) {
     }
   });
 
-  if (current < words.length && outOfLives === false) {
-    return (
-      <div className="own-game savannah" ref={ref}>
-        <button className="own-game__fullscreen" type="button" onClick={handleFullscreen}>
-          <img src={screen.img} alt={screen.imgAlt} />
-        </button>
-        <SavannahWord word={words[current]} words={words} translations={translations} />
-      </div>
-    );
-  } else {
-    return (
-      <div className="own-game savannah" ref={ref}>
-        <button className="own-game__fullscreen" type="button" onClick={handleFullscreen}>
-          <img src={screen.img} alt={screen.imgAlt} />
-        </button>
-        <SavannahResults />
-      </div>
-    );
-  }
+  return (
+    <div className="own-game savannah" ref={ref}>
+      <button className="own-game__fullscreen" type="button" onClick={handleFullscreen}>
+        <img src={screen.img} alt={screen.imgAlt} />
+      </button>
+      {
+        (current < words.length && !outOfLives)
+          ? <SavannahWord word={words[current]} words={words} translations={translations} />
+          : <SavannahResults />
+      }
+    </div>
+  );
 }
 
 export default Savannah;

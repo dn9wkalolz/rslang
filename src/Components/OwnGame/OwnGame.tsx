@@ -23,25 +23,18 @@ function OwnGame(props:any) {
     }
   }
 
-  if (current < words.length) {
-    return (
-      <div className="own-game translator" ref={ref}>
-        <button className="own-game__fullscreen" type="button" onClick={handleFullscreen}>
-          <img src={screen.img} alt={screen.imgAlt} />
-        </button>
-        <OwnGameCard word={words[current]} />
-      </div>
-    );
-  } else {
-    return (
-      <div className="own-game translator" ref={ref}>
-        <button className="own-game__fullscreen" type="button" onClick={handleFullscreen}>
-          <img src={screen.img} alt={screen.imgAlt} />
-        </button>
-        <OwnGameReuslts />
-      </div>
-    );
-  }
+  return (
+    <div className="own-game translator" ref={ref}>
+      <button className="own-game__fullscreen" type="button" onClick={handleFullscreen}>
+        <img src={screen.img} alt={screen.imgAlt} />
+      </button>
+      {
+        (current < words.length)
+          ? <OwnGameCard word={words[current]} />
+          : <OwnGameReuslts />
+      }
+    </div>
+  );
 }
 
 export default OwnGame;
