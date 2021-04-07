@@ -5,7 +5,6 @@ import {
   Switch,
 } from 'react-router-dom';
 import { LastLocationProvider } from 'react-router-last-location';
-import Header from './Components/Header/Header';
 import HomePage from './Components/HomePage/HomePage';
 import Footer from './Components/Footer/Footer';
 import OwnGameChooseLevel from './Components/OwnGame/OwnGameChooseLevel/OwnGameChooseLevel';
@@ -16,6 +15,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import AudiocallStartScreen from './Components/Audiocall/AudiocallStartScreen/AudiocallStartScreen';
 import SavannahChooseLevel from './Components/Savannah/SavannahChooseLevel/SavannahChooseLevel';
+import Header from './Components/Header/Header';
 
 function App() {
   return (

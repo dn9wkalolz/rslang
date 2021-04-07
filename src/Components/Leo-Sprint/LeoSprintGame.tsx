@@ -16,9 +16,7 @@ const LeoSprintGame: React.FC = () => {
       return [isStart, isEnd];
     },
   );
-  // if (!login && !start) {
-  //   return <StartWindow />;
-  // }
+
   if (lastLocation?.pathname !== '/textbook' && !start) {
     return <StartWindow />;
   }

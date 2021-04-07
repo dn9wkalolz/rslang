@@ -32,8 +32,14 @@ const MyWord: React.FC<IWords> = ({ wordElem }) => {
   const sound = new Audio(baseUrl + audio);
 
   const assignWordsetProperty = (wordEl: IPaginatedWordSetElem, difficulty: string) => {
-    wordEl.userWord = { ...wordEl.userWord, difficulty };
-    return { ...wordElem };
+    const updatedWordElem = {
+      ...wordEl,
+      userWord: {
+        ...wordEl.userWord,
+        difficulty,
+      },
+    };
+    return { ...updatedWordElem };
   };
 
   const setHardDifficulty = (wordId: string) => {

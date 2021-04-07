@@ -41,11 +41,23 @@ const Word: React.FC<IWords> = ({ wordElem }) => {
 
   const assignWordsetProperty = (wordEl: IPaginatedWordSetElem, difficulty: string) => {
     if (!userWord) {
-      wordEl.userWord = { difficulty, optional: { wrong: 0, right: 0 } };
-      return { ...wordElem };
+      const updatedWordElem = {
+        ...wordEl,
+        userWord: {
+          difficulty,
+          optional: { wrong: 0, right: 0 },
+        },
+      };
+      return { ...updatedWordElem };
     }
-    wordEl.userWord = { ...wordEl.userWord, difficulty };
-    return { ...wordElem };
+    const updatedWordElem = {
+      ...wordEl,
+      userWord: {
+        ...wordEl.userWord,
+        difficulty,
+      },
+    };
+    return { ...updatedWordElem };
   };
 
   const setHardDifficulty = (wordId: string) => {

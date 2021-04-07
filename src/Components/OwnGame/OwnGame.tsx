@@ -5,9 +5,10 @@ import OwnGameCard from './OwnGameCard/OwnGameCard';
 import OwnGameReuslts from './OwnGameResults/OwnGameResults';
 import { ownGameContent } from '../../data/content';
 import './OwnGame.scss';
+import { selectTextbookState } from '../../store/textbookActions';
 
-function OwnGame(props:any) {
-  const { words } = props;
+function OwnGame() {
+  const { pagesWord } = useSelector(selectTextbookState);
   const { current } = useSelector(selectOwnGame);
   const [fullscreen, setFullscreen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -23,13 +24,13 @@ function OwnGame(props:any) {
     }
   }
 
-  if (current < words.length) {
+  if (current < pagesWord.length) {
     return (
       <div className="own-game translator" ref={ref}>
         <button className="own-game__fullscreen" type="button" onClick={handleFullscreen}>
           <img src={screen.img} alt={screen.imgAlt} />
         </button>
-        <OwnGameCard word={words[current]} />
+        <OwnGameCard wordElem={pagesWord[current]} />
       </div>
     );
   } else {

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { baseUrl, ownGameContent, textBookContent } from '../../data/content';
+import {
+  baseUrl, ownGameContent, STARTWINDOWURLFILTERSTRING, textBookContent,
+} from '../../data/content';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
-import { changeDifficulty, setLeosprintPage, toggleStart } from '../../store/leoSprintActions';
+import { setLeosprintPage, toggleStart } from '../../store/leoSprintActions';
 import { setPagesButtons, setPagesWord, setPaginatedWordSet } from '../../store/textbookActions';
 
 const StartWindow: React.FC = () => {
@@ -14,9 +16,7 @@ const StartWindow: React.FC = () => {
   const fetchData = (group:number) => {
     const userId = sessionStorage.getItem('userId');
     const token = sessionStorage.getItem('token');
-    const filterString = '{"$or":[{"userWord.difficulty":"hard"}, {"userWord.difficulty":"learned"}, {"userWord.difficulty":"restored"}, {"userWord":null}]}';
-    setIsLoaded(false);
-    fetch(`${baseUrl}users/${userId}/aggregatedWords?group=${group}&wordsPerPage=600&filter=${filterString}`, {
+    fetch(`${baseUrl}users/${userId}/aggregatedWords?group=${group}&wordsPerPage=600&filter=${STARTWINDOWURLFILTERSTRING}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ const StartWindow: React.FC = () => {
   };
 
   const chooseLevel = (group:number) => {
-    dispatch(changeDifficulty(group));
+    setIsLoaded(false);
     fetchData(group);
   };
 
