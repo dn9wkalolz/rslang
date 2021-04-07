@@ -85,8 +85,6 @@ const Header: React.FC = () => {
                   <button onClick={onLogout} type="button">{auth.logout}</button>
                 </>
               ) : <NavLink to="/login">{auth.login}</NavLink>}
-            <li className="header__settings-item auth">
-              <button type="button">{auth.login}</button>
             </li>
           </ul>
         </div>
