@@ -11,6 +11,14 @@ import './OwnGameResults.scss';
 const OwnGameReuslts: React.FC = () => {
   const { correct, incorrect } = useSelector(selectOwnGame);
   const dispatch = useDispatch();
+  const {
+    right,
+    wrong,
+    learned,
+    tolearn,
+    results,
+    restart,
+  } = ownGameContent;
 
   function restartGame():void {
     dispatch(OwnGameCardResetResults());
@@ -19,18 +27,26 @@ const OwnGameReuslts: React.FC = () => {
   return (
     <div className="own-game__results">
       <div className="own-game__results--wrapper">
-        <h2 className="own-game__results--title">{ownGameContent.results}</h2>
+        <h2 className="own-game__results--title">{results}</h2>
         <div className="own-game__results--lists">
           <div className="own-game__results--list">
-            <h3 className="own-game__results--subtitle">{ownGameContent.learned}</h3>
+            <h3 className="own-game__results--subtitle">
+              <img src={right.img} alt={right.imgAlt} />
+              {learned}
+              <span>{correct.length}</span>
+            </h3>
             <OwnGameResult words={correct} />
           </div>
           <div className="own-game__results--list">
-            <h3 className="own-game__results--subtitle">{ownGameContent.tolearn}</h3>
+            <h3 className="own-game__results--subtitle">
+              <img src={wrong.img} alt={wrong.imgAlt} />
+              {tolearn}
+              <span>{incorrect.length}</span>
+            </h3>
             <OwnGameResult words={incorrect} />
           </div>
         </div>
-        <button type="button" className="own-game__results--restart" onClick={restartGame}>Сыграть еще раз</button>
+        <button type="button" className="own-game__results--restart" onClick={restartGame}>{restart}</button>
       </div>
     </div>
   );

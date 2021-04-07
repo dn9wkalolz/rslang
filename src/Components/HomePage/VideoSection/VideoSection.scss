@@ -12,7 +12,11 @@
 
   &-iframe {
     border-radius: 20px;
-    height: 615px;
+    height: 55vw;
     width: 100%;
+
+    @media (min-width: 1024px) {
+      height: 615px;
+    }
   }
 }

@@ -1,21 +1,31 @@
 import React from 'react';
-import { IWordSetElem } from '../../interfaces/commonInterfaces';
+import { baseUrl } from '../../data/content';
+import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 
 interface IAnswers {
-  wordElem: IWordSetElem
+  words: IPaginatedWordSetElem[]
 }
 
-const Answers: React.FC<IAnswers> = ({ wordElem }) => {
-  const {
-    audio, word, transcription, wordTranslate,
-  } = wordElem;
-  const url = `https://rslang-61.herokuapp.com/${audio}`;
-  const sound = new Audio(url);
+const Answers: React.FC<IAnswers> = ({ words }) => {
+  function playAudio(audio:string) {
+    return (event: React.MouseEvent) => {
+      const player = new Audio(`${baseUrl}${audio}`);
+      player.play();
+      event.preventDefault();
+    };
+  }
+
   return (
-    <li>
-      <button type="button" onClick={() => sound.play()}>Play</button>
-      {`${word} ${transcription} ${wordTranslate}`}
-    </li>
+    <>
+      {words.map((word) => (
+        <div className="own-game__results--list-item" key={word._id}>
+          <button type="button" className="icon-volume-up" onClick={playAudio(word.audio)}>&nbsp;</button>
+          <span>{word.word}</span>
+          <span>{word.transcription}</span>
+          <span>{word.wordTranslate}</span>
+        </div>
+      ))}
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { header } from '../../data/content';
@@ -12,6 +12,43 @@ const Header: React.FC = () => {
   const {
     logo, settings, pages, auth,
   } = header;
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+
+  function toggleMenu() {
+    setMenuOpen(!menuOpen);
+  }
+
+  useEffect(() => {
+    // const createUser = async (user: any) => {
+    //   const rawResponse = await fetch('https://rslang-61.herokuapp.com/users', {
+    //     method: 'POST',
+    //     headers: {
+    //       Accept: 'application/json',
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(user),
+    //   });
+    //   const content = await rawResponse.json();
+
+    //   console.log(content);
+    // };
+
+    // createUser({ email: 'lopux@user.com', password: 'qwertyuiop' });
+    const loginUser = async (user: any) => {
+      const rawResponse = await fetch('https://rslang-61.herokuapp.com/signin', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      });
+      const content = await rawResponse.json();
+      sessionStorage.setItem('token', content.token);
+      sessionStorage.setItem('userId', content.userId);
+    };
+    loginUser({ email: 'lopux@user.com', password: 'qwertyuiop' });
+  }, []);
 
   const onLogout = () => {
     dispatch(logout());
@@ -20,10 +57,11 @@ const Header: React.FC = () => {
   return (
     <header className="header">
       <div className="header__content">
-        <nav className="header__nav">
+        <nav className={`header__nav ${menuOpen ? 'open' : ''}`}>
           <a href={logo.link} className="header__logo">
             <img src={logo.img} alt={logo.imagAlt} />
           </a>
+          <input type="button" className="header__nav-burger" onClick={toggleMenu} />
           <ul className="header__nav-items">
             {
               pages.map((page) => (
@@ -36,7 +74,7 @@ const Header: React.FC = () => {
         </nav>
         <div className="header__settings">
           <ul className="header__settings-items">
-            <li className="header__settings-item">
+            <li className="header__settings-item settings">
               <img src={settings.img} alt={settings.imgAlt} />
             </li>
             <li className="header__settings-item">
@@ -47,6 +85,8 @@ const Header: React.FC = () => {
                   <button onClick={onLogout} type="button">{auth.logout}</button>
                 </>
               ) : <NavLink to="/login">{auth.login}</NavLink>}
+            <li className="header__settings-item auth">
+              <button type="button">{auth.login}</button>
             </li>
           </ul>
         </div>

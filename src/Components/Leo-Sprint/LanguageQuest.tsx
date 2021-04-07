@@ -1,101 +1,65 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { DIFFICULTY } from '../../data/content';
+import { useFetchWithCondition } from '../../data/requestMethods';
 import {
-  incrementScore, rightHandler, setLoaded, wrongHandler,
+  incrementScore, rightHandler, selectLeosprintGame, setLeosprintPage, wrongHandler,
 } from '../../store/leoSprintActions';
-import { RootState } from '../../store/rootReducer';
-import { IWordSetElem } from '../../interfaces/commonInterfaces';
+import { selectTextbookState, setPagesWord } from '../../store/textbookActions';
 
 interface IClickHandler {
   e: React.MouseEvent
   id: string
-  isWordsMatch: boolean
+  condition: boolean
 }
 
 const LanguageQuest: React.FC = () => {
-  // const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const [error, setError] = useState<any>(null);
-  const [wordSet, setWordSet] = useState<IWordSetElem[]>([]);
-  const [page, setPage] = useState<number>(0);
-  const [group, isLoaded] = useSelector(
-    (state: RootState) => [state.leosprintState.difficulty, state.leosprintState.isLoaded],
-  );
+  const { LEARNED } = DIFFICULTY;
+  const { page } = useSelector(selectLeosprintGame);
+  const {
+    pagesWord, paginatedWordSet, pagesButtons,
+  } = useSelector(selectTextbookState);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    // const loginUser = async (user: any) => {
-    //   const rawResponse = await fetch('https://rslang-61.herokuapp.com/signin', {
-    //     method: 'POST',
-    //     headers: {
-    //       Accept: 'application/json',
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(user),
-    //   });
-    //   const content = await rawResponse.json();
-    //   sessionStorage.setItem('token', content.token);
-    //   sessionStorage.setItem('userId', content.userId);
-    // };
-    // loginUser({ email: 'test@user.com', password: 'qwertyuiop' });
+  const getRandomIndex = (): number => Math.floor(Math.random() * pagesWord.length);
+  const getRandomTranslate = (): string => pagesWord[getRandomIndex()].wordTranslate;
 
-    fetch(`https://rslang-61.herokuapp.com/words?page=${page}&group=${group}`)
-      .then((response) => response.json())
-      .then(
-        (result) => {
-          setWordSet(result);
-          // setIsLoaded(true);
-          dispatch(setLoaded());
-        },
-        (err) => {
-          // setIsLoaded(true);
-          dispatch(setLoaded());
-          setError(err);
-        },
-      );
+  const {
+    image, word, wordTranslate, _id, userWord,
+  } = pagesWord[getRandomIndex()];
+  const randomTranslate = getRandomTranslate();
+  const isWordsMatch = wordTranslate === randomTranslate;
+
+  useEffect(() => {
+    const filteredPagesWord = paginatedWordSet.filter((wordEl) => wordEl.page === page);
+    dispatch(setPagesWord(filteredPagesWord));
   }, [page]);
 
-  const answerHandler = ({ e, isWordsMatch, id }: IClickHandler): void => {
+  const answerHandler = ({ e, condition, id }: IClickHandler): void => {
     const { name } = e.target as HTMLButtonElement;
-    const answer = wordSet.filter((word) => word.id === id);
+    const answer = pagesWord.filter((wordEl) => wordEl._id === id);
     const nameToBoolean = name === 'right';
-    if (nameToBoolean === isWordsMatch) {
+    if (nameToBoolean === condition) {
       dispatch(incrementScore());
       dispatch(rightHandler(answer));
+      useFetchWithCondition(id, LEARNED, userWord, { wrong: 0, right: 1 });
       return;
     }
     dispatch(wrongHandler(answer));
+    useFetchWithCondition(id, LEARNED, userWord, { wrong: 1, right: 0 });
   };
 
-  const getRandomIndex = (): number => Math.floor(Math.random() * wordSet.length);
-
-  const getRandomTranslate = (): string => {
-    const { wordTranslate } = wordSet[getRandomIndex()];
-    return wordTranslate;
-  };
-
-  const clickHandler = ({ e, id, isWordsMatch }: IClickHandler): void => {
-    answerHandler({ e, isWordsMatch, id });
-    if (wordSet.length === 1) {
-      // setIsLoaded(false);
-      dispatch(setLoaded());
-      setPage((preState) => preState + 1);
+  const clickHandler = ({ e, condition, id }: IClickHandler): void => {
+    answerHandler({ e, condition, id });
+    if (pagesWord.length === 1) {
+      const pagePrediction = page + 1;
+      const changingPage = pagePrediction > pagesButtons.length - 1 ? 0 : pagePrediction;
+      dispatch(setLeosprintPage(changingPage));
       return;
     }
-    setWordSet((prevState) => prevState.filter((word) => word.id !== id));
+    const filteredPagesWord = pagesWord.filter((wordEl) => wordEl._id !== id);
+    dispatch(setPagesWord(filteredPagesWord));
   };
-
-  if (error) {
-    return <div>{`Ошибка: ${error.message}`}</div>;
-  }
-  if (!isLoaded) {
-    return <div>Loading..</div>;
-  }
-
-  const {
-    image, word, wordTranslate, id,
-  } = wordSet[getRandomIndex()];
-  const randomTranslate = getRandomTranslate();
-  const isWordsMatch = wordTranslate === randomTranslate;
 
   return (
     <div className="leosprint__language-quest">
@@ -109,7 +73,7 @@ const LanguageQuest: React.FC = () => {
           name="wrong"
           type="button"
           className="leosprint__buttons__wrong"
-          onClick={(e) => clickHandler({ e, id, isWordsMatch })}
+          onClick={(e) => clickHandler({ e, id: _id, condition: isWordsMatch })}
         >
           неверно
         </button>
@@ -117,7 +81,7 @@ const LanguageQuest: React.FC = () => {
           name="right"
           type="button"
           className="leosprint__buttons__right"
-          onClick={(e) => clickHandler({ e, id, isWordsMatch })}
+          onClick={(e) => clickHandler({ e, id: _id, condition: isWordsMatch })}
         >
           верно
         </button>
@@ -127,47 +91,3 @@ const LanguageQuest: React.FC = () => {
 };
 
 export default LanguageQuest;
-
-// const createUser = async (user: any) => {
-//   const rawResponse = await fetch('https://rslang-61.herokuapp.com/users', {
-//     method: 'POST',
-//     headers: {
-//       Accept: 'application/json',
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(user),
-//   });
-//   const content = await rawResponse.json();
-
-//   console.log(content);
-// };
-// createUser({ email: 'test@user.com', password: 'qwertyuiop' });
-
-// const getUserWord = async () => {
-//   const rawResponse = await fetch(`https://rslang-61.herokuapp.com/users/${sessionStorage.getItem('userId')}/words`, {
-//     method: 'GET',
-//     withCredentials: true,
-//     headers: {
-//       Authorization: `Bearer ${sessionStorage.getItem('token')}`,
-//       Accept: 'application/json',
-//     },
-//   });
-//   const content = await rawResponse.json();
-//   console.log(content);
-// };
-// getUserWord();
-
-// const loginUser = async (user: any) => {
-//   const rawResponse = await fetch('https://rslang-61.herokuapp.com/signin', {
-//     method: 'POST',
-//     headers: {
-//       Accept: 'application/json',
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(user),
-//   });
-//   const content = await rawResponse.json();
-//   sessionStorage.setItem('token', content.token);
-//   sessionStorage.setItem('userId', content.userId);
-// };
-// loginUser({ email: 'test@user.com', password: 'qwertyuiop' });

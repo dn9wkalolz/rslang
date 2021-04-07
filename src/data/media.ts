@@ -17,8 +17,13 @@ import GitHubLogo from '../assets/img/Github.png';
 import RSSLogo from '../assets/img/RSS-logo.png';
 import Logo from '../assets/img/Logo.png';
 import Settings from '../assets/img/Settings.png';
+import Burger from '../assets/img/Burger.png';
+import Fullscreen from '../assets/img/Fullscreen.png';
+import Play from '../assets/img/Play.png';
+import WrongIcon from '../assets/img/Wrong-icon.png';
+import CheckIcon from '../assets/img/Check-icon.png';
 
-const homepageImages = {
+const Images = {
   HomepageBanner,
   HomepageFeatures,
   HomepageGames,
@@ -38,6 +43,11 @@ const homepageImages = {
   RSSLogo,
   Logo,
   Settings,
+  Burger,
+  Fullscreen,
+  Play,
+  WrongIcon,
+  CheckIcon,
 };
 
-export default homepageImages;
+export default Images;

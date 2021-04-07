@@ -9,6 +9,10 @@
   &-content {
     width: 65%;
     padding-top: 20px;
+
+    @media (max-width: 767px) {
+      width: 100%;
+    }
   }
 
   &-image {
@@ -16,6 +20,10 @@
     height: inherit;
     border-radius: 0px 20px 20px 0px;
     overflow: hidden;
+
+    @media (max-width: 767px) {
+      display: none;
+    }
 
     @media (min-width: 1280px) {
       max-height: 460px;
@@ -30,9 +38,13 @@
   }
 
   &-title {
-    font-size: $font-size-70;
+    font-size: $font-size-45;
     max-width: 500px;
     margin-bottom: 20px;
+
+    @media (min-width: 768px) {
+      font-size: $font-size-70;
+    }
 
     b {
       color: $color-blue;

@@ -10,16 +10,13 @@ import './SavannahWord.scss';
 
 function SavannahWord(props:any) {
   const { word, translations } = props;
-  const [isChecking, setIsChecking] = useState<string>('');
-  const [isCorrect, setIsCorrect] = useState<string>('');
   const [lives, setLives] = useState<number>(5);
+  const pseudoLives:number = 5;
   const arrayOfLives = Array.from({ length: lives }, (v, k) => k);
+  const arrayOfPseudoLives = Array.from({ length: pseudoLives }, (v, k) => k);
   const dispatch = useDispatch();
 
   function handleNext():void {
-    setIsChecking('checked');
-    setIsCorrect('');
-    setIsChecking('');
     dispatch(SavannahWordSetCurrent());
   }
 
@@ -32,11 +29,10 @@ function SavannahWord(props:any) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsCorrect('incorrect');
       dispatch(SavannahWordIsIncorrect(word));
       takeLife();
       handleNext();
-    }, 5000);
+    }, 7500);
     return () => clearTimeout(timer);
   }, [word]);
 
@@ -45,26 +41,18 @@ function SavannahWord(props:any) {
     const translation = element.value;
 
     if (translation.toLowerCase() === word.wordTranslate.toLowerCase()) {
-      setIsCorrect('correct');
       dispatch(SavannahWordIsCorrect(word));
     } else {
-      setIsCorrect('incorrect');
       dispatch(SavannahWordIsIncorrect(word));
       takeLife();
     }
 
-    setIsChecking('checked');
     handleNext();
   }
 
   return (
     <div
-      className={`savannah__card
-      ${(isCorrect === 'correct') ? 'correct'
-        : (isCorrect === 'incorrect') ? 'incorrect'
-          : ''}
-          ${(isChecking === 'checked') ? 'checked'
-            : ''}`}
+      className="savannah__card"
       key={word.wordTranslate}
     >
       <div className="savannah__card--task">{word.word}</div>
@@ -77,7 +65,12 @@ function SavannahWord(props:any) {
       </div>
       <div className="savannah__lives">
         {arrayOfLives.map((life) => (
-          <div key={life}>{life}</div>
+          <div className="savannah__life" key={life} />
+        ))}
+      </div>
+      <div className="savannah__pseudolives">
+        {arrayOfPseudoLives.map((life) => (
+          <div className="savannah__pseudolife" key={life} />
         ))}
       </div>
     </div>
