@@ -15,13 +15,23 @@ function Savannah(props:any) {
   const ref = useRef<HTMLDivElement>(null);
   const { screen } = ownGameContent;
 
+  useEffect(() => {
+    function handleChange() {
+      setFullscreen(!fullscreen);
+    }
+
+    document.addEventListener('fullscreenchange', handleChange);
+
+    return function cleanup() {
+      document.removeEventListener('fullscreenchange', handleChange);
+    };
+  });
+
   function handleFullscreen() {
     if (!fullscreen) {
       ref.current?.requestFullscreen();
-      setFullscreen(!fullscreen);
     } else {
       document.exitFullscreen();
-      setFullscreen(!fullscreen);
     }
   }
 
