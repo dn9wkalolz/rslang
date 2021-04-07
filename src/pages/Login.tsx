@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -11,6 +11,9 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/rootReducer';
+import { login } from '../store/authReducer';
 
 type FormValues = {
   email: string
@@ -18,9 +21,17 @@ type FormValues = {
 };
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const { isAuth } = useSelector((state: RootState) => state.auth);
+
   const submit = (data: FormValues) => {
-    console.log('Form data: ', data);
+    const { email, password } = data;
+    dispatch(login(email, password));
   };
+
+  if (isAuth) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <>
@@ -31,8 +42,8 @@ const Login = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'demo@rslang.com',
-              password: 'Password123',
+              email: '',
+              password: '',
             }}
             validationSchema={Yup.object().shape({
               email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),

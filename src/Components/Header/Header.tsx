@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { header } from '../../data/content';
 import './Header.scss';
+import { RootState } from '../../store/rootReducer';
+import { logout } from '../../store/authReducer';
 
 const Header: React.FC = () => {
+  const dispatch = useDispatch();
+  const { isAuth, name } = useSelector((state: RootState) => state.auth);
   const {
     logo, settings, pages, auth,
   } = header;
@@ -45,6 +50,10 @@ const Header: React.FC = () => {
     loginUser({ email: 'lopux@user.com', password: 'qwertyuiop' });
   }, []);
 
+  const onLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <header className="header">
       <div className="header__content">
@@ -68,6 +77,14 @@ const Header: React.FC = () => {
             <li className="header__settings-item settings">
               <img src={settings.img} alt={settings.imgAlt} />
             </li>
+            <li className="header__settings-item">
+              {isAuth ? (
+                <>
+                  {name}
+                  {' '}
+                  <button onClick={onLogout} type="button">{auth.logout}</button>
+                </>
+              ) : <NavLink to="/login">{auth.login}</NavLink>}
             <li className="header__settings-item auth">
               <button type="button">{auth.login}</button>
             </li>

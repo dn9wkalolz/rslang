@@ -6,8 +6,10 @@ import { textbookReducer } from './textbookReducer';
 import { leoSprintReducer } from './leoSprintReducer';
 import { audiocallReducer } from './audiocallReduser';
 import { SavannahReducer } from '../Components/Savannah/SavannahWord/SavannahWordSlice';
+import { authReducer } from './authReducer';
 
 export const rootReducer = combineReducers({
+  auth: authReducer,
   audiocall: audiocallReducer,
   OwnGame: OwnGameReducer,
   leosprintState: leoSprintReducer,
