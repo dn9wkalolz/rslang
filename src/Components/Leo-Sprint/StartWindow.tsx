@@ -52,11 +52,11 @@ const StartWindow: React.FC = () => {
     return <div>{`Ошибка: ${error.message}`}</div>;
   }
   if (!isLoaded) {
-    return <div>Loading...</div>;
+    return <div className="own-game__choose-level--loading">{ownGameContent.loading}</div>;
   }
 
   return (
-    <div className="own-game__choose-level">
+    <div className="own-game__choose-level sprint">
       <h1 className="own-game__choose-level--title">{textBookContent.title}</h1>
       <h2 className="own-game__choose-level--subtitle">{ownGameContent.chooseLevel}</h2>
       <div className="own-game__choose-level--cards">

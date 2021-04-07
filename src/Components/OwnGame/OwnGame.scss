@@ -23,10 +23,14 @@
 
   &.savannah {
     background-image: url('../../assets/img/Savannah-bg.jpg');
-  
-    @media (max-width: 1023px) {
-      min-height: calc(100vh - 60px);
-    }
+  }
+
+  &.audiocall {
+    background-image: url('../../assets/img/Call-bg.jpg');
+  }
+
+  &.leosprint {
+    background-image: url('../../assets/img/Sprint-bg.jpg');
   }
 
   @media (min-width: 1024px) {

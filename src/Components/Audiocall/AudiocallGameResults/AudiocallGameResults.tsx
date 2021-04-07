@@ -1,7 +1,7 @@
 import React from 'react';
 import AudiocallGameResult from '../AudiocallGameResult/AudiocallGameResult';
 import { audiocallGameContent } from '../../../data/content';
-import './AudiocallGameResults.scss';
+import '../../OwnGame/OwnGameResults/OwnGameResults.scss';
 import { WordsType } from '../../../types/types';
 
 type PropsType = {
@@ -17,27 +17,42 @@ const AudiocallGameResults: React.FC<PropsType> = ({
   rightAnswers,
   wrongAnswers,
 }) => {
-  function nextStap() {
+  function nextStep() {
     onPageChanged(currentPage + 1);
   }
 
+  const {
+    right,
+    wrong,
+    learned,
+    tolearn,
+    results,
+    restart,
+  } = audiocallGameContent;
+
   return (
-    <div className="audiocall-game__results">
-      <div className="audiocall-game__results--wrapper">
-        <h2 className="audiocall-game__results--title">{audiocallGameContent.results}</h2>
-        <div className="audiocall-game__results--lists">
-          <div className="audiocall-game__results--list">
-            <h3 className="audiocall-game__results--subtitle">{audiocallGameContent.learned}</h3>
+    <div className="own-game__results">
+      <div className="own-game__results--wrapper">
+        <h2 className="own-game__results--title">{results}</h2>
+        <div className="own-game__results--lists">
+          <div className="own-game__results--list">
+            <h3 className="own-game__results--subtitle">
+              <img src={right.img} alt={right.imgAlt} />
+              {learned}
+              <span>{rightAnswers.length}</span>
+            </h3>
             <AudiocallGameResult answers={rightAnswers} />
           </div>
-          <div className="audiocall-game__results--list">
-            <h3 className="audiocall-game__results--subtitle">{audiocallGameContent.tolearn}</h3>
+          <div className="own-game__results--list">
+            <h3 className="own-game__results--subtitle">
+              <img src={wrong.img} alt={wrong.imgAlt} />
+              {tolearn}
+              <span>{wrongAnswers.length}</span>
+            </h3>
             <AudiocallGameResult answers={wrongAnswers} />
           </div>
         </div>
-        <button type="button" className="audiocall-game__results--restart" onClick={nextStap}>
-          {audiocallGameContent.continueButton}
-        </button>
+        <button type="button" className="own-game__results--restart" onClick={nextStep}>{restart}</button>
       </div>
     </div>
   );

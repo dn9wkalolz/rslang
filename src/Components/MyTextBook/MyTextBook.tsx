@@ -7,14 +7,14 @@ import SectionMenu from './SectionMenu';
 import VocabularyPageSwitcher from './VocabularuSwitcher';
 
 const MyTextBook: React.FC = () => (
-  <div>
+  <main>
     <SectionMenu />
     <MyGroupMenu />
     <MyPageMenu />
     <VocabularyPageSwitcher />
     <MyDictionary />
     <GamesSection />
-  </div>
+  </main>
 );
 
 export default MyTextBook;

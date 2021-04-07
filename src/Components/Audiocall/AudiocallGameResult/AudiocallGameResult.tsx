@@ -1,13 +1,16 @@
 import React from 'react';
-import './AudiocallGameResult.scss';
+import '../../OwnGame/OwnGameResult/OwnGameResult.scss';
 import { WordsType } from '../../../types/types';
 import { API_URL } from '../../../url.constants';
+import { ownGameContent } from '../../../data/content';
 
 type PropsType = {
   answers: WordsType
 };
 
 const AudiocallGameResult: React.FC<PropsType> = ({ answers }) => {
+  const { play } = ownGameContent;
+
   function playAudio(audio: string) {
     return (event: React.MouseEvent) => {
       const player = new Audio(`${API_URL}${audio}`);
@@ -20,10 +23,12 @@ const AudiocallGameResult: React.FC<PropsType> = ({ answers }) => {
     <>
       {answers.map((word: any) => (
         <div className="audiocall-game__results--list-item" key={word.word}>
-          <button type="button" className="icon-volume-up" onClick={playAudio(word.audio)}>pres</button>
+          <button type="button" onClick={playAudio(word.audio)}>
+            <img src={play.img} alt={play.imgAlt} />
+          </button>
           <span>{word.word}</span>
           <span>{word.transcription}</span>
-          <span>{word.wordTranslate}</span>
+          <span className="own-game__results--list-item__translation">{word.wordTranslate}</span>
         </div>
       ))}
     </>

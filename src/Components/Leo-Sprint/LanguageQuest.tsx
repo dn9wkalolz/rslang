@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { DIFFICULTY } from '../../data/content';
+import { DIFFICULTY, leoSprintContent } from '../../data/content';
 import { useFetchWithCondition } from '../../data/requestMethods';
 import {
   incrementScore, rightHandler, selectLeosprintGame, setLeosprintPage, wrongHandler,
@@ -20,6 +20,7 @@ const LanguageQuest: React.FC = () => {
     pagesWord, paginatedWordSet, pagesButtons,
   } = useSelector(selectTextbookState);
   const dispatch = useDispatch();
+  const { right, wrong } = leoSprintContent;
 
   const getRandomIndex = (): number => Math.floor(Math.random() * pagesWord.length);
   const getRandomTranslate = (): string => pagesWord[getRandomIndex()].wordTranslate;
@@ -62,28 +63,30 @@ const LanguageQuest: React.FC = () => {
   };
 
   return (
-    <div className="leosprint__language-quest">
-      <div><img width="200" height="200" src={`https://rslang-61.herokuapp.com/${image}`} alt={word} /></div>
-      <div className="leosprint__words">
-        <span className="leosprint__language-quest__en">{word}</span>
-        <span className="leosprint__language-quest__ru">{randomTranslate}</span>
+    <div className="leosprint__quest">
+      <div className="own-game__card--image">
+        <img src={`https://rslang-61.herokuapp.com/${image}`} alt={word} />
+      </div>
+      <div className="own-game__card--content">
+        <h2 className="own-game__card--word">{word}</h2>
+        <h2 className="own-game__card--translation">{randomTranslate}</h2>
       </div>
       <div className="leosprint__buttons">
         <button
           name="wrong"
           type="button"
-          className="leosprint__buttons__wrong"
+          className="leosprint__button wrong"
           onClick={(e) => clickHandler({ e, id: _id, condition: isWordsMatch })}
         >
-          неверно
+          {wrong}
         </button>
         <button
           name="right"
           type="button"
-          className="leosprint__buttons__right"
+          className="leosprint__button right"
           onClick={(e) => clickHandler({ e, id: _id, condition: isWordsMatch })}
         >
-          верно
+          {right}
         </button>
       </div>
     </div>

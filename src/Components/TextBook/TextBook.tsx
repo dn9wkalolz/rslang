@@ -7,14 +7,14 @@ import GameSection from '../HomePage/GamesSection/GamesSection';
 import './textbook.scss';
 
 const TextBook: React.FC = () => (
-  <div>
+  <main>
     <GroupMenu />
     <PageMenu />
     <PageSwitcher />
     <Dictionary />
     <PageSwitcher />
     <GameSection />
-  </div>
+  </main>
 );
 
 export default TextBook;
