@@ -35,7 +35,7 @@ function OwnGameChooseLevel() {
     return <div className="own-game__choose-level--loading">{ownGameContent.loading}</div>;
   } else {
     return (
-      <div className="own-game__choose-level">
+      <div className="own-game__choose-level translator">
         <h1 className="own-game__choose-level--title">{ownGameContent.title}</h1>
         <h2 className="own-game__choose-level--subtitle">{ownGameContent.chooseLevel}</h2>
         <div className="own-game__choose-level--cards">

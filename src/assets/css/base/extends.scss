@@ -29,3 +29,17 @@
 %gradient {
   background: linear-gradient(152.07deg, #16F1FE -19.19%, #009FE3 153.49%);
 }
+
+%card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+}
+
+%word {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border: none;
+  border-radius: 20px;
+  padding: 15px 20px;
+  font-weight: 700;
+}

@@ -1,7 +1,6 @@
-import { combineReducers } from 'redux';
-import { vocabularyReducer } from './vocabularyReducer';
 import { Action, combineReducers } from 'redux';
 import { ThunkAction } from 'redux-thunk';
+import { vocabularyReducer } from './vocabularyReducer';
 import { OwnGameReducer } from '../Components/OwnGame/OwnGameCard/OwnGameCardSlice';
 import { textbookReducer } from './textbookReducer';
 import { leoSprintReducer } from './leoSprintReducer';

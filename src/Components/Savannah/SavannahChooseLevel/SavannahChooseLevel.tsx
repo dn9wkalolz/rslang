@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Savannah from '../Savannah';
-import { ownGameContent } from '../../../data/content';
+import { ownGameContent, SavannahContent } from '../../../data/content';
 
 function SavannahChooseLevel() {
   const [isLoaded, setIsLoaded] = useState<string>('');
@@ -34,8 +34,8 @@ function SavannahChooseLevel() {
     return <div className="own-game__choose-level--loading">{ownGameContent.loading}</div>;
   } else {
     return (
-      <div className="own-game__choose-level">
-        <h1 className="own-game__choose-level--title">{ownGameContent.title}</h1>
+      <div className="own-game__choose-level savannah">
+        <h1 className="own-game__choose-level--title">{SavannahContent.title}</h1>
         <h2 className="own-game__choose-level--subtitle">{ownGameContent.chooseLevel}</h2>
         <div className="own-game__choose-level--cards">
           {GROUPS.map((group, index) => (

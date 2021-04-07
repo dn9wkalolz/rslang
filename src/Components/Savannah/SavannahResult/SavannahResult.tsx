@@ -1,8 +1,11 @@
 import React from 'react';
+import { ownGameContent } from '../../../data/content';
+import '../../OwnGame/OwnGameResult/OwnGameResult.scss';
 
 function SavannahResult(props:any) {
   const { words } = props;
   const BASE_URL:string = 'https://rslang-61.herokuapp.com';
+  const { play } = ownGameContent;
 
   function playAudio(audio:string) {
     return (event: React.MouseEvent) => {
@@ -15,10 +18,12 @@ function SavannahResult(props:any) {
   return (
     words.map((word:any) => (
       <div className="own-game__results--list-item" key={word.word}>
-        <button type="button" className="icon-volume-up" onClick={playAudio(word.audio)}>&nbsp;</button>
+        <button type="button" onClick={playAudio(word.audio)}>
+          <img src={play.img} alt={play.imgAlt} />
+        </button>
         <span>{word.word}</span>
         <span>{word.transcription}</span>
-        <span>{word.wordTranslate}</span>
+        <span className="own-game__results--list-item__translation">{word.wordTranslate}</span>
       </div>
     ))
   );
