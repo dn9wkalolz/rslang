@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { baseUrl, DIFFICULTY, textBookContent } from '../../data/content';
 import { useFetchWithCondition } from '../../data/requestMethods';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
+import { selectSettingsState } from '../../store/settingsReducer';
 import { selectVocabularyState, setVocabularyPaginatedWordSet } from '../../store/vocabularyActions';
 
 interface IWords {
@@ -11,7 +12,6 @@ interface IWords {
 
 const MyWord: React.FC<IWords> = ({ wordElem }) => {
   const { HARD, DELETED, RESTORED } = DIFFICULTY;
-  const dispatch = useDispatch();
   const {
     audio,
     word,
@@ -25,6 +25,8 @@ const MyWord: React.FC<IWords> = ({ wordElem }) => {
     userWord,
   } = wordElem;
   const { section, paginatedWordSet } = useSelector(selectVocabularyState);
+  const { isButtonsShowed, isTranslated } = useSelector(selectSettingsState);
+  const dispatch = useDispatch();
   const { sections } = textBookContent;
   const learnedSection = sections[0].category;
   const hardSection = sections[1].category;
@@ -78,19 +80,23 @@ const MyWord: React.FC<IWords> = ({ wordElem }) => {
       <div><img className="textbook__word-img" src={baseUrl + image} alt={word} /></div>
       <div className="textbook__word-cover">
         <div className="textbook__word-description">
-          <span>{`${word} ${transcription} ${wordTranslate}`}</span>
+          <span>{`${word} ${transcription} ${isTranslated ? wordTranslate : ''}`}</span>
           <button type="button" onClick={() => sound.play()}>Play</button>
         </div>
         <div className="textbook__word-meaning">
           <span><div dangerouslySetInnerHTML={{ __html: textMeaning }} /></span>
           <span><div dangerouslySetInnerHTML={{ __html: textExample }} /></span>
         </div>
-        <div className="textbook__translate">
-          <span>{textMeaningTranslate}</span>
-          <span>{textExampleTranslate}</span>
-        </div>
+        {isTranslated
+          ? (
+            <div className="textbook__translate">
+              <span>{`${textMeaningTranslate}. `}</span>
+              <span>{`${textExampleTranslate}.`}</span>
+            </div>
+          )
+          : null}
         <div>
-          {section === hardSection ? null : (
+          {section === hardSection || !isButtonsShowed ? null : (
             <button
               disabled={userWord?.difficulty === 'hard'}
               type="button"
@@ -99,7 +105,7 @@ const MyWord: React.FC<IWords> = ({ wordElem }) => {
               Сложно
             </button>
           )}
-          {section === deletedSection ? null : (
+          {section === deletedSection || !isButtonsShowed ? null : (
             <button
               type="button"
               onClick={() => deleteWord(_id)}

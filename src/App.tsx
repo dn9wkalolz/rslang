@@ -16,6 +16,7 @@ import Login from './pages/Login';
 import AudiocallStartScreen from './Components/Audiocall/AudiocallStartScreen/AudiocallStartScreen';
 import SavannahChooseLevel from './Components/Savannah/SavannahChooseLevel/SavannahChooseLevel';
 import Header from './Components/Header/Header';
+import Settings from './Components/Settings/Settings';
 
 function App() {
   return (
@@ -49,6 +50,9 @@ function App() {
           </Route>
           <Route path="/vocabulary">
             <MyTextBook />
+          </Route>
+          <Route path="/settings">
+            <Settings />
           </Route>
         </Switch>
         <Footer />

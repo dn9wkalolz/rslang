@@ -4,9 +4,9 @@ import {
   selectSavannah,
   SavannahResetResults,
 } from '../SavannahWord/SavannahWordSlice';
-import SavannahResult from '../SavannahResult/SavannahResult';
 import { ownGameContent } from '../../../data/content';
 import '../../OwnGame/OwnGameResults/OwnGameResults.scss';
+import Result from '../../common/Result';
 
 const SavannahResults: React.FC = () => {
   const { correct, incorrect } = useSelector(selectSavannah);
@@ -35,7 +35,7 @@ const SavannahResults: React.FC = () => {
               {learned}
               <span>{correct.length}</span>
             </h3>
-            <SavannahResult words={correct} />
+            <Result words={correct} />
           </div>
           <div className="own-game__results--list">
             <h3 className="own-game__results--subtitle">
@@ -43,7 +43,7 @@ const SavannahResults: React.FC = () => {
               {tolearn}
               <span>{incorrect.length}</span>
             </h3>
-            <SavannahResult words={incorrect} />
+            <Result words={incorrect} />
           </div>
         </div>
         <button type="button" className="own-game__results--restart" onClick={restartGame}>{restart}</button>

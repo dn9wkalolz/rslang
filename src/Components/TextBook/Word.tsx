@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { baseUrl, DIFFICULTY } from '../../data/content';
 import { useFetchWithCondition } from '../../data/requestMethods';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
+import { selectSettingsState } from '../../store/settingsReducer';
 import {
   changePage, changeStateWord, selectTextbookState, setPagesButtons,
 } from '../../store/textbookActions';
@@ -26,6 +27,7 @@ const Word: React.FC<IWords> = ({ wordElem }) => {
     _id,
     userWord,
   } = wordElem;
+  const { isButtonsShowed, isTranslated } = useSelector(selectSettingsState);
   const { paginatedWordSet, pagesWord, pagesButtons } = useSelector(selectTextbookState);
 
   const sound = new Audio(baseUrl + audio);
@@ -87,32 +89,40 @@ const Word: React.FC<IWords> = ({ wordElem }) => {
       <div><img className="textbook__word-img" src={baseUrl + image} alt={word} /></div>
       <div className="textbook__word-cover">
         <div className="textbook__word-description">
-          <span>{`${word} ${transcription} ${wordTranslate}`}</span>
+          <span>{`${word} ${transcription} ${isTranslated ? wordTranslate : ''}`}</span>
           <button type="button" onClick={() => sound.play()}>Play</button>
         </div>
         <div className="textbook__word-meaning">
           <span><div dangerouslySetInnerHTML={{ __html: textMeaning }} /></span>
           <span><div dangerouslySetInnerHTML={{ __html: textExample }} /></span>
         </div>
-        <div className="textbook__translate">
-          <span>{textMeaningTranslate}</span>
-          <span>{textExampleTranslate}</span>
-        </div>
-        <div>
-          <button
-            disabled={userWord?.difficulty === 'hard'}
-            type="button"
-            onClick={() => setHardDifficulty(_id)}
-          >
-            Сложно
-          </button>
-          <button
-            type="button"
-            onClick={() => deleteWord(_id, page)}
-          >
-            Удалить
-          </button>
-        </div>
+        {isTranslated
+          ? (
+            <div className="textbook__translate">
+              <span>{`${textMeaningTranslate}. `}</span>
+              <span>{`${textExampleTranslate}.`}</span>
+            </div>
+          )
+          : null}
+        {isButtonsShowed
+          ? (
+            <div>
+              <button
+                disabled={userWord?.difficulty === 'hard'}
+                type="button"
+                onClick={() => setHardDifficulty(_id)}
+              >
+                Сложно
+              </button>
+              <button
+                type="button"
+                onClick={() => deleteWord(_id, page)}
+              >
+                Удалить
+              </button>
+            </div>
+          )
+          : null}
       </div>
     </div>
   );

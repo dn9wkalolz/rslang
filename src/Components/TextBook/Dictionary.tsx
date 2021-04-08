@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 import Word from './Word';
-import { baseUrl } from '../../data/content';
+import { baseUrl, STARTWINDOWURLFILTERSTRING } from '../../data/content';
 import {
   selectTextbookState,
   setPage, setPagesButtons, setPagesWord, setPaginatedWordSet,
@@ -15,14 +15,13 @@ const Dictionary: React.FC = () => {
   const {
     page, group, paginatedWordSet, pagesWord,
   } = useSelector(selectTextbookState);
-  const userId = sessionStorage.getItem('userId');
-  const token = sessionStorage.getItem('token');
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const filterString = '{"$or":[{"userWord.difficulty":"hard"}, {"userWord.difficulty":"learned"}, {"userWord.difficulty":"restored"}, {"userWord":null}]}';
+    const userId = sessionStorage.getItem('userId');
+    const token = sessionStorage.getItem('token');
     setIsLoaded(false);
-    fetch(`${baseUrl}users/${userId}/aggregatedWords?group=${group}&wordsPerPage=600&filter=${filterString}`, {
+    fetch(`${baseUrl}users/${userId}/aggregatedWords?group=${group}&wordsPerPage=600&filter=${STARTWINDOWURLFILTERSTRING}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,

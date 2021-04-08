@@ -7,6 +7,7 @@ import { leoSprintReducer } from './leoSprintReducer';
 import { audiocallReducer } from './audiocallReduser';
 import { SavannahReducer } from '../Components/Savannah/SavannahWord/SavannahWordSlice';
 import { authReducer } from './authReducer';
+import { settingsReducer } from './settingsReducer';
 
 export const rootReducer = combineReducers({
   auth: authReducer,
@@ -16,6 +17,7 @@ export const rootReducer = combineReducers({
   textbookState: textbookReducer,
   vocabularyState: vocabularyReducer,
   Savannah: SavannahReducer,
+  settings: settingsReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

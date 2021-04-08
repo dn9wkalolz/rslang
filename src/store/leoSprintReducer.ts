@@ -1,4 +1,4 @@
-import { IPaginatedWordSetElem } from '../interfaces/commonInterfaces';
+import { IAction, IPaginatedWordSetElem } from '../interfaces/commonInterfaces';
 import {
   INCREMENT_SCORE,
   TOGGLE_START,
@@ -9,10 +9,6 @@ import {
   SET_LEOSPRINTPAGE,
 } from './types';
 
-export interface IAction {
-  type: string
-  payload: any
-}
 export interface ILeosprintState {
   score: number
   // isLogin: boolean

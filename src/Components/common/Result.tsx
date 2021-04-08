@@ -1,13 +1,13 @@
 import React from 'react';
-import { baseUrl, ownGameContent } from '../../../data/content';
-import { IPaginatedWordSetElem } from '../../../interfaces/commonInterfaces';
-import '../../OwnGame/OwnGameResult/OwnGameResult.scss';
+import '../OwnGame/OwnGameResult/OwnGameResult.scss';
+import { baseUrl, ownGameContent } from '../../data/content';
+import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 
 interface IWords {
   words: IPaginatedWordSetElem[]
 }
 
-const SavannahResult: React.FC<IWords> = ({ words }) => {
+const Result: React.FC<IWords> = ({ words }) => {
   const { play } = ownGameContent;
 
   function playAudio(audio:string) {
@@ -34,4 +34,4 @@ const SavannahResult: React.FC<IWords> = ({ words }) => {
   );
 };
 
-export default SavannahResult;
+export default Result;

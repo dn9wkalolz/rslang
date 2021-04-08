@@ -1,26 +1,46 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useLastLocation } from 'react-router-last-location';
 import Savannah from '../Savannah';
-import { ownGameContent, SavannahContent } from '../../../data/content';
+import {
+  baseUrl, ownGameContent, SavannahContent, STARTWINDOWURLFILTERSTRING,
+} from '../../../data/content';
+import { IPaginatedWordSetElem } from '../../../interfaces/commonInterfaces';
+import { setPagesWord } from '../../../store/textbookActions';
 
 function SavannahChooseLevel() {
   const [isLoaded, setIsLoaded] = useState<string>('');
-  const [words, setWords] = useState([]);
+  const lastLocation = useLastLocation();
+  // const [words, setWords] = useState([]);
   const GROUPS:Array<string> = ownGameContent.levels;
-  const PAGES:number = 29;
+  const dispatch = useDispatch();
+  // const PAGES:number = 29;
 
-  function choosePage(max:number):number {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
+  // function choosePage(max:number):number {
+  //   return Math.floor(Math.random() * Math.floor(max));
+  // }
 
   function fetchData(group:number):void {
-    const page = choosePage(PAGES);
-
-    fetch(`https://rslang-61.herokuapp.com/words?page=${page}&group=${group}`)
+    const userId = sessionStorage.getItem('userId');
+    const token = sessionStorage.getItem('token');
+    fetch(`${baseUrl}users/${userId}/aggregatedWords?group=${group}&wordsPerPage=600&filter=${STARTWINDOWURLFILTERSTRING}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      },
+    })
       .then((response) => response.json())
-      .then((data) => {
-        setWords(data);
-        setIsLoaded('loaded');
-      });
+      .then(
+        (result) => {
+          const { paginatedResults }: { paginatedResults: IPaginatedWordSetElem[] } = result[0];
+          const pageButtons = paginatedResults.map((word) => word.page);
+          const uniquePageButtons = Array.from(new Set(pageButtons));
+          const pagesWord = paginatedResults.filter((word) => word.page === uniquePageButtons[0]);
+          dispatch(setPagesWord(pagesWord));
+          setIsLoaded('loaded');
+        },
+      );
   }
 
   function chooseLevel(group:number):void {
@@ -28,8 +48,8 @@ function SavannahChooseLevel() {
     fetchData(group);
   }
 
-  if (isLoaded === 'loaded') {
-    return <Savannah words={words} />;
+  if (isLoaded === 'loaded' || lastLocation?.pathname === '/textbook') {
+    return <Savannah />;
   } else if (isLoaded === 'loading') {
     return <div className="own-game__choose-level--loading">{ownGameContent.loading}</div>;
   } else {

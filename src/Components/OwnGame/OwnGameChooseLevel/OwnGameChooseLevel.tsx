@@ -9,19 +9,11 @@ import { setPagesWord } from '../../../store/textbookActions';
 
 function OwnGameChooseLevel() {
   const [isLoaded, setIsLoaded] = useState<string>('');
-  // const [words, setWords] = useState([]);
   const lastLocation = useLastLocation();
   const GROUPS:Array<string> = ownGameContent.levels;
   const dispatch = useDispatch();
-  // const PAGES:number = 29;
-
-  // function choosePage(max:number):number {
-  //   return Math.floor(Math.random() * Math.floor(max));
-  // }
 
   function fetchData(group:number):void {
-    // const page = choosePage(PAGES);
-
     const userId = sessionStorage.getItem('userId');
     const token = sessionStorage.getItem('token');
     fetch(`${baseUrl}users/${userId}/aggregatedWords?group=${group}&wordsPerPage=600&filter=${STARTWINDOWURLFILTERSTRING}`, {
@@ -38,20 +30,10 @@ function OwnGameChooseLevel() {
           const pageButtons = paginatedResults.map((word) => word.page);
           const uniquePageButtons = Array.from(new Set(pageButtons));
           const pagesWord = paginatedResults.filter((word) => word.page === uniquePageButtons[0]);
-          // dispatch(setLeosprintPage(uniquePageButtons[0]));
-          // dispatch(setPagesButtons(uniquePageButtons));
-          // dispatch(setPaginatedWordSet(paginatedResults));
           dispatch(setPagesWord(pagesWord));
           setIsLoaded('loaded');
         },
       );
-
-    // fetch(`https://rslang-61.herokuapp.com/words?page=${page}&group=${group}`)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     setWords(data);
-    //     setIsLoaded('loaded');
-    //   });
   }
 
   function chooseLevel(group:number):void {

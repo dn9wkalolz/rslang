@@ -1,4 +1,4 @@
-import { IPaginatedWordSetElem } from '../interfaces/commonInterfaces';
+import { IAction, IPaginatedWordSetElem } from '../interfaces/commonInterfaces';
 import {
   SET_GROUP,
   CHANGE_PAGE,
@@ -9,10 +9,6 @@ import {
   SET_PAGESWORD,
 } from './types';
 
-export interface IAction {
-  type: string
-  payload: any
-}
 export interface ITextbookState {
   group: number
   page: number
