@@ -58,9 +58,9 @@ const Header: React.FC = () => {
     <header className="header">
       <div className="header__content">
         <nav className={`header__nav ${menuOpen ? 'open' : ''}`}>
-          <a href={logo.link} className="header__logo">
+          <NavLink to={logo.link} className="header__logo">
             <img src={logo.img} alt={logo.imagAlt} />
-          </a>
+          </NavLink>
           <input type="button" className="header__nav-burger" onClick={toggleMenu} />
           <ul className="header__nav-items">
             {
@@ -77,7 +77,7 @@ const Header: React.FC = () => {
             <li className="header__settings-item settings">
               <img src={settings.img} alt={settings.imgAlt} />
             </li>
-            <li className="header__settings-item">
+            <li className="header__settings-item auth">
               {isAuth ? (
                 <>
                   {name}
@@ -85,8 +85,6 @@ const Header: React.FC = () => {
                   <button onClick={onLogout} type="button">{auth.logout}</button>
                 </>
               ) : <NavLink to="/login">{auth.login}</NavLink>}
-            <li className="header__settings-item auth">
-              <button type="button">{auth.login}</button>
             </li>
           </ul>
         </div>

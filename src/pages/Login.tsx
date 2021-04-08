@@ -34,7 +34,7 @@ const Login = () => {
   }
 
   return (
-    <>
+    <main>
       <Helmet>
         <title>Login | RsLang</title>
       </Helmet>
@@ -135,7 +135,7 @@ const Login = () => {
           </Formik>
         </Container>
       </Box>
-    </>
+    </main>
   );
 };
 

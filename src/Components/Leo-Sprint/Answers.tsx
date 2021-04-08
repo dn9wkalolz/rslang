@@ -1,5 +1,5 @@
 import React from 'react';
-import { baseUrl } from '../../data/content';
+import { baseUrl, ownGameContent } from '../../data/content';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 
 interface IAnswers {
@@ -7,6 +7,8 @@ interface IAnswers {
 }
 
 const Answers: React.FC<IAnswers> = ({ words }) => {
+  const { play } = ownGameContent;
+
   function playAudio(audio:string) {
     return (event: React.MouseEvent) => {
       const player = new Audio(`${baseUrl}${audio}`);
@@ -19,10 +21,12 @@ const Answers: React.FC<IAnswers> = ({ words }) => {
     <>
       {words.map((word) => (
         <div className="own-game__results--list-item" key={word._id}>
-          <button type="button" className="icon-volume-up" onClick={playAudio(word.audio)}>&nbsp;</button>
+          <button type="button" onClick={playAudio(word.audio)}>
+            <img src={play.img} alt={play.imgAlt} />
+          </button>
           <span>{word.word}</span>
           <span>{word.transcription}</span>
-          <span>{word.wordTranslate}</span>
+          <span className="own-game__results--list-item__translation">{word.wordTranslate}</span>
         </div>
       ))}
     </>

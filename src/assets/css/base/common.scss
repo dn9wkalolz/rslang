@@ -49,6 +49,7 @@ main {
   flex-direction: column;
   margin: 60px auto 0;
   padding: 20px;
+  min-height: calc(100vh - 180px);
 
   @media (min-width: 1024px) {
     margin: 80px auto 0;

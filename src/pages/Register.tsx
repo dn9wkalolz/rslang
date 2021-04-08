@@ -35,7 +35,7 @@ const Register = () => {
   }
 
   return (
-    <>
+    <main>
       <Helmet>
         <title>Register | RsLang</title>
       </Helmet>
@@ -156,7 +156,7 @@ const Register = () => {
           </Formik>
         </Container>
       </Box>
-    </>
+    </main>
   );
 };
 

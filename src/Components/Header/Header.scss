@@ -200,6 +200,14 @@
         color: $color-blue;
         font-weight: 700;
       }
+
+      a {
+        color: $color-blue;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-block;
+        height: 40px;
+      }
     }
   }
 }

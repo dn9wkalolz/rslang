@@ -22,6 +22,7 @@ import Fullscreen from '../assets/img/Fullscreen.png';
 import Play from '../assets/img/Play.png';
 import WrongIcon from '../assets/img/Wrong-icon.png';
 import CheckIcon from '../assets/img/Check-icon.png';
+import Score from '../assets/img/Check.png';
 
 const Images = {
   HomepageBanner,
@@ -48,6 +49,7 @@ const Images = {
   Play,
   WrongIcon,
   CheckIcon,
+  Score,
 };
 
 export default Images;
