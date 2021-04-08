@@ -22,7 +22,7 @@ const AudiocallGameResult: React.FC<PropsType> = ({ answers }) => {
   return (
     <>
       {answers.map((word: any) => (
-        <div className="audiocall-game__results--list-item" key={word.word}>
+        <div className="own-game__results--list-item" key={word.word}>
           <button type="button" onClick={playAudio(word.audio)}>
             <img src={play.img} alt={play.imgAlt} />
           </button>
