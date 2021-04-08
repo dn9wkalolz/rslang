@@ -10,10 +10,8 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 20px;
   margin: 60px auto 0;
   padding: 20px;
-  background-image: url('../../../assets/img/Own-game-bg.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -24,6 +22,16 @@
 
   &.savannah {
     background-image: url('../../../assets/img/Savannah-bg.jpg');
+  }
+
+  &.audiocall {
+    background-image: url('../../../assets/img/Call-bg.jpg');
+  }
+
+  &.leosprint {
+    min-height: unset;
+    padding: unset;
+    margin: unset;
   }
 
   @media (min-width: 1024px) {
@@ -91,5 +99,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: $font-size-20;
+    color: $color-white;
   }
 }

@@ -16,9 +16,11 @@ const EndWindow: React.FC = () => {
   } = ownGameContent;
   const { right, wrong }: ILeosprintState = useSelector(selectLeosprintGame);
   const dispatch = useDispatch();
+
   const onStart = () => {
     dispatch(clearGame());
   };
+
   return (
     <div className="own-game__results">
       <div className="own-game__results--wrapper">

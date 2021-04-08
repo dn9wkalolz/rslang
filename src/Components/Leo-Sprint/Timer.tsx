@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { toggleEnd } from '../../store/leoSprintActions';
+import { leoSprintContent } from '../../data/content';
 
 const Timer: React.FC = () => {
   const [stopWatch, setStopwatch] = useState<number>(0);
   const dispatch = useDispatch();
+  const { timer } = leoSprintContent;
 
   const tick = (): void => {
     setStopwatch((prev) => prev + 1);
@@ -20,7 +22,12 @@ const Timer: React.FC = () => {
     return () => clearTimeout(id);
   }, [stopWatch]);
 
-  return <div className="leosprint__timer">{`Timer: ${stopWatch}`}</div>;
+  return (
+    <div className="leosprint__timer">
+      <img src={timer.img} alt={timer.imgAlt} />
+      {stopWatch}
+    </div>
+  );
 };
 
 export default Timer;

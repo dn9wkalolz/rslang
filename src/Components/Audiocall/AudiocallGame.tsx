@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import './AudiocallGame.scss';
+import { ownGameContent } from '../../data/content';
 import { WordsType } from '../../types/types';
 import { RootState } from '../../store/rootReducer';
 import AudiocallGameCard from './AudiocallGameCard/AudiocallGameCard';
@@ -22,26 +23,54 @@ const AudiocallGame: React.FC<PropsType> = ({
   wrongAnswers,
 }) => {
   const currentWordIndex = useSelector((state: RootState) => state.audiocall.currentWordIndex);
+  const [fullscreen, setFullscreen] = useState<boolean>(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const { screen } = ownGameContent;
 
-  if (currentWordIndex < words.length) {
-    return (
-      <div className="own-game">
-        <AudiocallGameCard
-          word={words[currentWordIndex]}
-          currentWordIndex={currentWordIndex}
-          words={words}
-        />
-      </div>
-    );
+  useEffect(() => {
+    function handleChange() {
+      setFullscreen(!fullscreen);
+    }
+
+    document.addEventListener('fullscreenchange', handleChange);
+
+    return function cleanup() {
+      document.removeEventListener('fullscreenchange', handleChange);
+    };
+  });
+
+  function handleFullscreen() {
+    if (!fullscreen) {
+      ref.current?.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
   }
 
   return (
-    <AudiocallGameReuslts
-      onPageChanged={onPageChanged}
-      currentPage={currentPage}
-      rightAnswers={rightAnswers}
-      wrongAnswers={wrongAnswers}
-    />
+    <div className="own-game audiocall" ref={ref}>
+      <button className="own-game__fullscreen" type="button" onClick={handleFullscreen}>
+        <img src={screen.img} alt={screen.imgAlt} />
+      </button>
+      {
+        (currentWordIndex < words.length)
+          ? (
+            <AudiocallGameCard
+              word={words[currentWordIndex]}
+              currentWordIndex={currentWordIndex}
+              words={words}
+            />
+          )
+          : (
+            <AudiocallGameReuslts
+              onPageChanged={onPageChanged}
+              currentPage={currentPage}
+              rightAnswers={rightAnswers}
+              wrongAnswers={wrongAnswers}
+            />
+          )
+      }
+    </div>
   );
 };
 

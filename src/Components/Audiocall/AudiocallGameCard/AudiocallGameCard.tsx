@@ -9,7 +9,6 @@ import './AudiocallGameCard.scss';
 import { API_URL } from '../../../url.constants';
 import { WordsType, WordType } from '../../../types/types';
 import { getArrayRandomNumbers } from '../../../helpers/array-random-helper';
-import playImage from '../../../assets/img/Play.svg';
 import { actions } from '../../../store/audiocallReduser';
 
 type PropsType = {
@@ -22,6 +21,7 @@ const AudiocallGameCard: React.FC<PropsType> = ({ currentWordIndex, words, word 
   const [isChecking, setIsChecking] = useState<string>('');
   const [isCorrect, setIsCorrect] = useState<string>('');
   const dispatch = useDispatch();
+  const { play, nextButton } = audiocallGameContent;
 
   let timer: ReturnType<typeof setTimeout>;
 
@@ -82,32 +82,34 @@ const AudiocallGameCard: React.FC<PropsType> = ({ currentWordIndex, words, word 
         tabIndex={0}
         role="button"
       >
-        <img src={isCorrect === '' ? playImage : `${API_URL}${word.image}`} alt={word.word} />
+        <img src={isCorrect === '' ? play.img : `${API_URL}${word.image}`} alt={word.word} />
       </div>
-      <h2 className="audiocall__card--word">{word.word}</h2>
-      <p className="audiocall__card--transcription">{word.transcription}</p>
-      <h2 className="audiocall__card--translation">{word.wordTranslate}</h2>
+      <div className="own-game__card--content">
+        <h2 className="audiocall__card--word">{word.word}</h2>
+        <p className="audiocall__card--transcription">{word.transcription}</p>
+        <h2 className="audiocall__card--translation">{word.wordTranslate}</h2>
+      </div>
       <div className="audiocall__card--buttons">
         {
-          buttons.map((b, ind) => {
+          buttons.map((b) => {
             const isTruth = b === currentWordIndex;
             return (
               <button
                 type="button"
                 disabled={isCorrect !== ''}
-                className={(isCorrect === 'correct' && isTruth) ? 'audiocall__card--button'
-                  : (isCorrect === 'incorrect' && !isTruth) ? 'audiocall__card--button' : 'button'}
+                className={`audiocall__card--button ${(isCorrect === 'correct' && isTruth) ? 'correct'
+                  : (isCorrect === 'incorrect' && !isTruth) ? 'incorrect' : ''}`}
                 onClick={() => { handleCheck(b); }}
                 key={b}
               >
-                {`${ind + 1}) ${words[b].wordTranslate}`}
+                {`${words[b].wordTranslate}`}
               </button>
             );
           })
         }
       </div>
       <button type="button" className="audiocall__card--next" onClick={handleNext}>
-        {audiocallGameContent.nextButton}
+        {nextButton}
       </button>
     </div>
   );

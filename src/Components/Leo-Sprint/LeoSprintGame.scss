@@ -1,0 +1,59 @@
+@import '../../assets/css/base/variables.scss';
+@import '../../assets/css/base/extends.scss';
+
+.leosprint {  
+  &__static {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__button {
+    @extend %word;
+    margin: 0 10px;
+    color: $color-white;
+    text-transform: lowercase;
+
+    &.right {
+      background-color: $color-blue;
+    }
+
+    &.wrong {
+      background-color: $color-red;
+    }
+  }
+
+  &__timer,
+  &__score {
+    font-size: $font-size-70;
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 60px;
+      margin-right: 10px;
+    }
+  }
+
+  .own-game {
+    &__card {
+      padding: 40px 20px;
+      justify-content: space-between;
+
+      &--content {
+        justify-content: space-between;
+        margin: 20px 0;
+      }
+
+      &--word {
+        display: inline-block;
+      }
+    }
+  }
+}

@@ -225,6 +225,19 @@ export const audiocallGameContent = {
   continueButton: 'Продолжить',
 };
 
+export const leoSprintContent = {
+  right: 'Верно',
+  wrong: 'Неверно',
+  timer: {
+    img: Images.Time,
+    imgAlt: 'Таймер',
+  },
+  result: {
+    img: Images.Score,
+    imgAlt: 'Счет',
+  },
+};
+
 export const textBookContent = {
   title: 'Спринт',
   groups: ['Раздел 1', 'Раздел 2', 'Раздел 3', 'Раздел 4', 'Раздел 5', 'Раздел 6'],
