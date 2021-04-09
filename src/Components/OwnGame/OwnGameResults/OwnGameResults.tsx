@@ -4,9 +4,9 @@ import {
   selectOwnGame,
   OwnGameCardResetResults,
 } from '../OwnGameCard/OwnGameCardSlice';
-import OwnGameResult from '../OwnGameResult/OwnGameResult';
 import { ownGameContent } from '../../../data/content';
 import './OwnGameResults.scss';
+import Result from '../../common/Result';
 
 const OwnGameReuslts: React.FC = () => {
   const { correct, incorrect } = useSelector(selectOwnGame);
@@ -35,7 +35,7 @@ const OwnGameReuslts: React.FC = () => {
               {learned}
               <span>{correct.length}</span>
             </h3>
-            <OwnGameResult words={correct} />
+            <Result words={correct} />
           </div>
           <div className="own-game__results--list">
             <h3 className="own-game__results--subtitle">
@@ -43,7 +43,7 @@ const OwnGameReuslts: React.FC = () => {
               {tolearn}
               <span>{incorrect.length}</span>
             </h3>
-            <OwnGameResult words={incorrect} />
+            <Result words={incorrect} />
           </div>
         </div>
         <button type="button" className="own-game__results--restart" onClick={restartGame}>{restart}</button>

@@ -5,9 +5,10 @@ import OwnGameCard from './OwnGameCard/OwnGameCard';
 import OwnGameReuslts from './OwnGameResults/OwnGameResults';
 import { ownGameContent } from '../../data/content';
 import './OwnGame.scss';
+import { selectTextbookState } from '../../store/textbookActions';
 
-function OwnGame(props:any) {
-  const { words } = props;
+function OwnGame() {
+  const { pagesWord } = useSelector(selectTextbookState);
   const { current } = useSelector(selectOwnGame);
   const [fullscreen, setFullscreen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);

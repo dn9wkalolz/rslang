@@ -5,11 +5,12 @@ import SavannahWord from './SavannahWord/SavannahWord';
 import './Savannah.scss';
 import { ownGameContent } from '../../data/content';
 import SavannahResults from './SavannahResults/SavannahResults';
+import { selectTextbookState } from '../../store/textbookActions';
 
-function Savannah(props:any) {
-  const { words } = props;
+function Savannah() {
+  const { pagesWord } = useSelector(selectTextbookState);
   const { current, outOfLives } = useSelector(selectSavannah);
-  const [translations, setTranslations] = useState<Array<[]>>([]);
+  const [translations, setTranslations] = useState<string[]>([]);
   const prevCurrent = useRef<number>(0);
   const [fullscreen, setFullscreen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -37,7 +38,7 @@ function Savannah(props:any) {
 
   function renderOptions() {
     setTranslations([]);
-    const options = [words[current].wordTranslate];
+    const options = [pagesWord[current].wordTranslate];
 
     function randomOption(array:any) {
       const option = Math.floor(Math.random() * array.length);
@@ -49,7 +50,7 @@ function Savannah(props:any) {
     }
 
     while (options.length !== 4) {
-      const word = randomOption(words);
+      const word = randomOption(pagesWord);
       let isUnique = true;
       options.forEach((option:string) => {
         if (word.wordTranslate === option) {
@@ -67,7 +68,7 @@ function Savannah(props:any) {
   }, []);
 
   useEffect(() => {
-    if (current !== words.length) {
+    if (current !== pagesWord.length) {
       if (prevCurrent.current !== current) {
         renderOptions();
       }
@@ -75,7 +76,6 @@ function Savannah(props:any) {
       prevCurrent.current = current;
     }
   });
-
   return (
     <div className="own-game savannah" ref={ref}>
       <button className="own-game__fullscreen" type="button" onClick={handleFullscreen}>

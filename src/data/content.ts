@@ -255,4 +255,6 @@ export const DIFFICULTY = {
   LEARNED: 'learned',
 };
 
+export const STARTWINDOWURLFILTERSTRING = '{"$or":[{"userWord.difficulty":"hard"}, {"userWord.difficulty":"learned"}, {"userWord.difficulty":"restored"}, {"userWord":null}]}';
+
 export const baseUrl = 'https://rslang-61.herokuapp.com/';

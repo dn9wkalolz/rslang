@@ -19,10 +19,10 @@ const MyDictionary: React.FC = () => {
     section, group, pagesWord, paginatedWordSet, page,
   } = useSelector(selectVocabularyState);
   const dispatch = useDispatch();
-  const userId = sessionStorage.getItem('userId');
-  const token = sessionStorage.getItem('token');
 
   useEffect(() => {
+    const userId = sessionStorage.getItem('userId');
+    const token = sessionStorage.getItem('token');
     setIsLoaded(false);
     fetch(`${baseUrl}users/${userId}/aggregatedWords?group=${group}&wordsPerPage=600&filter=${section}`, {
       method: 'GET',

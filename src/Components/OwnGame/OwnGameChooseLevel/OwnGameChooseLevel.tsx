@@ -1,27 +1,39 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useLastLocation } from 'react-router-last-location';
 import OwnGame from '../OwnGame';
-import { ownGameContent } from '../../../data/content';
+import { baseUrl, ownGameContent, STARTWINDOWURLFILTERSTRING } from '../../../data/content';
 import './OwnGameChooseLevel.scss';
+import { IPaginatedWordSetElem } from '../../../interfaces/commonInterfaces';
+import { setPagesWord } from '../../../store/textbookActions';
 
 function OwnGameChooseLevel() {
   const [isLoaded, setIsLoaded] = useState<string>('');
-  const [words, setWords] = useState([]);
+  const lastLocation = useLastLocation();
   const GROUPS:Array<string> = ownGameContent.levels;
-  const PAGES:number = 29;
-
-  function choosePage(max:number):number {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
+  const dispatch = useDispatch();
 
   function fetchData(group:number):void {
-    const page = choosePage(PAGES);
-
-    fetch(`https://rslang-61.herokuapp.com/words?page=${page}&group=${group}`)
+    const userId = sessionStorage.getItem('userId');
+    const token = sessionStorage.getItem('token');
+    fetch(`${baseUrl}users/${userId}/aggregatedWords?group=${group}&wordsPerPage=600&filter=${STARTWINDOWURLFILTERSTRING}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      },
+    })
       .then((response) => response.json())
-      .then((data) => {
-        setWords(data);
-        setIsLoaded('loaded');
-      });
+      .then(
+        (result) => {
+          const { paginatedResults }: { paginatedResults: IPaginatedWordSetElem[] } = result[0];
+          const pageButtons = paginatedResults.map((word) => word.page);
+          const uniquePageButtons = Array.from(new Set(pageButtons));
+          const pagesWord = paginatedResults.filter((word) => word.page === uniquePageButtons[0]);
+          dispatch(setPagesWord(pagesWord));
+          setIsLoaded('loaded');
+        },
+      );
   }
 
   function chooseLevel(group:number):void {
@@ -29,8 +41,8 @@ function OwnGameChooseLevel() {
     fetchData(group);
   }
 
-  if (isLoaded === 'loaded') {
-    return <OwnGame words={words} />;
+  if (isLoaded === 'loaded' || lastLocation?.pathname === '/textbook') {
+    return <OwnGame />;
   } else if (isLoaded === 'loading') {
     return <div className="own-game__choose-level--loading">{ownGameContent.loading}</div>;
   } else {

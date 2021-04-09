@@ -75,7 +75,9 @@ const Header: React.FC = () => {
         <div className="header__settings">
           <ul className="header__settings-items">
             <li className="header__settings-item settings">
-              <img src={settings.img} alt={settings.imgAlt} />
+              <NavLink to="/settings">
+                <img src={settings.img} alt={settings.imgAlt} />
+              </NavLink>
             </li>
             <li className="header__settings-item auth">
               {isAuth ? (
@@ -85,6 +87,9 @@ const Header: React.FC = () => {
                   <button onClick={onLogout} type="button">{auth.logout}</button>
                 </>
               ) : <NavLink to="/login">{auth.login}</NavLink>}
+            </li>
+            <li className="header__settings-item auth">
+              <button type="button">{auth.login}</button>
             </li>
           </ul>
         </div>

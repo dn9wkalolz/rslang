@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DIFFICULTY, leoSprintContent } from '../../data/content';
 import { useFetchWithCondition } from '../../data/requestMethods';
+import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 import {
   incrementScore, rightHandler, selectLeosprintGame, setLeosprintPage, wrongHandler,
 } from '../../store/leoSprintActions';
-import { selectTextbookState, setPagesWord } from '../../store/textbookActions';
+import { changeStateWord, selectTextbookState, setPagesWord } from '../../store/textbookActions';
 
 interface IClickHandler {
   e: React.MouseEvent
@@ -36,6 +37,42 @@ const LanguageQuest: React.FC = () => {
     dispatch(setPagesWord(filteredPagesWord));
   }, [page]);
 
+  const assignWordsetProperty = (
+    wordEl: IPaginatedWordSetElem, difficulty: string, increment: any,
+  ) => {
+    if (!userWord) {
+      const updatedWordElem = {
+        ...wordEl,
+        userWord: {
+          difficulty,
+          optional: { wrong: 0, right: 0 },
+        },
+      };
+      return { ...updatedWordElem };
+    }
+    const { wrong, right } = wordEl.userWord.optional;
+    const updatedWordElem = {
+      ...wordEl,
+      userWord: {
+        difficulty,
+        optional: { wrong: wrong + increment.wrong, right: right + increment.right },
+      },
+    };
+    return { ...updatedWordElem };
+  };
+
+  const setLearnedDifficulty = (wordId: string, increment: any) => {
+    const sortedPaginationWordset = paginatedWordSet.map(
+      (wordEl) => {
+        if (wordEl._id === wordId) {
+          return assignWordsetProperty(wordEl, LEARNED, increment);
+        }
+        return wordEl;
+      },
+    );
+    dispatch(changeStateWord(sortedPaginationWordset));
+  };
+
   const answerHandler = ({ e, condition, id }: IClickHandler): void => {
     const { name } = e.target as HTMLButtonElement;
     const answer = pagesWord.filter((wordEl) => wordEl._id === id);
@@ -44,10 +81,12 @@ const LanguageQuest: React.FC = () => {
       dispatch(incrementScore());
       dispatch(rightHandler(answer));
       useFetchWithCondition(id, LEARNED, userWord, { wrong: 0, right: 1 });
+      setLearnedDifficulty(id, { wrong: 0, right: 1 });
       return;
     }
     dispatch(wrongHandler(answer));
     useFetchWithCondition(id, LEARNED, userWord, { wrong: 1, right: 0 });
+    setLearnedDifficulty(id, { wrong: 1, right: 0 });
   };
 
   const clickHandler = ({ e, condition, id }: IClickHandler): void => {

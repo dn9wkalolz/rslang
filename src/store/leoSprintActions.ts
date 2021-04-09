@@ -5,7 +5,6 @@ import {
   FETCH_WORDSET,
   INCREMENT_SCORE,
   TOGGLE_START,
-  CHANGE_DIFFICULTY,
   TOGGLE_END,
   HANDLE_WRONG,
   HANDLE_RIGHT,
@@ -39,9 +38,9 @@ export function toggleEnd(): object {
   return { type: TOGGLE_END };
 }
 
-export function changeDifficulty(payload: number): object {
-  return { type: CHANGE_DIFFICULTY, payload };
-}
+// export function changeDifficulty(payload: number): object {
+//   return { type: CHANGE_DIFFICULTY, payload };
+// }
 
 export function wrongHandler(payload: IPaginatedWordSetElem[]): object {
   return { type: HANDLE_WRONG, payload };

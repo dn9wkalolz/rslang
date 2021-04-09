@@ -1,4 +1,4 @@
-import { IPaginatedWordSetElem } from '../interfaces/commonInterfaces';
+import { IAction, IPaginatedWordSetElem } from '../interfaces/commonInterfaces';
 import {
   CHANGE_VOCABULARYPAGE,
   SET_SECTION,
@@ -9,10 +9,6 @@ import {
   SET_VOCABULARYPAGINATEDWORDSET,
 } from './types';
 
-export interface IAction {
-  type: string
-  payload: any
-}
 export interface IVocabularyState {
   group: number
   page: number

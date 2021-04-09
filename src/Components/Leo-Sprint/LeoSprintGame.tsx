@@ -40,11 +40,6 @@ const LeoSprintGame: React.FC = () => {
       document.exitFullscreen();
     }
   }
-
-  // if (!login && !start) {
-  //   return <StartWindow />;
-  // }
-
   return (
     <div className="own-game leosprint" ref={ref}>
       <button className="own-game__fullscreen" type="button" onClick={handleFullscreen}>
