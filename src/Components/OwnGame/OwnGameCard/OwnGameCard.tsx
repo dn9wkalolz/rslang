@@ -45,7 +45,7 @@ const OwnGameCard: React.FC<IWord> = ({ wordElem }) => {
     const updatedWordElem = {
       ...wordEl,
       userWord: {
-        difficulty,
+        ...wordEl.userWord,
         optional: { wrong: wrong + increment.wrong, right: right + increment.right },
       },
     };

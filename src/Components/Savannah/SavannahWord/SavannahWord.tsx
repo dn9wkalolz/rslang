@@ -66,7 +66,7 @@ const SavannahWord: React.FC<ISavannahWord> = ({ wordElem, translations }) => {
     const updatedWordElem = {
       ...wordEl,
       userWord: {
-        difficulty,
+        ...wordEl.userWord,
         optional: { wrong: wrong + increment.wrong, right: right + increment.right },
       },
     };

@@ -40,8 +40,8 @@ function OwnGame() {
         <img src={screen.img} alt={screen.imgAlt} />
       </button>
       {
-        (current < words.length)
-          ? <OwnGameCard word={words[current]} />
+        (current < pagesWord.length)
+          ? <OwnGameCard wordElem={pagesWord[current]} />
           : <OwnGameReuslts />
       }
     </div>
