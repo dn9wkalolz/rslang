@@ -1,10 +1,13 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeVocabularyPage, selectVocabularyState } from '../../store/vocabularyActions';
+import { textBookContent } from '../../data/content';
 import { IVocabularyState } from '../../store/vocabularyReducer';
+import '../TextBook/PageSwitcher/PageSwitcher.scss';
 
 const VocabularyPageSwitcher: React.FC = () => {
   const { page, group, pagesButtons }: IVocabularyState = useSelector(selectVocabularyState);
+  const { arrowNext, arrowPrevious } = textBookContent;
   const dispatch = useDispatch();
 
   const switchPage = (e: React.MouseEvent) => {
@@ -21,11 +24,11 @@ const VocabularyPageSwitcher: React.FC = () => {
         onClick={switchPage}
         disabled={page === 0}
       >
-        Предыдущая страница
+        <img src={arrowPrevious.img} alt={arrowPrevious.imgAlt} />
       </button>
-      <div className="textbook__status">
-        <h1>{`Группа слов №${group}`}</h1>
-        <h2>{`Страница №${page}`}</h2>
+      <div className="textbook__page-switcher--status">
+        <h2 className="textbook__page-switcher--group">{`Группа слов №${group + 1}`}</h2>
+        <h2 className="textbook__page-switcher--page">{`Страница №${page + 1}`}</h2>
       </div>
       <button
         name="increment"
@@ -33,7 +36,7 @@ const VocabularyPageSwitcher: React.FC = () => {
         onClick={switchPage}
         disabled={page + 1 === pagesButtons || pagesButtons === 0}
       >
-        Следующая страница
+        <img src={arrowNext.img} alt={arrowNext.imgAlt} />
       </button>
     </div>
   );

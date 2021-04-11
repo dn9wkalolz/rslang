@@ -82,8 +82,8 @@ function Savannah() {
         <img src={screen.img} alt={screen.imgAlt} />
       </button>
       {
-        (current < words.length && !outOfLives)
-          ? <SavannahWord word={words[current]} words={words} translations={translations} />
+        (current < pagesWord.length && !outOfLives)
+          ? <SavannahWord wordElem={pagesWord[current]} translations={translations} />
           : <SavannahResults />
       }
     </div>

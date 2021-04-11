@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
-import Word from './Word';
-import { baseUrl, STARTWINDOWURLFILTERSTRING } from '../../data/content';
+import { IPaginatedWordSetElem } from '../../../interfaces/commonInterfaces';
+import Word from '../Word/Word';
+import { baseUrl, STARTWINDOWURLFILTERSTRING } from '../../../data/content';
 import {
   selectTextbookState,
   setPage, setPagesButtons, setPagesWord, setPaginatedWordSet,
-} from '../../store/textbookActions';
-import { setLeosprintPage } from '../../store/leoSprintActions';
+} from '../../../store/textbookActions';
+import { setLeosprintPage } from '../../../store/leoSprintActions';
+import './Dictionary.scss';
 
 const Dictionary: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);

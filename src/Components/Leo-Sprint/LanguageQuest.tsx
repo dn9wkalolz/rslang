@@ -21,7 +21,7 @@ const LanguageQuest: React.FC = () => {
     pagesWord, paginatedWordSet, pagesButtons,
   } = useSelector(selectTextbookState);
   const dispatch = useDispatch();
-  const { right, wrong } = leoSprintContent;
+  const { rightButton, wrongButton } = leoSprintContent;
 
   const getRandomIndex = (): number => Math.floor(Math.random() * pagesWord.length);
   const getRandomTranslate = (): string => pagesWord[getRandomIndex()].wordTranslate;
@@ -117,7 +117,7 @@ const LanguageQuest: React.FC = () => {
           className="leosprint__button wrong"
           onClick={(e) => clickHandler({ e, id: _id, condition: isWordsMatch })}
         >
-          {wrong}
+          {wrongButton}
         </button>
         <button
           name="right"
@@ -125,7 +125,7 @@ const LanguageQuest: React.FC = () => {
           className="leosprint__button right"
           onClick={(e) => clickHandler({ e, id: _id, condition: isWordsMatch })}
         >
-          {right}
+          {rightButton}
         </button>
       </div>
     </div>

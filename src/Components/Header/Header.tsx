@@ -66,7 +66,7 @@ const Header: React.FC = () => {
             {
               pages.map((page) => (
                 <li className="header__nav-item" key={page.key}>
-                  <NavLink exact={page.exact} activeClassName="active" to={page.link}>{page.name}</NavLink>
+                  <NavLink exact={page.exact} activeClassName="active" to={page.link} onClick={toggleMenu}>{page.name}</NavLink>
                 </li>
               ))
             }
@@ -87,9 +87,6 @@ const Header: React.FC = () => {
                   <button onClick={onLogout} type="button">{auth.logout}</button>
                 </>
               ) : <NavLink to="/login">{auth.login}</NavLink>}
-            </li>
-            <li className="header__settings-item auth">
-              <button type="button">{auth.login}</button>
             </li>
           </ul>
         </div>

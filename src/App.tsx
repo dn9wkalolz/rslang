@@ -17,6 +17,7 @@ import AudiocallStartScreen from './Components/Audiocall/AudiocallStartScreen/Au
 import SavannahChooseLevel from './Components/Savannah/SavannahChooseLevel/SavannahChooseLevel';
 import Header from './Components/Header/Header';
 import Settings from './Components/Settings/Settings';
+import Games from './Components/common/Games/Games';
 
 function App() {
   return (
@@ -38,6 +39,9 @@ function App() {
           </Route>
           <Route path="/games/sprint">
             <LeoSprintGame />
+          </Route>
+          <Route path="/games">
+            <Games />
           </Route>
           <Route path="/textbook">
             <TextBook />

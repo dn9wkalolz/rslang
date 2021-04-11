@@ -23,6 +23,12 @@ import Play from '../assets/img/Play.png';
 import WrongIcon from '../assets/img/Wrong-icon.png';
 import CheckIcon from '../assets/img/Check-icon.png';
 import Score from '../assets/img/Check.png';
+import ArrowNext from '../assets/img/Arrow-next.png';
+import ArrowPrevious from '../assets/img/Arrow-previous.png';
+import NotDifficult from '../assets/img/Difficult-no.png';
+import Difficult from '../assets/img/Difficult-yes.png';
+import Trash from '../assets/img/Trash.png';
+import Restore from '../assets/img/Restore.png';
 
 const Images = {
   HomepageBanner,
@@ -50,6 +56,12 @@ const Images = {
   WrongIcon,
   CheckIcon,
   Score,
+  ArrowNext,
+  ArrowPrevious,
+  NotDifficult,
+  Difficult,
+  Trash,
+  Restore,
 };
 
 export default Images;

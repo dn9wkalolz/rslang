@@ -1,19 +1,18 @@
 import React from 'react';
-import Dictionary from './Dictionary';
-import GroupMenu from './GroupMenu';
-import PageMenu from './PageMenu';
-import PageSwitcher from './PageSwitcher';
-import GameSection from '../HomePage/GamesSection/GamesSection';
-import './textbook.scss';
+import Dictionary from './Dictionary/Dictionary';
+import GroupMenu from './GroupMenu/GroupMenu';
+import PageMenu from './PageMenu/PageMenu';
+import PageSwitcher from './PageSwitcher/PageSwitcher';
+import Games from '../common/Games/Games';
 
 const TextBook: React.FC = () => (
-  <main>
+  <main className="textbook">
     <GroupMenu />
     <PageMenu />
     <PageSwitcher />
     <Dictionary />
     <PageSwitcher />
-    <GameSection />
+    <Games />
   </main>
 );
 

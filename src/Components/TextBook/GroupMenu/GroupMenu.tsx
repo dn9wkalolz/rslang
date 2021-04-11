@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectTextbookState, setGroup } from '../../store/textbookActions';
-import { DIFFICULTY, textBookContent } from '../../data/content';
+import { selectTextbookState, setGroup } from '../../../store/textbookActions';
+import { DIFFICULTY, textBookContent } from '../../../data/content';
+import './GroupMenu.scss';
 
 const GroupMenu: React.FC = () => {
   const { LEARNED } = DIFFICULTY;
@@ -16,21 +17,22 @@ const GroupMenu: React.FC = () => {
     setStatistic([learned.length, right, wrong]);
   }, [group, paginatedWordSet]);
 
-  const { groups } = textBookContent;
+  const { groups, textbookTitle } = textBookContent;
   const dispatch = useDispatch();
   const buttonHandler = (currGroup: number) => {
     dispatch(setGroup(currGroup));
   };
 
   return (
-    <div>
+    <div className="textbook__header">
+      <h1 className="textbook__title">{textbookTitle}</h1>
       <ul className="textbook__groups">
         {groups.map(
           (currGroup, idx) => (
-            <li key={currGroup}>
+            <li key={currGroup} className="textbook__groups-section">
               <button
                 type="button"
-                className={group === idx ? 'textbook__button button_active' : 'textbook__button'}
+                className={`textbook__groups--button ${group === idx ? 'active' : ''}`}
                 onClick={() => buttonHandler(idx)}
               >
                 {currGroup}
@@ -39,10 +41,19 @@ const GroupMenu: React.FC = () => {
           ),
         )}
       </ul>
-      <div>
-        {`Изучено слов в разделе ${group + 1}: ${statistic[0]} 
-          Правильных ответов: ${statistic[1]} 
-          Ошибок: ${statistic[2]}`}
+      <div className="textbook__statistics">
+        <div className="textbook__statistics--item">
+          {`Изучено слов в разделе ${group + 1}:`}
+          <span>{statistic[0]}</span>
+        </div>
+        <div className="textbook__statistics--item">
+          Правильных ответов:
+          <span>{statistic[1]}</span>
+        </div>
+        <div className="textbook__statistics--item">
+          Ошибок:
+          <span>{statistic[2]}</span>
+        </div>
       </div>
     </div>
   );
