@@ -226,8 +226,8 @@ export const audiocallGameContent = {
 };
 
 export const leoSprintContent = {
-  right: 'Верно',
-  wrong: 'Неверно',
+  rightButton: 'Верно',
+  wrongButton: 'Неверно',
   timer: {
     img: Images.Time,
     imgAlt: 'Таймер',
