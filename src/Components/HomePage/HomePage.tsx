@@ -2,16 +2,16 @@ import React from 'react';
 import HeroSection from './HeroSection/HeroSection';
 import VideoSection from './VideoSection/VideoSection';
 import FeaturesSection from './FeaturesSection/FeaturesSection';
-import GamesSection from './GamesSection/GamesSection';
 import TeamSection from './TeamSection/TeamSection';
 import RegistrationSection from './RegistrationSection/RegistrationSection';
+import Games from '../common/Games/Games';
 
 const HomePage: React.FC = () => (
-  <main>
+  <main className="homepage">
     <HeroSection />
     <VideoSection />
     <FeaturesSection />
-    <GamesSection />
+    <Games />
     <TeamSection />
     <RegistrationSection />
   </main>

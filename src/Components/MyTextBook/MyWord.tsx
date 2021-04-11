@@ -1,6 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { baseUrl, DIFFICULTY, textBookContent } from '../../data/content';
+import {
+  ownGameContent, baseUrl, DIFFICULTY, textBookContent,
+} from '../../data/content';
 import { useFetchWithCondition } from '../../data/requestMethods';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 import { selectSettingsState } from '../../store/settingsReducer';
@@ -26,8 +28,11 @@ const MyWord: React.FC<IWords> = ({ wordElem }) => {
   } = wordElem;
   const { section, paginatedWordSet } = useSelector(selectVocabularyState);
   const { isButtonsShowed, isTranslated } = useSelector(selectSettingsState);
+  const { play } = ownGameContent;
   const dispatch = useDispatch();
-  const { sections } = textBookContent;
+  const {
+    sections, notDifficult, difficult, trash, restore,
+  } = textBookContent;
   const learnedSection = sections[0].category;
   const hardSection = sections[1].category;
   const deletedSection = sections[2].category;
@@ -77,32 +82,41 @@ const MyWord: React.FC<IWords> = ({ wordElem }) => {
 
   return (
     <div className="textbook__word">
-      <div><img className="textbook__word-img" src={baseUrl + image} alt={word} /></div>
-      <div className="textbook__word-cover">
-        <div className="textbook__word-description">
-          <span>{`${word} ${transcription} ${isTranslated ? wordTranslate : ''}`}</span>
-          <button type="button" onClick={() => sound.play()}>Play</button>
+      <div className="textbook__word--image">
+        <img src={baseUrl + image} alt={word} />
+      </div>
+      <div className="textbook__word--content">
+        <div className="textbook__word--content__wrapper">
+          <div className="textbook__word-description">
+            <span className="textbook__word-description--word">{`${word}`}</span>
+            <span className="textbook__word-description--transcription">{`${transcription}`}</span>
+            <span className="textbook__word-description--translation">{`${isTranslated ? wordTranslate : ''}`}</span>
+            <button className="textbook__word-description--play" type="button" onClick={() => sound.play()}>
+              <img src={play.img} alt={play.imgAlt} />
+            </button>
+          </div>
+          <div className="textbook__word-meaning">
+            <div className="textbook__word-meaning--meaning" dangerouslySetInnerHTML={{ __html: textMeaning }} />
+            <div className="textbook__word-meaning--example" dangerouslySetInnerHTML={{ __html: textExample }} />
+          </div>
+          {isTranslated
+            ? (
+              <div className="textbook__word-translation">
+                <div className="textbook__word-translation--meaning">{`${textMeaningTranslate}. `}</div>
+                <div className="textbook__word-example">{`${textExampleTranslate}.`}</div>
+              </div>
+            )
+            : null}
         </div>
-        <div className="textbook__word-meaning">
-          <span><div dangerouslySetInnerHTML={{ __html: textMeaning }} /></span>
-          <span><div dangerouslySetInnerHTML={{ __html: textExample }} /></span>
-        </div>
-        {isTranslated
-          ? (
-            <div className="textbook__translate">
-              <span>{`${textMeaningTranslate}. `}</span>
-              <span>{`${textExampleTranslate}.`}</span>
-            </div>
-          )
-          : null}
-        <div>
+        <div className="textbook__word--content__buttons">
           {section === hardSection || !isButtonsShowed ? null : (
             <button
               disabled={userWord?.difficulty === 'hard'}
               type="button"
               onClick={() => setHardDifficulty(_id)}
             >
-              Сложно
+              <img src={userWord?.difficulty === 'hard' ? difficult.img : notDifficult.img} alt={userWord?.difficulty === 'hard' ? difficult.imgAlt : notDifficult.imgAlt} />
+              <div>{difficult.title}</div>
             </button>
           )}
           {section === deletedSection || !isButtonsShowed ? null : (
@@ -110,20 +124,28 @@ const MyWord: React.FC<IWords> = ({ wordElem }) => {
               type="button"
               onClick={() => deleteWord(_id)}
             >
-              Удалить
+              <img src={trash.img} alt={trash.imgAlt} />
+              <div>{trash.title}</div>
             </button>
           )}
           <button
             type="button"
             onClick={() => restoreWord(_id)}
           >
-            Восстановить
+            <img src={restore.img} alt={restore.imgAlt} />
+            <div>{restore.title}</div>
           </button>
         </div>
         {section === learnedSection ? (
-          <div>
-            {`Правильно угадано: ${wordElem.userWord?.optional.right || 0} 
-                Ошибок: ${wordElem.userWord?.optional.wrong || 0}`}
+          <div className="textbook__word--content__statistics">
+            <div className="textbook__word--content__statistics--item">
+              Правильно угадано:
+              <span>{wordElem.userWord?.optional.right || 0}</span>
+            </div>
+            <div className="textbook__word--content__statistics--item">
+              Ошибок:
+              <span>{wordElem.userWord?.optional.wrong || 0}</span>
+            </div>
           </div>
         ) : null}
       </div>

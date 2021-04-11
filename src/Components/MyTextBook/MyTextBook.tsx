@@ -1,19 +1,20 @@
 import React from 'react';
-import GamesSection from '../HomePage/GamesSection/GamesSection';
+import Games from '../common/Games/Games';
 import MyDictionary from './MyDictionary';
 import MyGroupMenu from './MyGroupMenu';
 import MyPageMenu from './MyPageMenu';
-import SectionMenu from './SectionMenu';
+import SectionMenu from './SectionMenu/SectionMenu';
 import VocabularyPageSwitcher from './VocabularuSwitcher';
 
 const MyTextBook: React.FC = () => (
-  <main>
+  <main className="textbook vocabulary">
     <SectionMenu />
     <MyGroupMenu />
     <MyPageMenu />
     <VocabularyPageSwitcher />
     <MyDictionary />
-    <GamesSection />
+    <VocabularyPageSwitcher />
+    <Games />
   </main>
 );
 

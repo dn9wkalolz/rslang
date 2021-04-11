@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { textBookContent } from '../../data/content';
 import { RootState } from '../../store/rootReducer';
 import { setVocabularyGroup } from '../../store/vocabularyActions';
+import '../TextBook/GroupMenu/GroupMenu.scss';
 
 const MyGroupMenu: React.FC = () => {
   const currGroup = useSelector((state: RootState) => state.vocabularyState.group);
@@ -15,10 +16,10 @@ const MyGroupMenu: React.FC = () => {
     <ul className="textbook__groups">
       {groups.map(
         (group, idx) => (
-          <li key={group}>
+          <li className="textbook__groups-section" key={group}>
             <button
               type="button"
-              className={currGroup === idx ? 'textbook__button button_active' : 'textbook__button'}
+              className={`textbook__groups--button ${currGroup === idx ? 'active' : ''}`}
               onClick={() => buttonHandler(idx)}
             >
               {group}

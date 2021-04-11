@@ -1,25 +1,27 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { homepageContent } from '../../../data/content';
-import './GamesSection.scss';
+import './Games.scss';
 
-const GamesSection: React.FC = () => {
+const Games: React.FC = () => {
   const { games } = homepageContent;
   const { quizes } = games;
 
   return (
-    <section className="homepage__games">
-      <h2 className="homepage__games-title">{games.title}</h2>
-      <div className="homepage__games-content">
-        <div className="homepage__games-image">
+    <section className="games">
+      <h2 className="games__title">{games.title}</h2>
+      <h2 className="games__subtitle">{games.subtitle}</h2>
+      <div className="games__description">{games.description}</div>
+      <div className="games__content">
+        <div className="games__image">
           <img src={games.image} alt={games.title} />
         </div>
-        <div className="homepage__games-items">
+        <div className="games__items">
           {
             quizes.map((quiz) => (
-              <NavLink to={quiz.link} className="homepage__games-item" key={quiz.key}>
+              <NavLink to={quiz.link} className="games__item" key={quiz.key}>
                 <img src={quiz.img} alt={quiz.title} />
-                <div className="homepage__games-text">
+                <div className="games__text">
                   <h3>{quiz.title}</h3>
                   <p>{quiz.subtitle}</p>
                   <p>{quiz.description}</p>
@@ -33,4 +35,4 @@ const GamesSection: React.FC = () => {
   );
 };
 
-export default GamesSection;
+export default Games;

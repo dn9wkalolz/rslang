@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { DIFFICULTY } from '../../data/content';
-import { setLeosprintPage } from '../../store/leoSprintActions';
-import { selectTextbookState, setPage } from '../../store/textbookActions';
+import { DIFFICULTY } from '../../../data/content';
+import { setLeosprintPage } from '../../../store/leoSprintActions';
+import { selectTextbookState, setPage } from '../../../store/textbookActions';
+import './PageMenu.scss';
 
 const PageMenu:React.FC = () => {
   const { LEARNED } = DIFFICULTY;
@@ -26,26 +27,35 @@ const PageMenu:React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="textbook__pages--menu">
       <ul className="textbook__pages">
         {pagesButtons.map(
           (currPage) => (
-            <li key={currPage}>
+            <li className="textbook__pages--item" key={currPage}>
               <button
                 type="button"
-                className={page === currPage ? 'textbook__button button_active' : 'textbook__button'}
+                className={`textbook__pages--button ${page === currPage ? 'active' : ''}`}
                 onClick={() => buttonHandler(currPage)}
               >
-                {currPage}
+                {currPage + 1}
               </button>
             </li>
           ),
         )}
       </ul>
-      <div>
-        {`Изучено слов на странице ${page}: ${statistic[0]} 
-          Правильных ответов: ${statistic[1]} 
-          Ошибок: ${statistic[2]}`}
+      <div className="textbook__statistics">
+        <div className="textbook__statistics--item">
+          {`Изучено слов на странице ${page + 1}:`}
+          <span>{statistic[0]}</span>
+        </div>
+        <div className="textbook__statistics--item">
+          Правильных ответов:
+          <span>{statistic[1]}</span>
+        </div>
+        <div className="textbook__statistics--item">
+          Ошибок:
+          <span>{statistic[2]}</span>
+        </div>
       </div>
     </div>
   );
