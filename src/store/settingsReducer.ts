@@ -5,11 +5,13 @@ import { CHANGE_SETTINGS, SET_ISTRANLASTED, SET_ISBUTTONSHOWED } from './types';
 interface ISettingsState {
   isTranslated: boolean
   isButtonsShowed: boolean
+  userPhoto: string
 }
 
 const initialState: ISettingsState = {
   isTranslated: true,
   isButtonsShowed: true,
+  userPhoto: '',
 };
 
 export const settingsReducer = (state = initialState, action: IAction) => {

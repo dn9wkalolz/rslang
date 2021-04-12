@@ -6,7 +6,7 @@ import {
 } from '../../store/settingsReducer';
 
 const Settings: React.FC = () => {
-  const { isButtonsShowed, isTranslated } = useSelector(selectSettingsState);
+  const { isButtonsShowed, isTranslated, userPhoto } = useSelector(selectSettingsState);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
 
@@ -21,7 +21,8 @@ const Settings: React.FC = () => {
       },
     })
       .then((response) => response.json())
-      .then((result) => dispatch(changeSettings(result.optional)));
+      .then((result) => dispatch(changeSettings(result.optional)),
+        () => console.error('пока нет настроек'));
   }, []);
 
   const fetchSettings = () => {
@@ -36,12 +37,11 @@ const Settings: React.FC = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        optional: { isTranslated, isButtonsShowed },
+        optional: { userPhoto, isTranslated, isButtonsShowed },
       }),
     })
       .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
+      .then(() => {
         setIsLoading(false);
       });
   };

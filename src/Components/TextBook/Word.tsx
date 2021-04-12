@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { baseUrl, DIFFICULTY } from '../../data/content';
-import { useFetchWithCondition } from '../../data/requestMethods';
+import { useFetchWithCondition } from '../../helpers/requestMethods';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 import { selectSettingsState } from '../../store/settingsReducer';
 import {

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DIFFICULTY, leoSprintContent } from '../../data/content';
-import { fetchStatistic, useFetchWithCondition } from '../../data/requestMethods';
+import { fetchStatistic, useFetchWithCondition } from '../../helpers/requestMethods';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 import {
   incrementScore, rightHandler, selectLeosprintGame, setLeosprintPage, wrongHandler,

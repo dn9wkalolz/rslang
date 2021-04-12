@@ -10,7 +10,7 @@ import {
   setVocabularyPagesWord,
   setVocabularyPaginatedWordSet,
 } from '../../store/vocabularyActions';
-import { getPageLimit } from '../../data/commonAppMethods';
+import { getPageLimit } from '../../helpers/commonAppMethods';
 
 const MyDictionary: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);

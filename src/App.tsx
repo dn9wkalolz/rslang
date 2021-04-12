@@ -17,6 +17,7 @@ import AudiocallStartScreen from './Components/Audiocall/AudiocallStartScreen/Au
 import SavannahChooseLevel from './Components/Savannah/SavannahChooseLevel/SavannahChooseLevel';
 import Header from './Components/Header/Header';
 import Settings from './Components/Settings/Settings';
+import Statistic from './Components/Statistic/Statistic';
 
 function App() {
   return (
@@ -53,6 +54,9 @@ function App() {
           </Route>
           <Route path="/settings">
             <Settings />
+          </Route>
+          <Route path="/statistics">
+            <Statistic />
           </Route>
         </Switch>
         <Footer />

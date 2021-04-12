@@ -35,10 +35,8 @@ export const setStatistic = (
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    // body: JSON.stringify({ optional: { stats: JSON.stringify([['Дата', 'Слов']]) } }),
   });
   const result = await response.json();
-  console.log(JSON.parse(result.optional.stats));
   const payload = result.optional?.stats ? JSON.parse(result.optional?.stats) : [['Дата', 'Слов']];
   dispatch({ type: SET_STATISTIC, payload });
 };

@@ -1,5 +1,5 @@
 import { getStringDate } from './commonAppMethods';
-import { baseUrl, DIFFICULTY } from './content';
+import { baseUrl, DIFFICULTY } from '../data/content';
 
 const token = sessionStorage.getItem('token');
 const userId = sessionStorage.getItem('userId');
@@ -21,8 +21,6 @@ export const useFetchWithCondition = (
         optional: { wrong: increment?.wrong || 0, right: increment?.right || 0 },
       }),
     });
-    // .then((response) => response.json())
-    // .then((result) => console.log(result));
     return;
   }
   const { wrong, right } = userWord.optional;
@@ -41,8 +39,6 @@ export const useFetchWithCondition = (
       },
     }),
   });
-  // .then((response) => response.json())
-  // .then((result) => console.log(result));
 };
 
 export const fetchStatistic = (prevStatistic: Array<Array<any>>, count: number) => {
@@ -67,7 +63,5 @@ export const fetchStatistic = (prevStatistic: Array<Array<any>>, count: number) 
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ optional: { stats: JSON.stringify(updatedStatistic) } }),
-  })
-    .then((response) => response.json())
-    .then((result) => console.log(result));
+  });
 };
