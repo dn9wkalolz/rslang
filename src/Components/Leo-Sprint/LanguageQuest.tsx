@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DIFFICULTY, leoSprintContent } from '../../data/content';
-import { useFetchWithCondition } from '../../data/requestMethods';
+import { fetchStatistic, useFetchWithCondition } from '../../helpers/requestMethods';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 import {
   incrementScore, rightHandler, selectLeosprintGame, setLeosprintPage, wrongHandler,
 } from '../../store/leoSprintActions';
+import { selectStatisticState, setCount, setStatistic } from '../../store/statisticReducer';
 import { changeStateWord, selectTextbookState, setPagesWord } from '../../store/textbookActions';
 
 interface IClickHandler {
@@ -20,6 +21,7 @@ const LanguageQuest: React.FC = () => {
   const {
     pagesWord, paginatedWordSet, pagesButtons,
   } = useSelector(selectTextbookState);
+  const { prevStatistic, currCount } = useSelector(selectStatisticState);
   const dispatch = useDispatch();
   const { rightButton, wrongButton } = leoSprintContent;
 
@@ -31,6 +33,19 @@ const LanguageQuest: React.FC = () => {
   } = pagesWord[getRandomIndex()];
   const randomTranslate = getRandomTranslate();
   const isWordsMatch = wordTranslate === randomTranslate;
+
+  useEffect(() => {
+    const userId = sessionStorage.getItem('userId');
+    const token = sessionStorage.getItem('token');
+    dispatch(setStatistic(userId, token));
+  }, []);
+
+  useEffect(() => {
+    if (currCount === 0) {
+      return;
+    }
+    fetchStatistic(prevStatistic, currCount);
+  }, [currCount]);
 
   useEffect(() => {
     const filteredPagesWord = paginatedWordSet.filter((wordEl) => wordEl.page === page);
@@ -54,7 +69,7 @@ const LanguageQuest: React.FC = () => {
     const updatedWordElem = {
       ...wordEl,
       userWord: {
-        difficulty,
+        ...wordEl.userWord,
         optional: { wrong: wrong + increment.wrong, right: right + increment.right },
       },
     };
@@ -77,6 +92,7 @@ const LanguageQuest: React.FC = () => {
     const { name } = e.target as HTMLButtonElement;
     const answer = pagesWord.filter((wordEl) => wordEl._id === id);
     const nameToBoolean = name === 'right';
+    dispatch(setCount());
     if (nameToBoolean === condition) {
       dispatch(incrementScore());
       dispatch(rightHandler(answer));

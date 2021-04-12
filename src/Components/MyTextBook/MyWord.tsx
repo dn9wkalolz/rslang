@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   ownGameContent, baseUrl, DIFFICULTY, textBookContent,
 } from '../../data/content';
-import { useFetchWithCondition } from '../../data/requestMethods';
+import { useFetchWithCondition } from '../../helpers/requestMethods';
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 import { selectSettingsState } from '../../store/settingsReducer';
 import { selectVocabularyState, setVocabularyPaginatedWordSet } from '../../store/vocabularyActions';

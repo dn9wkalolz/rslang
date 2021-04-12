@@ -1,11 +1,12 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { OwnGameCardIsCorrect, OwnGameCardIsIncorrect, OwnGameCardSetCurrent } from './OwnGameCardSlice';
 import { baseUrl, DIFFICULTY, ownGameContent } from '../../../data/content';
 import { IPaginatedWordSetElem } from '../../../interfaces/commonInterfaces';
-import { useFetchWithCondition } from '../../../data/requestMethods';
+import { fetchStatistic, useFetchWithCondition } from '../../../helpers/requestMethods';
 import { selectTextbookState, setPagesWord } from '../../../store/textbookActions';
 import './OwnGameCard.scss';
+import { selectStatisticState, setCount, setStatistic } from '../../../store/statisticReducer';
 
 interface IWord {
   wordElem: IPaginatedWordSetElem
@@ -21,12 +22,26 @@ const OwnGameCard: React.FC<IWord> = ({ wordElem }) => {
   const dispatch = useDispatch();
   const ref = useRef<HTMLInputElement>(null);
   const { pagesWord } = useSelector(selectTextbookState);
+  const { prevStatistic, currCount } = useSelector(selectStatisticState);
 
   function clearInput():void {
     if (ref.current?.value) {
       ref.current.value = '';
     }
   }
+
+  useEffect(() => {
+    const userId = sessionStorage.getItem('userId');
+    const token = sessionStorage.getItem('token');
+    dispatch(setStatistic(userId, token));
+  }, []);
+
+  useEffect(() => {
+    if (currCount === 0) {
+      return;
+    }
+    fetchStatistic(prevStatistic, currCount);
+  }, [currCount]);
 
   const assignWordsetProperty = (
     wordEl: IPaginatedWordSetElem, difficulty: string, increment: any,
@@ -45,7 +60,7 @@ const OwnGameCard: React.FC<IWord> = ({ wordElem }) => {
     const updatedWordElem = {
       ...wordEl,
       userWord: {
-        difficulty,
+        ...wordEl.userWord,
         optional: { wrong: wrong + increment.wrong, right: right + increment.right },
       },
     };
@@ -67,6 +82,7 @@ const OwnGameCard: React.FC<IWord> = ({ wordElem }) => {
   function handleCheck():void {
     if (ref.current?.value) {
       setIsChecking('checking');
+      dispatch(setCount());
 
       if (ref.current?.value.toLowerCase() === word.toLowerCase()) {
         setIsCorrect('correct');

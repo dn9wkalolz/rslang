@@ -10,7 +10,8 @@ import {
 import './SavannahWord.scss';
 import { DIFFICULTY } from '../../../data/content';
 import { selectTextbookState, setPagesWord } from '../../../store/textbookActions';
-import { useFetchWithCondition } from '../../../data/requestMethods';
+import { fetchStatistic, useFetchWithCondition } from '../../../helpers/requestMethods';
+import { selectStatisticState, setCount, setStatistic } from '../../../store/statisticReducer';
 
 interface ISavannahWord {
   wordElem: IPaginatedWordSetElem
@@ -28,6 +29,7 @@ const SavannahWord: React.FC<ISavannahWord> = ({ wordElem, translations }) => {
   const arrayOfPseudoLives = Array.from({ length: pseudoLives }, (v, k) => k);
   const dispatch = useDispatch();
   const { pagesWord } = useSelector(selectTextbookState);
+  const { prevStatistic, currCount } = useSelector(selectStatisticState);
 
   function handleNext():void {
     dispatch(SavannahWordSetCurrent());
@@ -49,6 +51,19 @@ const SavannahWord: React.FC<ISavannahWord> = ({ wordElem, translations }) => {
     return () => clearTimeout(timer);
   }, [word]);
 
+  useEffect(() => {
+    const userId = sessionStorage.getItem('userId');
+    const token = sessionStorage.getItem('token');
+    dispatch(setStatistic(userId, token));
+  }, []);
+
+  useEffect(() => {
+    if (currCount === 0) {
+      return;
+    }
+    fetchStatistic(prevStatistic, currCount);
+  }, [currCount]);
+
   const assignWordsetProperty = (
     wordEl: IPaginatedWordSetElem, difficulty: string, increment: any,
   ) => {
@@ -66,7 +81,7 @@ const SavannahWord: React.FC<ISavannahWord> = ({ wordElem, translations }) => {
     const updatedWordElem = {
       ...wordEl,
       userWord: {
-        difficulty,
+        ...wordEl.userWord,
         optional: { wrong: wrong + increment.wrong, right: right + increment.right },
       },
     };
@@ -89,6 +104,7 @@ const SavannahWord: React.FC<ISavannahWord> = ({ wordElem, translations }) => {
     const element = event.target as HTMLInputElement;
     const translation = element.value;
 
+    dispatch(setCount());
     if (translation.toLowerCase() === wordTranslate.toLowerCase()) {
       dispatch(SavannahWordIsCorrect(wordElem));
       useFetchWithCondition(_id, LEARNED, userWord, { wrong: 0, right: 1 });

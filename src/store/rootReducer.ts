@@ -8,6 +8,7 @@ import { audiocallReducer } from './audiocallReduser';
 import { SavannahReducer } from '../Components/Savannah/SavannahWord/SavannahWordSlice';
 import { authReducer } from './authReducer';
 import { settingsReducer } from './settingsReducer';
+import { statisticReducer } from './statisticReducer';
 
 export const rootReducer = combineReducers({
   auth: authReducer,
@@ -18,6 +19,7 @@ export const rootReducer = combineReducers({
   vocabularyState: vocabularyReducer,
   Savannah: SavannahReducer,
   settings: settingsReducer,
+  statistic: statisticReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

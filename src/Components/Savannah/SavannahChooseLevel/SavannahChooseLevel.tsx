@@ -11,14 +11,8 @@ import { setPagesWord } from '../../../store/textbookActions';
 function SavannahChooseLevel() {
   const [isLoaded, setIsLoaded] = useState<string>('');
   const lastLocation = useLastLocation();
-  // const [words, setWords] = useState([]);
   const GROUPS:Array<string> = ownGameContent.levels;
   const dispatch = useDispatch();
-  // const PAGES:number = 29;
-
-  // function choosePage(max:number):number {
-  //   return Math.floor(Math.random() * Math.floor(max));
-  // }
 
   function fetchData(group:number):void {
     const userId = sessionStorage.getItem('userId');
