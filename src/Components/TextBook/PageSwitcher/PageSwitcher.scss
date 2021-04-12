@@ -6,6 +6,10 @@
     display: flex;
     justify-content: center;
 
+    &.hidden {
+      display: none;
+    }
+
     &--status {
       text-align: center;
       margin: 0 20px;

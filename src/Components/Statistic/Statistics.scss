@@ -1,0 +1,9 @@
+@import '../../assets/css/base/variables.scss';
+@import '../../assets/css/base/extends.scss';
+
+.statistics {
+  &__title {
+    font-size: $font-size-30;
+    color: $color-black;
+  }
+}

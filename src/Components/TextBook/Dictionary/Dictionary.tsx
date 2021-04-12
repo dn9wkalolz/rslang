@@ -9,6 +9,7 @@ import {
 } from '../../../store/textbookActions';
 import { setLeosprintPage } from '../../../store/leoSprintActions';
 import './Dictionary.scss';
+import Preloader from '../../common/Preloader/Preloader';
 
 const Dictionary: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -59,7 +60,7 @@ const Dictionary: React.FC = () => {
     return <div>{`Ошибка: ${error.message}`}</div>;
   }
   if (!isLoaded) {
-    return <div>Loading...</div>;
+    return <Preloader />;
   }
 
   return (

@@ -6,7 +6,7 @@ import {
 } from '../SavannahWord/SavannahWordSlice';
 import { ownGameContent } from '../../../data/content';
 import '../../OwnGame/OwnGameResults/OwnGameResults.scss';
-import Result from '../../common/Result';
+import Result from '../../common/Result/Result';
 
 const SavannahResults: React.FC = () => {
   const { correct, incorrect } = useSelector(selectSavannah);

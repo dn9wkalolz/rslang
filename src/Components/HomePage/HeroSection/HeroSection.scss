@@ -5,6 +5,7 @@
   display: flex;
   min-height: 400px;
   margin-bottom: 70px;
+  order: 0;
 
   &-content {
     width: 65%;
@@ -61,5 +62,12 @@
 
   &-button {
     @extend %button;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+
+    &.hidden {
+      display: none;
+    }
   }
 }

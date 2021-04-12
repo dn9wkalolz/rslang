@@ -7,6 +7,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: fixed;
+  z-index: 100;
+  background-color: $color-white;
+  top: 0;
+  left: 0;
   
   &--circularLoading {
     box-shadow: 0 3px 1px -2px $color, 0 2px 2px 0 $color,

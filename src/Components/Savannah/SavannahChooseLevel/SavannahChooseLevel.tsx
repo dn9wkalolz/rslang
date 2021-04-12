@@ -7,6 +7,7 @@ import {
 } from '../../../data/content';
 import { IPaginatedWordSetElem } from '../../../interfaces/commonInterfaces';
 import { setPagesWord } from '../../../store/textbookActions';
+import Preloader from '../../common/Preloader/Preloader';
 
 function SavannahChooseLevel() {
   const [isLoaded, setIsLoaded] = useState<string>('');
@@ -45,7 +46,7 @@ function SavannahChooseLevel() {
   if (isLoaded === 'loaded' || lastLocation?.pathname === '/textbook') {
     return <Savannah />;
   } else if (isLoaded === 'loading') {
-    return <div className="own-game__choose-level--loading">{ownGameContent.loading}</div>;
+    return <Preloader />;
   } else {
     return (
       <div className="own-game__choose-level savannah">

@@ -4,6 +4,11 @@
 .homepage__registration {
   margin-bottom: 20px;
   text-align: center;
+  order: 6;
+
+  &.hidden {
+    display: none;
+  }
 
   &-title {
     font-size: $font-size-45;
@@ -18,5 +23,8 @@
 
   &-button {
     @extend %button;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
   }
 }

@@ -11,6 +11,7 @@ import {
   setVocabularyPaginatedWordSet,
 } from '../../store/vocabularyActions';
 import { getPageLimit } from '../../helpers/commonAppMethods';
+import Preloader from '../common/Preloader/Preloader';
 
 const MyDictionary: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -64,7 +65,7 @@ const MyDictionary: React.FC = () => {
     return <div>{`Ошибка: ${error.message}`}</div>;
   }
   if (!isLoaded) {
-    return <div>Loading..</div>;
+    return <Preloader />;
   }
 
   return (
