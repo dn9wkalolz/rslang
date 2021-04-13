@@ -4,12 +4,20 @@
 .settings__menu {
   position: absolute;
   top: 100px;
-  right: 20px;
   z-index: 100;
+  top: 80px;
+  left: 53%;
+  transform: translateX(-50%);
 
   @media (max-width: 768px) {
-    top: 80px;
+    right: 20px;
+    left: unset;
+    transform: none;
     width: calc(100% - 40px);
+  }
+
+  @media (min-width: 1024px) {
+    top: 100px;
   }
 
   &.hidden {      
