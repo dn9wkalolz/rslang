@@ -6,6 +6,7 @@ import {
 import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 import { setLeosprintPage, toggleStart } from '../../store/leoSprintActions';
 import { setPagesButtons, setPagesWord, setPaginatedWordSet } from '../../store/textbookActions';
+import Preloader from '../common/Preloader/Preloader';
 
 const StartWindow: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(true);
@@ -52,7 +53,7 @@ const StartWindow: React.FC = () => {
     return <div>{`Ошибка: ${error.message}`}</div>;
   }
   if (!isLoaded) {
-    return <div className="own-game__choose-level--loading">{ownGameContent.loading}</div>;
+    return <Preloader />;
   }
 
   return (

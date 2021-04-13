@@ -1,7 +1,7 @@
 import React from 'react';
-import '../OwnGame/OwnGameResult/OwnGameResult.scss';
-import { baseUrl, ownGameContent } from '../../data/content';
-import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
+import './Result.scss';
+import { baseUrl, ownGameContent } from '../../../data/content';
+import { IPaginatedWordSetElem } from '../../../interfaces/commonInterfaces';
 
 interface IWords {
   words: IPaginatedWordSetElem[]

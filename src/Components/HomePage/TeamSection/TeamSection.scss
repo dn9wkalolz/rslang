@@ -2,6 +2,8 @@
 @import '../../../assets/css/base/extends.scss';
 
 .homepage__team {
+  order: 5;
+
   &-title {
     font-size: $font-size-30;
     margin-bottom: 30px;

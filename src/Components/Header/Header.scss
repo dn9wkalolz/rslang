@@ -47,6 +47,10 @@
       left: 50%;
       transform: translateX(-50%);
 
+      &.auth {
+        left: 20%;
+      }
+
       img {
         height: 50px;
       }
@@ -106,6 +110,10 @@
       margin-right: 35px;
       position: relative;
       padding-bottom: 15px;
+
+      &.hidden {
+        display: none;
+      }
 
       @media (max-width: 1023px) {
         padding-bottom: 0;
@@ -182,11 +190,15 @@
     }
 
     &-item {
+      height: 40px;
+      line-height: 40px;
+      margin-bottom: 5px;
+
       img {
-        height: 40px;
         cursor: pointer;
-        margin: 0 21px 5px 0;
+        margin: 0 15px 0 0;
         transition: all 0.3s ease-in-out;
+        height: 100%;
 
         &:hover {
           transform: rotate(90deg);
@@ -196,9 +208,9 @@
       button {
         border: none;
         background: none;
-        margin-bottom: 15px;
         color: $color-blue;
         font-weight: 700;
+        height: 100%;
       }
 
       a {
@@ -206,8 +218,6 @@
         font-weight: 700;
         text-decoration: none;
         display: inline-block;
-        height: 40px;
-        line-height: 40px;
       }
     }
   }

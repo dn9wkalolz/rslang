@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ownGameContent } from '../../data/content';
 import { clearGame, selectLeosprintGame } from '../../store/leoSprintActions';
 import { ILeosprintState } from '../../store/leoSprintReducer';
-import Result from '../common/Result';
+import Result from '../common/Result/Result';
 
 const EndWindow: React.FC = () => {
   const {

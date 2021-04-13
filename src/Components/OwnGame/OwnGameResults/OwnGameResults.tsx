@@ -6,7 +6,7 @@ import {
 } from '../OwnGameCard/OwnGameCardSlice';
 import { ownGameContent } from '../../../data/content';
 import './OwnGameResults.scss';
-import Result from '../../common/Result';
+import Result from '../../common/Result/Result';
 
 const OwnGameReuslts: React.FC = () => {
   const { correct, incorrect } = useSelector(selectOwnGame);

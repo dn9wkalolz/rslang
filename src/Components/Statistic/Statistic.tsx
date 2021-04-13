@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-google-charts';
 import { baseUrl } from '../../data/content';
+import Preloader from '../common/Preloader/Preloader';
+import './Statistics.scss';
 
 const Statistic: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -36,23 +38,47 @@ const Statistic: React.FC = () => {
     return <div>{`Ошибка: ${error.message}`}</div>;
   }
   if (!isLoaded) {
-    return <div>Loading...</div>;
+    return <Preloader />;
   }
 
   return (
-    <Chart
-      width="500px"
-      height="300px"
-      chartType="AreaChart"
-      loader={<div>Loading Chart</div>}
-      data={statistic}
-      options={{
-        title: 'Количество изученных слов по дням',
-        hAxis: { title: 'День', titleTextStyle: { color: '#333' } },
-        vAxis: { title: 'Количество слов', minValue: 0 },
-        chartArea: { width: '50%', height: '70%' },
-      }}
-    />
+    <main className="statistics">
+      <h1 className="statistics__title">Статистика</h1>
+      <Chart
+        width="100%"
+        height="70vh"
+        className="statistics__chart"
+        chartType="AreaChart"
+        loader={<div>Loading Chart</div>}
+        data={statistic}
+        options={{
+          title: 'Количество изученных слов по дням',
+          titleTextStyle: {
+            fontName: 'Roboto', color: '#404040', fontSize: '20',
+          },
+          hAxis: {
+            title: 'День',
+            titleTextStyle: {
+              color: '#404040', fontSize: '18', fontName: 'Roboto', italic: false,
+            },
+          },
+          vAxis: {
+            title: 'Количество слов',
+            minValue: 0,
+            titleTextStyle: {
+              color: '#404040', fontSize: '18', fontName: 'Roboto', italic: false,
+            },
+          },
+          chartArea: { width: '50%', height: '70%' },
+          colors: ['#00D6E3'],
+          animation: {
+            startup: true,
+            easing: 'linear',
+            duration: 1000,
+          },
+        }}
+      />
+    </main>
   );
 };
 

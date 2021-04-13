@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { baseUrl } from '../../data/content';
 import {
-  changeSettings, selectSettingsState, setIsButtonShowed, setIsTranslated,
+  changeSettings, selectSettingsState, setIsButtonShowed, setIsTranslated, toggleSettingsMenu,
 } from '../../store/settingsReducer';
+import './Settings.scss';
 
 const Settings: React.FC = () => {
   const { isButtonsShowed, isTranslated, userPhoto } = useSelector(selectSettingsState);
@@ -48,14 +49,16 @@ const Settings: React.FC = () => {
 
   const onSubmit = () => {
     fetchSettings();
+    dispatch(toggleSettingsMenu());
   };
 
   return (
-    <div>
-      <h2>Настройки</h2>
-      <div>
-        <label htmlFor="translate">
+    <div className="settings__menu-popup">
+      <h2 className="settings__menu-popup--title">Настройки</h2>
+      <div className="settings__menu-popup--settings">
+        <label htmlFor="translate" className={`translate ${isTranslated ? 'checked' : ''}`}>
           <input
+            id="translate"
             name="translate"
             type="checkbox"
             onChange={() => dispatch(setIsTranslated())}
@@ -63,8 +66,9 @@ const Settings: React.FC = () => {
           />
           отображать перевод на карточках слов
         </label>
-        <label htmlFor="control buttons">
+        <label htmlFor="controls" className={`controls ${isButtonsShowed ? 'checked' : ''}`}>
           <input
+            id="controls"
             name="control buttons"
             type="checkbox"
             onChange={() => dispatch(setIsButtonShowed())}
@@ -73,7 +77,7 @@ const Settings: React.FC = () => {
           отображать кнопки управления карточками слов
         </label>
       </div>
-      <div>
+      <div className="settings__menu-popup--button">
         <button
           type="button"
           onClick={onSubmit}
@@ -82,6 +86,13 @@ const Settings: React.FC = () => {
           Применить
         </button>
       </div>
+      <button
+        type="button"
+        className="settings__menu-popup--close"
+        onClick={() => dispatch(toggleSettingsMenu())}
+      >
+        +
+      </button>
     </div>
   );
 };
