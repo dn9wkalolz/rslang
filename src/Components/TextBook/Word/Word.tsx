@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   ownGameContent, textBookContent, baseUrl, DIFFICULTY,
@@ -19,6 +19,8 @@ const Word: React.FC<IWords> = ({ wordElem }) => {
   const { HARD, DELETED } = DIFFICULTY;
   const {
     audio,
+    audioExample,
+    audioMeaning,
     page,
     word,
     transcription,
@@ -34,8 +36,25 @@ const Word: React.FC<IWords> = ({ wordElem }) => {
   const { paginatedWordSet, pagesWord, pagesButtons } = useSelector(selectTextbookState);
   const { play } = ownGameContent;
   const { notDifficult, difficult, trash } = textBookContent;
-  const sound = new Audio(baseUrl + audio);
   const dispatch = useDispatch();
+
+  const soundArray = [audio, audioExample, audioMeaning];
+  let idx = 1;
+  const sound = new Audio(baseUrl + soundArray[0]);
+  const soundOnEndHandler = () => {
+    if (idx < soundArray.length) {
+      sound.src = baseUrl + soundArray[idx];
+      sound.play();
+      idx += 1;
+    } else {
+      sound.src = baseUrl + soundArray[0];
+      idx = 1;
+    }
+  };
+  useEffect(() => {
+    sound.addEventListener('ended', soundOnEndHandler);
+    return () => sound.removeEventListener('ended', soundOnEndHandler);
+  }, []);
 
   const updatePageButtons = (currPage: number) => {
     const updatedButtons = pagesButtons.filter((pageButton) => pageButton !== currPage);

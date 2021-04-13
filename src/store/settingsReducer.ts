@@ -15,7 +15,7 @@ const initialState: ISettingsState = {
   settingsOpen: false,
   isTranslated: true,
   isButtonsShowed: true,
-  userPhoto: '',
+  userPhoto: 'empty',
 };
 
 export const settingsReducer = (state = initialState, action: IAction) => {
