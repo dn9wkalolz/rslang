@@ -8,8 +8,10 @@ import { audiocallReducer } from './audiocallReduser';
 import { SavannahReducer } from '../Components/Savannah/SavannahWord/SavannahWordSlice';
 import { authReducer } from './authReducer';
 import { settingsReducer } from './settingsReducer';
+import { appReducer } from './appReducer';
 
 export const rootReducer = combineReducers({
+  app: appReducer,
   auth: authReducer,
   audiocall: audiocallReducer,
   OwnGame: OwnGameReducer,

@@ -140,12 +140,6 @@ export const header = {
       exact: false,
     },
     {
-      name: 'Игры',
-      link: '/games',
-      key: 'games',
-      exact: false,
-    },
-    {
       name: 'Статистика',
       link: '/statistics',
       key: 'statistics',
