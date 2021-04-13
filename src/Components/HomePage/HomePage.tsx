@@ -12,7 +12,7 @@ const HomePage: React.FC = () => {
   const { isAuth } = useSelector((state: RootState) => state.auth);
 
   return (
-    <main>
+    <main className="homepage">
       <HeroSection />
       <VideoSection />
       <FeaturesSection />

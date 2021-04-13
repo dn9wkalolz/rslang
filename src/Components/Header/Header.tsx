@@ -40,7 +40,7 @@ const Header: React.FC = () => {
           <input type="button" className="header__nav-burger" onClick={toggleMenu} />
           <ul className="header__nav-items">
             {isAuth && pages.map((page) => (
-              <li className={`header__nav-item ${(!isAuth && !page.authFree) ? 'hidden' : ''} `} key={page.key}>
+              <li className="header__nav-item" key={page.key}>
                 <NavLink exact={page.exact} activeClassName="active" to={page.link} onClick={toggleMenu}>{page.name}</NavLink>
               </li>
             ))}
@@ -57,8 +57,8 @@ const Header: React.FC = () => {
             )}
             <li className="header__settings-item auth">
               {isAuth ? (
-                <div>
-                  <NavLink to="/account">
+                <div className="header__settings-item--auth">
+                  <NavLink className="header__settings-item--auth-link" to="/account">
                     <Avatar src={userPhoto || undefined} />
                     {`${name} | `}
                   </NavLink>

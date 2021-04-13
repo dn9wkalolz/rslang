@@ -12,44 +12,53 @@ import {
 } from '@material-ui/core';
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../store/rootReducer';
-import { login } from '../store/authReducer';
-import './Auth.scss';
+import { createUser } from '../../store/authReducer';
+import { RootState } from '../../store/rootReducer';
 
 type FormValues = {
+  name: string
   email: string
   password: string
 };
 
-const Login = () => {
+const Register = () => {
   const dispatch = useDispatch();
-  const { isAuth, isFetching } = useSelector((state: RootState) => state.auth);
+  const { isFetching, isRegister } = useSelector((state: RootState) => state.auth);
 
   const submit = (data: FormValues) => {
-    const { email, password } = data;
-    dispatch(login(email, password));
+    const { email, password, name } = data;
+    dispatch(createUser(email, password, name));
   };
 
-  if (isAuth) {
-    return <Redirect to="/" />;
+  if (isRegister) {
+    return <Redirect to="/login" />;
   }
 
   return (
     <main className="registration">
       <Helmet>
-        <title>Login | RsLang</title>
+        <title>Register | RsLang</title>
       </Helmet>
       <Box>
         <Container maxWidth="sm">
           <Formik
             initialValues={{
               email: '',
+              name: '',
               password: '',
             }}
-            validationSchema={Yup.object().shape({
-              email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-              password: Yup.string().max(255).required('Password is required'),
-            })}
+            validationSchema={
+              Yup.object().shape({
+                email: Yup.string().email('Введите валидный email').max(255).required('Введите email'),
+                name: Yup.string().max(255).required('Введите имя'),
+                password: Yup
+                  .string()
+                  .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 'Пароль должен содержать 8 символов, один в верхнем регистре, один в нижнем регистре, одно число и один специальный символ.')
+                  .max(255)
+                  .min(8)
+                  .required('Введите пароль'),
+              })
+            }
             onSubmit={submit}
           >
             {({
@@ -67,18 +76,28 @@ const Login = () => {
                     color="textPrimary"
                     variant="h2"
                   >
-                    Войти
+                    Создать новый аккаунт
                   </Typography>
-                </Box>
-                <Box>
                   <Typography
-                    align="center"
                     color="textSecondary"
-                    variant="body1"
+                    gutterBottom
+                    variant="body2"
                   >
-                    Введите ваш email и пароль
+                    Используйте свою электронную почту, чтобы создать новую учетную запись
                   </Typography>
                 </Box>
+                <TextField
+                  error={Boolean(touched.name && errors.name)}
+                  fullWidth
+                  helperText={touched.name && errors.name}
+                  label="Name"
+                  margin="normal"
+                  name="name"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.name}
+                  variant="outlined"
+                />
                 <TextField
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
@@ -115,21 +134,21 @@ const Login = () => {
                     type="submit"
                     variant="contained"
                   >
-                    Войти
+                    Зарегистрироваться
                   </LoadingButton>
                 </Box>
                 <Typography
                   color="textSecondary"
                   variant="body1"
                 >
-                  Нет аккаунта?
+                  Уже есть аккаунт?
                   {' '}
                   <Link
                     component={RouterLink}
-                    to="/register"
+                    to="/login"
                     variant="h6"
                   >
-                    Зарегистрироваться
+                    Войти
                   </Link>
                 </Typography>
               </form>
@@ -141,4 +160,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

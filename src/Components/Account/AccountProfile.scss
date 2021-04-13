@@ -1,0 +1,66 @@
+@import '../../assets/css/base/variables.scss';
+@import '../../assets/css/base/extends.scss';
+
+.account {
+  .css-csilz9 {
+    background-color: transparent;
+  }
+
+  .css-bhp9pd-MuiPaper-root-MuiCard-root {
+    border: 1px solid $color-blue;
+    border-radius: 20px;
+  }
+
+  .css-9mgopn-MuiDivider-root {
+    display: none;
+  }
+
+  .css-1t6e9jv-MuiCardActions-root {
+    @extend %button;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    cursor: pointer;
+  }
+
+  .css-1yr4xtk-MuiButtonBase-root-MuiButton-root {
+    color: $color-white;
+    font-size: $font-size-18;
+    text-transform: unset;
+  }
+  
+  .css-1yhts3d-MuiAvatar-root {
+    width: 200px;
+    height: 200px;
+    box-shadow: 1px 3px 3px $color-gray;
+  }
+  
+  .css-1kn7tn9-MuiTypography-root {
+    margin-top: 25px;
+  }
+
+  .css-1kn7tn9-MuiTypography-root,
+  .css-1qvr50w-MuiTypography-root {
+    font-size: $font-size-30;
+    color: $color-black;
+  }
+
+  .css-nrdprl-MuiTypography-root {
+    font-size: $font-size-18;
+    color: $color-black;
+  }
+
+  .css-1fb9onp-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+    color: $color-blue;
+  }
+  
+  .css-zokxp0-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
+  .css-zokxp0-MuiInputBase-root-MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border: 1px solid $color-blue;
+  }
+
+  .css-1t4i7pk-MuiButtonBase-root-MuiButton-root {
+    @extend %button;
+    text-transform: unset;
+    font-size: $font-size-18;
+  }
+}

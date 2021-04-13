@@ -15,6 +15,7 @@ import {
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import { RootState } from '../../store/rootReducer';
 import { setUserPhoto } from '../../store/authReducer';
+import './AccountProfile.scss';
 
 const useStyles = makeStyles(() => createStyles(
   {
