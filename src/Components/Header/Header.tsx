@@ -41,7 +41,7 @@ const Header: React.FC = () => {
           <ul className="header__nav-items">
             {isAuth && pages.map((page) => (
               <li className={`header__nav-item ${(!isAuth && !page.authFree) ? 'hidden' : ''} `} key={page.key}>
-                <NavLink exact={page.exact} activeClassName="active" to={page.link}>{page.name}</NavLink>
+                <NavLink exact={page.exact} activeClassName="active" to={page.link} onClick={toggleMenu}>{page.name}</NavLink>
               </li>
             ))}
           </ul>
