@@ -5,12 +5,12 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {
   Box,
-  Button,
   Container,
   Link,
   TextField,
   Typography,
 } from '@material-ui/core';
+import LoadingButton from '@material-ui/lab/LoadingButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
 import { login } from '../store/authReducer';
@@ -23,7 +23,7 @@ type FormValues = {
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { isAuth } = useSelector((state: RootState) => state.auth);
+  const { isAuth, isFetching } = useSelector((state: RootState) => state.auth);
 
   const submit = (data: FormValues) => {
     const { email, password } = data;
@@ -83,7 +83,7 @@ const Login = () => {
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
                   helperText={touched.email && errors.email}
-                  label="Email Address"
+                  label="Email"
                   margin="normal"
                   name="email"
                   onBlur={handleBlur}
@@ -106,16 +106,17 @@ const Login = () => {
                   variant="outlined"
                 />
                 <Box>
-                  <Button
+                  <LoadingButton
                     color="primary"
                     disabled={isSubmitting}
+                    pending={isFetching}
                     fullWidth
                     size="large"
                     type="submit"
                     variant="contained"
                   >
                     Войти
-                  </Button>
+                  </LoadingButton>
                 </Box>
                 <Typography
                   color="textSecondary"
