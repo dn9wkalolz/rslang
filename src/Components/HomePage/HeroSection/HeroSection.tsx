@@ -16,7 +16,7 @@ const HeroSection: React.FC = () => {
       <div className="homepage__hero-content">
         <h1 className="homepage__hero-title" dangerouslySetInnerHTML={title} />
         <div className="homepage__hero-description">{hero.description}</div>
-        <NavLink className={`homepage__hero-button ${isAuth ? 'hidden' : ''}`} to="/login">{hero.button}</NavLink>
+        <NavLink className={`homepage__hero-button ${isAuth ? 'hidden' : ''}`} to="/register">{hero.button}</NavLink>
       </div>
       <div className="homepage__hero-image">
         <img src={hero.img} alt={hero.imgAlt} />

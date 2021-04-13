@@ -40,19 +40,19 @@ function Savannah() {
     setTranslations([]);
     const options = [pagesWord[current].wordTranslate];
 
-    function randomOption(array:any) {
+    function randomOption(array: any) {
       const option = Math.floor(Math.random() * array.length);
       return array[option];
     }
 
-    function shuffle(array:any) {
+    function shuffle(array: any) {
       return array.sort(() => Math.random() - 0.5);
     }
 
     while (options.length !== 4) {
       const word = randomOption(pagesWord);
       let isUnique = true;
-      options.forEach((option:string) => {
+      options.forEach((option: string) => {
         if (word.wordTranslate === option) {
           isUnique = false;
         }
