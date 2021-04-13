@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { Avatar } from '@material-ui/core';
 import { header } from '../../data/content';
 import './Header.scss';
 import { RootState } from '../../store/rootReducer';
@@ -10,7 +11,7 @@ import { selectSettingsState, toggleSettingsMenu } from '../../store/settingsRed
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
-  const { isAuth, name } = useSelector((state: RootState) => state.auth);
+  const { isAuth, name, userPhoto } = useSelector((state: RootState) => state.auth);
   const {
     logo, settings, pages, auth,
   } = header;
@@ -70,6 +71,11 @@ const Header: React.FC = () => {
           </NavLink>
           <input type="button" className="header__nav-burger" onClick={toggleMenu} />
           <ul className="header__nav-items">
+            {isAuth && pages.map((page) => (
+              <li className="header__nav-item" key={page.key}>
+                <NavLink exact={page.exact} activeClassName="active" to={page.link}>{page.name}</NavLink>
+              </li>
+            ))}
             {
               pages.map((page) => (
                 <li className={`header__nav-item ${(!isAuth && !page.authFree) ? 'hidden' : ''} `} key={page.key}>
@@ -81,6 +87,13 @@ const Header: React.FC = () => {
         </nav>
         <div className="header__settings">
           <ul className="header__settings-items">
+            {isAuth && (
+              <li className="header__settings-item settings">
+                <NavLink to="/settings">
+                  <img src={settings.img} alt={settings.imgAlt} />
+                </NavLink>
+              </li>
+            )}
             <li className="header__settings-item settings">
               <button type="button" onClick={toggleSettings}>
                 <img src={settings.img} alt={settings.imgAlt} />
@@ -88,11 +101,13 @@ const Header: React.FC = () => {
             </li>
             <li className="header__settings-item auth">
               {isAuth ? (
-                <>
-                  {name}
-                  {' '}
+                <div>
+                  <NavLink to="/account">
+                    <Avatar src={userPhoto || undefined} />
+                    {`${name} | `}
+                  </NavLink>
                   <button onClick={onLogout} type="button">{auth.logout}</button>
-                </>
+                </div>
               ) : <NavLink to="/login">{auth.login}</NavLink>}
             </li>
           </ul>

@@ -12,7 +12,8 @@ const RegistrationSection: React.FC = () => {
   return (
     <section className={`homepage__registration ${isAuth ? 'hidden' : ''}`}>
       <h2 className="homepage__registration-title">{registration.title}</h2>
-      <NavLink className="homepage__registration-button" to="/login">{registration.button}</NavLink>
+      <button className="homepage__registration-button" type="button"><NavLink to="/register">{registration.button}</NavLink></button>
+<!--       <NavLink className="homepage__registration-button" to="/login">{registration.button}</NavLink> -->
     </section>
   );
 };
