@@ -102,7 +102,7 @@ const Register = () => {
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
                   helperText={touched.email && errors.email}
-                  label="Email"
+                  label="Email Address"
                   margin="normal"
                   name="email"
                   onBlur={handleBlur}

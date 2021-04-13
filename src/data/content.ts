@@ -144,13 +144,13 @@ export const header = {
       exact: false,
       authFree: false,
     },
-//     {
-//       name: 'Игры',
-//       link: '/games',
-//       key: 'games',
-//       exact: false,
-//       authFree: true,
-//     },
+    {
+      name: 'Игры',
+      link: '/games',
+      key: 'games',
+      exact: false,
+      authFree: true,
+    },
     {
       name: 'Статистика',
       link: '/statistics',

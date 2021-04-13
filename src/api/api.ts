@@ -1,16 +1,26 @@
 import axios from 'axios';
-import { API_URL, API_CLOUDINARY_URL } from '../url.constants';
-
-const token = sessionStorage.getItem('token');
+import { API_URL } from '../url.constants';
 
 export const instance = axios.create({
   baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
-    authorization: `Bearer ${token}`,
   },
 });
 
-export const instanceWithClodinaryUrl = axios.create({
-  baseURL: API_CLOUDINARY_URL,
-});
+export enum ResultCodesEnum {
+  Success = 0,
+  Error = 1,
+}
+
+export type LogoutResponseType = {
+  data: {}
+  resultCode: ResultCodesEnum
+  messages: Array<string>
+};
+
+export type APIResponseType<D = {}, RC = ResultCodesEnum> = {
+  data: D
+  resultCode: RC
+  messages: Array<string>
+};
