@@ -1,21 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useLastLocation } from 'react-router-last-location';
-import { RootState } from '../../store/rootReducer';
 import { ownGameContent } from '../../data/content';
 import EndWindow from './EndWindow';
 import GameStatistic from './GameStatic';
 import StartWindow from './StartWindow';
 import './LeoSprintGame.scss';
+import { selectLeosprintGame } from '../../store/leoSprintActions';
 
 const LeoSprintGame: React.FC = () => {
   const lastLocation = useLastLocation();
-  const [start, end] = useSelector(
-    (state: RootState) => {
-      const { isStart, isEnd } = state.leosprintState;
-      return [isStart, isEnd];
-    },
-  );
+  const { isStart, isEnd } = useSelector(selectLeosprintGame);
   const [fullscreen, setFullscreen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   const { screen } = ownGameContent;
@@ -33,7 +28,6 @@ const LeoSprintGame: React.FC = () => {
   });
 
   function handleFullscreen() {
-    console.log('here');
     if (!fullscreen) {
       ref.current?.requestFullscreen();
     } else {
@@ -46,8 +40,8 @@ const LeoSprintGame: React.FC = () => {
         <img src={screen.img} alt={screen.imgAlt} />
       </button>
       {
-        (lastLocation?.pathname !== '/textbook' && !start) ? <StartWindow />
-          : (end) ? <EndWindow />
+        (lastLocation?.pathname !== '/textbook' && !isStart) ? <StartWindow />
+          : (isEnd) ? <EndWindow />
             : <GameStatistic />
       }
     </div>

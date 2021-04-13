@@ -6,6 +6,7 @@ import { baseUrl, ownGameContent, STARTWINDOWURLFILTERSTRING } from '../../../da
 import './OwnGameChooseLevel.scss';
 import { IPaginatedWordSetElem } from '../../../interfaces/commonInterfaces';
 import { setPagesWord } from '../../../store/textbookActions';
+import Preloader from '../../common/Preloader/Preloader';
 
 function OwnGameChooseLevel() {
   const [isLoaded, setIsLoaded] = useState<string>('');
@@ -44,7 +45,7 @@ function OwnGameChooseLevel() {
   if (isLoaded === 'loaded' || lastLocation?.pathname === '/textbook') {
     return <OwnGame />;
   } else if (isLoaded === 'loading') {
-    return <div className="own-game__choose-level--loading">{ownGameContent.loading}</div>;
+    return <Preloader />;
   } else {
     return (
       <div className="own-game__choose-level translator">

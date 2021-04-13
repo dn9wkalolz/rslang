@@ -40,6 +40,8 @@ export const homepageContent = {
   },
   games: {
     title: 'Игры',
+    subtitle: 'Запустить игры со славами из этой группы',
+    description: 'Игры будут использовать слова из раздела «Мой словарь». Если вы хотите поиграть с другими словами, запустите игру из соответствующего раздела «Учебника»',
     quizes: [
       {
         title: 'Саванна',
@@ -126,24 +128,35 @@ export const header = {
       link: '/',
       key: 'home',
       exact: true,
+      authFree: true,
     },
     {
       name: 'Учебник',
       link: '/textbook',
       key: 'textbook',
       exact: false,
+      authFree: true,
     },
     {
       name: 'Мой словарь',
       link: '/vocabulary',
       key: 'vocabulary',
       exact: false,
+      authFree: false,
     },
+//     {
+//       name: 'Игры',
+//       link: '/games',
+//       key: 'games',
+//       exact: false,
+//       authFree: true,
+//     },
     {
       name: 'Статистика',
       link: '/statistics',
       key: 'statistics',
       exact: false,
+      authFree: true,
     },
   ],
   auth: {
@@ -233,6 +246,8 @@ export const leoSprintContent = {
 };
 
 export const textBookContent = {
+  textbookTitle: 'Учебник',
+  dictionaryTitle: 'Мой словарь',
   title: 'Спринт',
   groups: ['Раздел 1', 'Раздел 2', 'Раздел 3', 'Раздел 4', 'Раздел 5', 'Раздел 6'],
   sections: [
@@ -240,6 +255,33 @@ export const textBookContent = {
     { id: 1, name: 'Сложные слова', category: '{"userWord.difficulty":"hard"}' },
     { id: 2, name: 'Удаленные слова', category: '{"userWord.difficulty":"deleted"}' },
   ],
+  arrowNext: {
+    img: Images.ArrowNext,
+    imgAlt: 'Следующая страница',
+  },
+  arrowPrevious: {
+    img: Images.ArrowPrevious,
+    imgAlt: 'Предыдущая страница',
+  },
+  notDifficult: {
+    img: Images.NotDifficult,
+    imgAlt: 'Легко',
+  },
+  difficult: {
+    img: Images.Difficult,
+    imgAlt: 'Сложно',
+    title: 'Сложно',
+  },
+  trash: {
+    img: Images.Trash,
+    imgAlt: 'Удалить',
+    title: 'Удалить',
+  },
+  restore: {
+    img: Images.Restore,
+    imgAlt: 'Вернуть',
+    title: 'Вернуть',
+  },
 };
 
 export const DIFFICULTY = {

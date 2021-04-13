@@ -9,6 +9,7 @@ import { SavannahReducer } from '../Components/Savannah/SavannahWord/SavannahWor
 import { authReducer } from './authReducer';
 import { settingsReducer } from './settingsReducer';
 import { appReducer } from './appReducer';
+import { statisticReducer } from './statisticReducer';
 
 export const rootReducer = combineReducers({
   app: appReducer,
@@ -20,6 +21,7 @@ export const rootReducer = combineReducers({
   vocabularyState: vocabularyReducer,
   Savannah: SavannahReducer,
   settings: settingsReducer,
+  statistic: statisticReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

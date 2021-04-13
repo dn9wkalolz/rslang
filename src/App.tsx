@@ -22,6 +22,8 @@ import Account from './pages/Account';
 import { initialize } from './store/appReducer';
 import { RootState } from './store/rootReducer';
 import Preloader from './Components/common/Preloader/Preloader';
+import Games from './Components/common/Games/Games';
+import Statistic from './Components/Statistic/Statistic';
 
 function App() {
   const dispatch = useDispatch();
@@ -58,6 +60,9 @@ function App() {
           <Route path="/games/sprint">
             <LeoSprintGame />
           </Route>
+          <Route path="/games">
+            <Games />
+          </Route>
           <Route path="/textbook">
             <TextBook />
           </Route>
@@ -75,6 +80,9 @@ function App() {
           </Route>
           <Route path="/settings">
             <Settings />
+          </Route>
+          <Route path="/statistics">
+            <Statistic />
           </Route>
         </Switch>
         <Footer />

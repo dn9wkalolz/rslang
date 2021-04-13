@@ -14,6 +14,7 @@ import LoadingButton from '@material-ui/lab/LoadingButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
 import { login } from '../store/authReducer';
+import './Auth.scss';
 
 type FormValues = {
   email: string
@@ -34,7 +35,7 @@ const Login = () => {
   }
 
   return (
-    <main>
+    <main className="registration">
       <Helmet>
         <title>Login | RsLang</title>
       </Helmet>

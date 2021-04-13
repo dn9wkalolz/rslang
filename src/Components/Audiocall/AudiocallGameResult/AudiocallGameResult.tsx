@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../OwnGame/OwnGameResult/OwnGameResult.scss';
+import '../../common/Result/Result.scss';
 import { WordsType } from '../../../types/types';
 import { API_URL } from '../../../url.constants';
 import { ownGameContent } from '../../../data/content';

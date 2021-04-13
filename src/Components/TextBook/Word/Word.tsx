@@ -1,12 +1,15 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { baseUrl, DIFFICULTY } from '../../data/content';
-import { useFetchWithCondition } from '../../data/requestMethods';
-import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
-import { selectSettingsState } from '../../store/settingsReducer';
+import {
+  ownGameContent, textBookContent, baseUrl, DIFFICULTY,
+} from '../../../data/content';
+import { useFetchWithCondition } from '../../../helpers/requestMethods';
+import { IPaginatedWordSetElem } from '../../../interfaces/commonInterfaces';
+import { selectSettingsState } from '../../../store/settingsReducer';
 import {
   changePage, changeStateWord, selectTextbookState, setPagesButtons,
-} from '../../store/textbookActions';
+} from '../../../store/textbookActions';
+import './Word.scss';
 
 interface IWords {
   wordElem: IPaginatedWordSetElem
@@ -29,7 +32,8 @@ const Word: React.FC<IWords> = ({ wordElem }) => {
   } = wordElem;
   const { isButtonsShowed, isTranslated } = useSelector(selectSettingsState);
   const { paginatedWordSet, pagesWord, pagesButtons } = useSelector(selectTextbookState);
-
+  const { play } = ownGameContent;
+  const { notDifficult, difficult, trash } = textBookContent;
   const sound = new Audio(baseUrl + audio);
   const dispatch = useDispatch();
 
@@ -86,39 +90,49 @@ const Word: React.FC<IWords> = ({ wordElem }) => {
 
   return (
     <div className="textbook__word">
-      <div><img className="textbook__word-img" src={baseUrl + image} alt={word} /></div>
-      <div className="textbook__word-cover">
-        <div className="textbook__word-description">
-          <span>{`${word} ${transcription} ${isTranslated ? wordTranslate : ''}`}</span>
-          <button type="button" onClick={() => sound.play()}>Play</button>
+      <div className="textbook__word--image">
+        <img src={baseUrl + image} alt={word} />
+      </div>
+      <div className="textbook__word--content">
+        <div className="textbook__word--content__wrapper">
+          <div className="textbook__word-description">
+            <span className="textbook__word-description--word">{`${word}`}</span>
+            <span className="textbook__word-description--transcription">{`${transcription}`}</span>
+            <span className="textbook__word-description--translation">{`${isTranslated ? wordTranslate : ''}`}</span>
+            <button className="textbook__word-description--play" type="button" onClick={() => sound.play()}>
+              <img src={play.img} alt={play.imgAlt} />
+            </button>
+          </div>
+          <div className="textbook__word-meaning">
+            <div className="textbook__word-meaning--meaning" dangerouslySetInnerHTML={{ __html: textMeaning }} />
+            <div className="textbook__word-meaning--example" dangerouslySetInnerHTML={{ __html: textExample }} />
+          </div>
+          {isTranslated
+            ? (
+              <div className="textbook__word-translation">
+                <div className="textbook__word-translation--meaning">{`${textMeaningTranslate}. `}</div>
+                <div className="textbook__word-example">{`${textExampleTranslate}.`}</div>
+              </div>
+            )
+            : null}
         </div>
-        <div className="textbook__word-meaning">
-          <span><div dangerouslySetInnerHTML={{ __html: textMeaning }} /></span>
-          <span><div dangerouslySetInnerHTML={{ __html: textExample }} /></span>
-        </div>
-        {isTranslated
-          ? (
-            <div className="textbook__translate">
-              <span>{`${textMeaningTranslate}. `}</span>
-              <span>{`${textExampleTranslate}.`}</span>
-            </div>
-          )
-          : null}
         {isButtonsShowed
           ? (
-            <div>
+            <div className="textbook__word--content__buttons">
               <button
                 disabled={userWord?.difficulty === 'hard'}
                 type="button"
                 onClick={() => setHardDifficulty(_id)}
               >
-                Сложно
+                <img src={userWord?.difficulty === 'hard' ? difficult.img : notDifficult.img} alt={userWord?.difficulty === 'hard' ? difficult.imgAlt : notDifficult.imgAlt} />
+                <div>{difficult.title}</div>
               </button>
               <button
                 type="button"
                 onClick={() => deleteWord(_id, page)}
               >
-                Удалить
+                <img src={trash.img} alt={trash.imgAlt} />
+                <div>{trash.title}</div>
               </button>
             </div>
           )

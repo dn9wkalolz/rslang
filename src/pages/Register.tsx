@@ -35,7 +35,7 @@ const Register = () => {
   }
 
   return (
-    <main>
+    <main className="registration">
       <Helmet>
         <title>Register | RsLang</title>
       </Helmet>
@@ -49,14 +49,14 @@ const Register = () => {
             }}
             validationSchema={
               Yup.object().shape({
-                email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                name: Yup.string().max(255).required('Name is required'),
+                email: Yup.string().email('Введите валидный email').max(255).required('Введите email'),
+                name: Yup.string().max(255).required('Введите имя'),
                 password: Yup
                   .string()
-                  .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character')
+                  .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 'Пароль должен содержать 8 символов, один в верхнем регистре, один в нижнем регистре, одно число и один специальный символ.')
                   .max(255)
                   .min(8)
-                  .required('password is required'),
+                  .required('Введите пароль'),
               })
             }
             onSubmit={submit}

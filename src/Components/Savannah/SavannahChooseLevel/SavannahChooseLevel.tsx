@@ -7,18 +7,13 @@ import {
 } from '../../../data/content';
 import { IPaginatedWordSetElem } from '../../../interfaces/commonInterfaces';
 import { setPagesWord } from '../../../store/textbookActions';
+import Preloader from '../../common/Preloader/Preloader';
 
 function SavannahChooseLevel() {
   const [isLoaded, setIsLoaded] = useState<string>('');
   const lastLocation = useLastLocation();
-  // const [words, setWords] = useState([]);
   const GROUPS:Array<string> = ownGameContent.levels;
   const dispatch = useDispatch();
-  // const PAGES:number = 29;
-
-  // function choosePage(max:number):number {
-  //   return Math.floor(Math.random() * Math.floor(max));
-  // }
 
   function fetchData(group:number):void {
     const userId = sessionStorage.getItem('userId');
@@ -51,7 +46,7 @@ function SavannahChooseLevel() {
   if (isLoaded === 'loaded' || lastLocation?.pathname === '/textbook') {
     return <Savannah />;
   } else if (isLoaded === 'loading') {
-    return <div className="own-game__choose-level--loading">{ownGameContent.loading}</div>;
+    return <Preloader />;
   } else {
     return (
       <div className="own-game__choose-level savannah">
