@@ -35,9 +35,9 @@ const AccountProfileDetails = () => {
   return (
     <Formik
       initialValues={{
-        email,
-        name,
-        password,
+        email: email || '',
+        name: name || '',
+        password: password || '',
       }}
       validationSchema={
         Yup.object().shape({
