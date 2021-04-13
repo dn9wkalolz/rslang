@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   ownGameContent, baseUrl, DIFFICULTY, textBookContent,
@@ -16,6 +16,8 @@ const MyWord: React.FC<IWords> = ({ wordElem }) => {
   const { HARD, DELETED, RESTORED } = DIFFICULTY;
   const {
     audio,
+    audioExample,
+    audioMeaning,
     word,
     transcription,
     wordTranslate,
@@ -36,7 +38,24 @@ const MyWord: React.FC<IWords> = ({ wordElem }) => {
   const learnedSection = sections[0].category;
   const hardSection = sections[1].category;
   const deletedSection = sections[2].category;
-  const sound = new Audio(baseUrl + audio);
+
+  const soundArray = [audio, audioExample, audioMeaning];
+  let idx = 1;
+  const sound = new Audio(baseUrl + soundArray[0]);
+  const soundOnEndHandler = () => {
+    if (idx < soundArray.length) {
+      sound.src = baseUrl + soundArray[idx];
+      sound.play();
+      idx += 1;
+    } else {
+      sound.src = baseUrl + soundArray[0];
+      idx = 1;
+    }
+  };
+  useEffect(() => {
+    sound.addEventListener('ended', soundOnEndHandler);
+    return () => sound.removeEventListener('ended', soundOnEndHandler);
+  }, []);
 
   const assignWordsetProperty = (wordEl: IPaginatedWordSetElem, difficulty: string) => {
     const updatedWordElem = {
