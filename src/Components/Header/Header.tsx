@@ -26,38 +26,6 @@ const Header: React.FC = () => {
     dispatch(toggleSettingsMenu());
   }
 
-  useEffect(() => {
-    // const createUser = async (user: any) => {
-    //   const rawResponse = await fetch('https://rslang-61.herokuapp.com/users', {
-    //     method: 'POST',
-    //     headers: {
-    //       Accept: 'application/json',
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(user),
-    //   });
-    //   const content = await rawResponse.json();
-
-    //   console.log(content);
-    // };
-
-    // createUser({ email: 'lopux2@user.com', password: 'qwertyuiop' });
-    const loginUser = async (user: any) => {
-      const rawResponse = await fetch('https://rslang-61.herokuapp.com/signin', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-      });
-      const content = await rawResponse.json();
-      sessionStorage.setItem('token', content.token);
-      sessionStorage.setItem('userId', content.userId);
-    };
-    loginUser({ email: 'lopux2@user.com', password: 'qwertyuiop' });
-  }, []);
-
   const onLogout = () => {
     dispatch(logout());
   };
@@ -72,33 +40,21 @@ const Header: React.FC = () => {
           <input type="button" className="header__nav-burger" onClick={toggleMenu} />
           <ul className="header__nav-items">
             {isAuth && pages.map((page) => (
-              <li className="header__nav-item" key={page.key}>
-                <NavLink exact={page.exact} activeClassName="active" to={page.link}>{page.name}</NavLink>
+              <li className={`header__nav-item ${(!isAuth && !page.authFree) ? 'hidden' : ''} `} key={page.key}>
+                <NavLink exact={page.exact} activeClassName="active" to={page.link} onClick={toggleMenu}>{page.name}</NavLink>
               </li>
             ))}
-            {
-              pages.map((page) => (
-                <li className={`header__nav-item ${(!isAuth && !page.authFree) ? 'hidden' : ''} `} key={page.key}>
-                  <NavLink exact={page.exact} activeClassName="active" to={page.link} onClick={toggleMenu}>{page.name}</NavLink>
-                </li>
-              ))
-            }
           </ul>
         </nav>
         <div className="header__settings">
           <ul className="header__settings-items">
             {isAuth && (
               <li className="header__settings-item settings">
-                <NavLink to="/settings">
+                <button type="button" onClick={toggleSettings}>
                   <img src={settings.img} alt={settings.imgAlt} />
-                </NavLink>
+                </button>
               </li>
             )}
-            <li className="header__settings-item settings">
-              <button type="button" onClick={toggleSettings}>
-                <img src={settings.img} alt={settings.imgAlt} />
-              </button>
-            </li>
             <li className="header__settings-item auth">
               {isAuth ? (
                 <div>
