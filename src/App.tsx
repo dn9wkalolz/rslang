@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {
-  BrowserRouter,
+  HashRouter,
   Route,
   Switch,
 } from 'react-router-dom';
@@ -42,7 +42,7 @@ function App() {
   }
 
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <HashRouter basename={process.env.PUBLIC_URL}>
       <ScrollToTop />
       <LastLocationProvider>
         <Header />
@@ -89,7 +89,7 @@ function App() {
         </Switch>
         <Footer />
       </LastLocationProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

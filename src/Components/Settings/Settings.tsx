@@ -24,8 +24,7 @@ const Settings: React.FC = () => {
       },
     })
       .then((response) => response.json())
-      .then((result) => dispatch(changeSettings(result.optional)),
-        () => console.error('пока нет настроек'));
+      .then((result) => dispatch(changeSettings(result.optional)));
   }, []);
 
   const fetchSettings = () => {
