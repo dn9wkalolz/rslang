@@ -1,0 +1,41 @@
+{
+  "files": {
+    "main.css": "/rslang/static/css/main.718e1694.chunk.css",
+    "main.js": "/rslang/static/js/main.5d2f6c63.chunk.js",
+    "main.js.map": "/rslang/static/js/main.5d2f6c63.chunk.js.map",
+    "runtime-main.js": "/rslang/static/js/runtime-main.ae423699.js",
+    "runtime-main.js.map": "/rslang/static/js/runtime-main.ae423699.js.map",
+    "static/js/2.528b7ab2.chunk.js": "/rslang/static/js/2.528b7ab2.chunk.js",
+    "static/js/2.528b7ab2.chunk.js.map": "/rslang/static/js/2.528b7ab2.chunk.js.map",
+    "index.html": "/rslang/index.html",
+    "static/css/main.718e1694.chunk.css.map": "/rslang/static/css/main.718e1694.chunk.css.map",
+    "static/js/2.528b7ab2.chunk.js.LICENSE.txt": "/rslang/static/js/2.528b7ab2.chunk.js.LICENSE.txt",
+    "static/media/OwnGame.scss": "/rslang/static/media/Sprint-bg.b6a9a424.jpg",
+    "static/media/Dev1.7a6fd1a2.jpg": "/rslang/static/media/Dev1.7a6fd1a2.jpg",
+    "static/media/Dev2.52fc3e6a.jpg": "/rslang/static/media/Dev2.52fc3e6a.jpg",
+    "static/media/Dev3.4076073d.jpg": "/rslang/static/media/Dev3.4076073d.jpg",
+    "static/media/Dev4.2b7ec991.jpg": "/rslang/static/media/Dev4.2b7ec991.jpg",
+    "static/media/Game.57b23bca.png": "/rslang/static/media/Game.57b23bca.png",
+    "static/media/Globe.37aa935f.png": "/rslang/static/media/Globe.37aa935f.png",
+    "static/media/Logo.a3057a4e.png": "/rslang/static/media/Logo.a3057a4e.png",
+    "static/media/Pie.4a3c3dd3.png": "/rslang/static/media/Pie.4a3c3dd3.png",
+    "static/media/Play.88d22126.png": "/rslang/static/media/Play.88d22126.png",
+    "static/media/RSS-logo.93942098.png": "/rslang/static/media/RSS-logo.93942098.png",
+    "static/media/Time.b35c0388.png": "/rslang/static/media/Time.b35c0388.png",
+    "static/media/circular-loading.e10cd11a.svg": "/rslang/static/media/circular-loading.e10cd11a.svg",
+    "static/media/fontello.css": "/rslang/static/media/fontello.b0038e2d.ttf",
+    "static/media/homepage-audio.8359f4b5.jpg": "/rslang/static/media/homepage-audio.8359f4b5.jpg",
+    "static/media/homepage-banner.991ea8ca.jpg": "/rslang/static/media/homepage-banner.991ea8ca.jpg",
+    "static/media/homepage-features.f71006a2.jpg": "/rslang/static/media/homepage-features.f71006a2.jpg",
+    "static/media/homepage-games.55e908db.jpg": "/rslang/static/media/homepage-games.55e908db.jpg",
+    "static/media/homepage-savannah.746dbf8c.jpg": "/rslang/static/media/homepage-savannah.746dbf8c.jpg",
+    "static/media/homepage-sprint.626120f9.jpg": "/rslang/static/media/homepage-sprint.626120f9.jpg",
+    "static/media/homepage-translator.0e8ba208.jpg": "/rslang/static/media/homepage-translator.0e8ba208.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ae423699.js",
+    "static/js/2.528b7ab2.chunk.js",
+    "static/css/main.718e1694.chunk.css",
+    "static/js/main.5d2f6c63.chunk.js"
+  ]
+}
