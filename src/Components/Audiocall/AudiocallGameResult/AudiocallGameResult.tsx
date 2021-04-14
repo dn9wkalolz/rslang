@@ -1,11 +1,11 @@
 import React from 'react';
 import '../../common/Result/Result.scss';
-import { WordsType } from '../../../types/types';
 import { API_URL } from '../../../url.constants';
 import { ownGameContent } from '../../../data/content';
+import { IPaginatedWordSetElem } from '../../../interfaces/commonInterfaces';
 
 type PropsType = {
-  answers: WordsType
+  answers: IPaginatedWordSetElem[]
 };
 
 const AudiocallGameResult: React.FC<PropsType> = ({ answers }) => {

@@ -2,13 +2,14 @@ import React from 'react';
 import AudiocallGameResult from '../AudiocallGameResult/AudiocallGameResult';
 import { audiocallGameContent } from '../../../data/content';
 import '../../OwnGame/OwnGameResults/OwnGameResults.scss';
-import { WordsType } from '../../../types/types';
+import { IPaginatedWordSetElem } from '../../../interfaces/commonInterfaces';
 
 type PropsType = {
-  onPageChanged: (page: number) => void
+  onPageChanged: (level: number, currentPage: number) => void
   currentPage: number
-  rightAnswers: WordsType
-  wrongAnswers: WordsType
+  level: number
+  rightAnswers: IPaginatedWordSetElem[]
+  wrongAnswers: IPaginatedWordSetElem[]
 };
 
 const AudiocallGameResults: React.FC<PropsType> = ({
@@ -16,9 +17,10 @@ const AudiocallGameResults: React.FC<PropsType> = ({
   currentPage,
   rightAnswers,
   wrongAnswers,
+  level,
 }) => {
-  function nextStep() {
-    onPageChanged(currentPage + 1);
+  function nextStep(pageNumber: number, levelNumber: number) {
+    onPageChanged(levelNumber, pageNumber);
   }
 
   const {
@@ -27,7 +29,7 @@ const AudiocallGameResults: React.FC<PropsType> = ({
     learned,
     tolearn,
     results,
-    restart,
+    continueButton,
   } = audiocallGameContent;
 
   return (
@@ -52,7 +54,7 @@ const AudiocallGameResults: React.FC<PropsType> = ({
             <AudiocallGameResult answers={wrongAnswers} />
           </div>
         </div>
-        <button type="button" className="own-game__results--restart" onClick={nextStep}>{restart}</button>
+        <button type="button" className="own-game__results--restart" onClick={() => nextStep(currentPage + 1, level)}>{continueButton}</button>
       </div>
     </div>
   );

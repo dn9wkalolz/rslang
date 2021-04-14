@@ -3,27 +3,82 @@ import React, {
   useMemo,
   useEffect,
 } from 'react';
-import { useDispatch } from 'react-redux';
-import { audiocallGameContent } from '../../../data/content';
-import './AudiocallGameCard.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { audiocallGameContent, DIFFICULTY } from '../../../data/content';
 import { API_URL } from '../../../url.constants';
-import { WordsType, WordType } from '../../../types/types';
 import { getArrayRandomNumbers } from '../../../helpers/array-random-helper';
 import { actions } from '../../../store/audiocallReduser';
+import { IPaginatedWordSetElem } from '../../../interfaces/commonInterfaces';
+import { fetchStatistic, useFetchWithCondition } from '../../../helpers/requestMethods';
+import { setPagesWord } from '../../../store/textbookActions';
+import './AudiocallGameCard.scss';
+import { selectStatisticState, setCount, setStatistic } from '../../../store/statisticReducer';
 
 type PropsType = {
   currentWordIndex: number
-  words: WordsType
-  word: WordType
+  words: IPaginatedWordSetElem[]
+  word: IPaginatedWordSetElem
 };
 
 const AudiocallGameCard: React.FC<PropsType> = ({ currentWordIndex, words, word }) => {
+  const { LEARNED } = DIFFICULTY;
+  const { _id, userWord } = word;
   const [isChecking, setIsChecking] = useState<string>('');
   const [isCorrect, setIsCorrect] = useState<string>('');
   const dispatch = useDispatch();
   const { play, nextButton } = audiocallGameContent;
+  const { prevStatistic, currCount } = useSelector(selectStatisticState);
 
   let timer: ReturnType<typeof setTimeout>;
+
+  useEffect(() => {
+    const userId = sessionStorage.getItem('userId');
+    const token = sessionStorage.getItem('token');
+    dispatch(setStatistic(userId, token));
+  }, []);
+
+  useEffect(() => {
+    if (currCount === 0) {
+      return;
+    }
+    fetchStatistic(prevStatistic, currCount);
+  }, [currCount]);
+
+  const assignWordsetProperty = (
+    wordEl: IPaginatedWordSetElem, difficulty: string, increment: any,
+  ) => {
+    if (!userWord) {
+      const updatedWordElem = {
+        ...wordEl,
+        userWord: {
+          difficulty,
+          optional: { wrong: 0, right: 0 },
+        },
+      };
+      return { ...updatedWordElem };
+    }
+    const { wrong, right } = wordEl.userWord.optional;
+    const updatedWordElem = {
+      ...wordEl,
+      userWord: {
+        ...wordEl.userWord,
+        optional: { wrong: wrong + increment.wrong, right: right + increment.right },
+      },
+    };
+    return { ...updatedWordElem };
+  };
+
+  const setLearnedDifficulty = (wordId: string, increment: any) => {
+    const sortedPagesWord = words.map(
+      (wordEl) => {
+        if (wordEl._id === wordId) {
+          return assignWordsetProperty(wordEl, LEARNED, increment);
+        }
+        return wordEl;
+      },
+    );
+    dispatch(setPagesWord(sortedPagesWord));
+  };
 
   function handleNext(): void {
     setIsChecking('checked');
@@ -56,13 +111,18 @@ const AudiocallGameCard: React.FC<PropsType> = ({ currentWordIndex, words, word 
 
   function handleCheck(check: number): void {
     setIsChecking('checking');
+    dispatch(setCount());
 
     if (check === currentWordIndex) {
       dispatch(actions.setRightAnswers(words[check]));
       setIsCorrect('correct');
+      useFetchWithCondition(_id, LEARNED, userWord, { wrong: 0, right: 1 });
+      setLearnedDifficulty(_id, { wrong: 0, right: 1 });
     } else if (check !== currentWordIndex) {
       dispatch(actions.setWrongAnswers(words[check]));
       setIsCorrect('incorrect');
+      useFetchWithCondition(_id, LEARNED, userWord, { wrong: 1, right: 0 });
+      setLearnedDifficulty(_id, { wrong: 1, right: 0 });
     }
   }
 
