@@ -102,7 +102,7 @@ const AudiocallGameCard: React.FC<PropsType> = ({ currentWordIndex, words, word 
   };
 
   const buttons = useMemo(
-    () => getArrayRandomNumbers(words.length, currentWordIndex), [word],
+    () => getArrayRandomNumbers(words.length, currentWordIndex), [currentWordIndex],
   );
 
   useEffect(() => {
