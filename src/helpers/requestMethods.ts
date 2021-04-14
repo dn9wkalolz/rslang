@@ -1,12 +1,11 @@
 import { getStringDate } from './commonAppMethods';
 import { baseUrl, DIFFICULTY } from '../data/content';
 
-const token = sessionStorage.getItem('token');
-const userId = sessionStorage.getItem('userId');
-
 export const useFetchWithCondition = (
   wordId: string, difficulty: string, userWord: any, increment?: any,
 ) => {
+  const token = sessionStorage.getItem('token');
+  const userId = sessionStorage.getItem('userId');
   const { HARD, LEARNED } = DIFFICULTY;
   if (!userWord) {
     fetch(`${baseUrl}users/${userId}/words/${wordId}`, {
@@ -42,6 +41,8 @@ export const useFetchWithCondition = (
 };
 
 export const fetchStatistic = (prevStatistic: Array<Array<any>>, count: number) => {
+  const token = sessionStorage.getItem('token');
+  const userId = sessionStorage.getItem('userId');
   let updatedStatistic;
   const date = getStringDate();
   const condition = prevStatistic.some((row) => row[0] === date);

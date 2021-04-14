@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { baseUrl } from '../../data/content';
+import { RootState } from '../../store/rootReducer';
 import {
   changeSettings, selectSettingsState, setIsButtonShowed, setIsTranslated, toggleSettingsMenu,
 } from '../../store/settingsReducer';
 import './Settings.scss';
 
 const Settings: React.FC = () => {
-  const { isButtonsShowed, isTranslated, userPhoto } = useSelector(selectSettingsState);
+  const { isButtonsShowed, isTranslated } = useSelector(selectSettingsState);
+  const { userPhoto } = useSelector((state: RootState) => state.auth);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
 
@@ -38,7 +40,7 @@ const Settings: React.FC = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        optional: { userPhoto, isTranslated, isButtonsShowed },
+        optional: { userPhoto: userPhoto || 'empty', isTranslated, isButtonsShowed },
       }),
     })
       .then((response) => response.json())

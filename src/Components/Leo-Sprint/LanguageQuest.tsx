@@ -7,7 +7,9 @@ import {
   incrementScore, rightHandler, selectLeosprintGame, setLeosprintPage, wrongHandler,
 } from '../../store/leoSprintActions';
 import { selectStatisticState, setCount, setStatistic } from '../../store/statisticReducer';
-import { changeStateWord, selectTextbookState, setPagesWord } from '../../store/textbookActions';
+import {
+  changeStateWord, selectTextbookState, setPagesWord,
+} from '../../store/textbookActions';
 
 interface IClickHandler {
   e: React.MouseEvent
@@ -105,11 +107,20 @@ const LanguageQuest: React.FC = () => {
     setLearnedDifficulty(id, { wrong: 1, right: 0 });
   };
 
+  const getChangingPage = (pagePrediction: number): number => {
+    const resultPage = pagesButtons.includes(pagePrediction)
+      ? pagePrediction
+      : pagesButtons.filter((pageValue) => pageValue > pagePrediction)[0];
+    return resultPage;
+  };
+
   const clickHandler = ({ e, condition, id }: IClickHandler): void => {
     answerHandler({ e, condition, id });
     if (pagesWord.length === 1) {
       const pagePrediction = page + 1;
-      const changingPage = pagePrediction > pagesButtons.length - 1 ? 0 : pagePrediction;
+      const changingPage = pagePrediction > pagesButtons.length - 1
+        ? pagesButtons[0]
+        : getChangingPage(pagePrediction);
       dispatch(setLeosprintPage(changingPage));
       return;
     }

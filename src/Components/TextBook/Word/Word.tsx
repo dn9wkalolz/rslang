@@ -5,9 +5,10 @@ import {
 } from '../../../data/content';
 import { useFetchWithCondition } from '../../../helpers/requestMethods';
 import { IPaginatedWordSetElem } from '../../../interfaces/commonInterfaces';
+import { setLeosprintPage } from '../../../store/leoSprintActions';
 import { selectSettingsState } from '../../../store/settingsReducer';
 import {
-  changePage, changeStateWord, selectTextbookState, setPagesButtons,
+  changeStateWord, selectTextbookState, setPage, setPagesButtons,
 } from '../../../store/textbookActions';
 import './Word.scss';
 
@@ -60,8 +61,12 @@ const Word: React.FC<IWords> = ({ wordElem }) => {
     const updatedButtons = pagesButtons.filter((pageButton) => pageButton !== currPage);
     const pagePrediction = currPage + 1;
     const changingPage = pagePrediction > updatedButtons.length ? -1 : 1;
+    const resultPage = updatedButtons.includes(currPage + changingPage)
+      ? currPage + changingPage
+      : updatedButtons[0];
     dispatch(setPagesButtons(updatedButtons));
-    dispatch(changePage(changingPage));
+    dispatch(setPage(resultPage));
+    dispatch(setLeosprintPage(resultPage));
   };
 
   const assignWordsetProperty = (wordEl: IPaginatedWordSetElem, difficulty: string) => {

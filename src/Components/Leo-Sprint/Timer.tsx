@@ -13,7 +13,7 @@ const Timer: React.FC = () => {
   };
 
   useEffect(() => {
-    if (stopWatch === 20) {
+    if (stopWatch === 61) {
       dispatch(toggleEnd());
       return;
     }
