@@ -11,7 +11,7 @@ const VocabularyPageSwitcher: React.FC = () => {
   const dispatch = useDispatch();
 
   const switchPage = (e: React.MouseEvent) => {
-    const { name } = e.target as HTMLButtonElement;
+    const { name } = e.currentTarget as HTMLButtonElement;
     const payload = name === 'decrement' ? -1 : 1;
     dispatch(changeVocabularyPage(payload));
   };

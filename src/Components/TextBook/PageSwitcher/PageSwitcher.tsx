@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLeosprintPage } from '../../../store/leoSprintActions';
-import { changePage, selectTextbookState } from '../../../store/textbookActions';
+import { selectTextbookState, setPage } from '../../../store/textbookActions';
 import { textBookContent } from '../../../data/content';
 import './PageSwitcher.scss';
 
@@ -9,11 +9,21 @@ const PageSwitcher: React.FC = () => {
   const { page, group, pagesButtons } = useSelector(selectTextbookState);
   const { arrowNext, arrowPrevious } = textBookContent;
   const dispatch = useDispatch();
+
+  const getResultPage = (changingPage: number): number => {
+    const resultPage = changingPage === 1
+      ? pagesButtons.filter((pageValue) => pageValue > page)[0]
+      : pagesButtons.filter((pageValue) => pageValue < page)[0];
+    return resultPage;
+  };
   const switchPage = (e: React.MouseEvent) => {
-    const { name } = e.target as HTMLButtonElement;
-    const payload = name === 'decrement' ? -1 : 1;
-    dispatch(changePage(payload));
-    dispatch(setLeosprintPage(page + payload));
+    const { name } = e.currentTarget as HTMLButtonElement;
+    const changingPage = name === 'decrement' ? -1 : 1;
+    const resultPage = pagesButtons.includes(page + changingPage)
+      ? page + changingPage
+      : getResultPage(changingPage);
+    dispatch(setPage(resultPage));
+    dispatch(setLeosprintPage(resultPage));
   };
 
   return (
