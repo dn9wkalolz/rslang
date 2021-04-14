@@ -1,5 +1,4 @@
 import React, { ChangeEvent } from 'react';
-import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Avatar,
@@ -33,17 +32,13 @@ const AccountProfile = () => {
   const classes = useStyles();
   const { isTranslated, isButtonsShowed } = useSelector((state: RootState) => state.settings);
   const { isFetchingPhoto, userPhoto } = useSelector((state: RootState) => state.auth);
-  const { isAuth, name, userId } = useSelector((state: RootState) => state.auth);
+  const { name, userId } = useSelector((state: RootState) => state.auth);
 
   const onUserPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
       dispatch(setUserPhoto(e.target.files[0], isTranslated, isButtonsShowed, userId));
     }
   };
-
-  if (!isAuth) {
-    return <Redirect to="/login" />;
-  }
 
   return (
     <Card>

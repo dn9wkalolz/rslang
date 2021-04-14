@@ -6,22 +6,26 @@ import { WordsType } from '../../types/types';
 import { RootState } from '../../store/rootReducer';
 import AudiocallGameCard from './AudiocallGameCard/AudiocallGameCard';
 import AudiocallGameReuslts from './AudiocallGameResults/AudiocallGameResults';
+import { selectTextbookState } from '../../store/textbookActions';
+import { IPaginatedWordSetElem } from '../../interfaces/commonInterfaces';
 
 type PropsType = {
   words: WordsType
-  onPageChanged: (page: number) => void
+  level: number
+  onPageChanged: (level: number, currentPage: number) => void
   currentPage: number
-  rightAnswers: WordsType
-  wrongAnswers: WordsType
+  rightAnswers: IPaginatedWordSetElem[]
+  wrongAnswers: IPaginatedWordSetElem[]
 };
 
 const AudiocallGame: React.FC<PropsType> = ({
-  words,
+  level,
   onPageChanged,
   currentPage,
   rightAnswers,
   wrongAnswers,
 }) => {
+  const { pagesWord } = useSelector(selectTextbookState);
   const currentWordIndex = useSelector((state: RootState) => state.audiocall.currentWordIndex);
   const [fullscreen, setFullscreen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -53,17 +57,18 @@ const AudiocallGame: React.FC<PropsType> = ({
         <img src={screen.img} alt={screen.imgAlt} />
       </button>
       {
-        (currentWordIndex < words.length)
+        (currentWordIndex < pagesWord.length)
           ? (
             <AudiocallGameCard
-              word={words[currentWordIndex]}
+              word={pagesWord[currentWordIndex]}
               currentWordIndex={currentWordIndex}
-              words={words}
+              words={pagesWord}
             />
           )
           : (
             <AudiocallGameReuslts
               onPageChanged={onPageChanged}
+              level={level}
               currentPage={currentPage}
               rightAnswers={rightAnswers}
               wrongAnswers={wrongAnswers}

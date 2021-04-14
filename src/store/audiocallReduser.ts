@@ -1,6 +1,7 @@
 import wordsAPI from '../api/words-api';
-import { WordsType, WordType } from '../types/types';
+import { WordsType } from '../types/types';
 import { InferActionsTypes, BaseThunkType } from './rootReducer';
+import { IPaginatedWordSetElem } from '../interfaces/commonInterfaces';
 
 const initialState = {
   words: [] as WordsType,
@@ -11,8 +12,8 @@ const initialState = {
   isEnd: false,
   level: 0,
   currentPage: 0,
-  rightAnswers: [] as WordsType,
-  wrongAnswers: [] as WordsType,
+  rightAnswers: [] as IPaginatedWordSetElem[],
+  wrongAnswers: [] as IPaginatedWordSetElem[],
   isFetching: false,
 };
 
@@ -90,11 +91,11 @@ export const actions = {
       currentPage,
     },
   } as const),
-  setWrongAnswers: (wrongAnswer: WordType) => ({
+  setWrongAnswers: (wrongAnswer: IPaginatedWordSetElem) => ({
     type: 'AUDIOCALL_SET_WRONG_ANSWERS',
     wrongAnswer,
   } as const),
-  setRightAnswers: (rightAnswer: WordType) => ({
+  setRightAnswers: (rightAnswer: IPaginatedWordSetElem) => ({
     type: 'AUDIOCALL_SET_RIGHT_ANSWERS',
     rightAnswer,
   } as const),
