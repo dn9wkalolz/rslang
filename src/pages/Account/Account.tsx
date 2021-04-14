@@ -5,11 +5,12 @@ import {
   Container,
   Grid,
 } from '@material-ui/core';
-import AccountProfile from '../Components/Account/AccountProfile';
-import AccountProfileDetails from '../Components/Account/AccountProfileDetails';
+import AccountProfile from '../../Components/Account/AccountProfile';
+import AccountProfileDetails from '../../Components/Account/AccountProfileDetails';
+import './Account.scss';
 
 const Account = () => (
-  <>
+  <main className="account">
     <Helmet>
       <title>Account</title>
     </Helmet>
@@ -44,7 +45,7 @@ const Account = () => (
         </Grid>
       </Container>
     </Box>
-  </>
+  </main>
 );
 
 export default Account;

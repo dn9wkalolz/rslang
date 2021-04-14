@@ -5,6 +5,7 @@ import {
   Switch,
 } from 'react-router-dom';
 import { LastLocationProvider } from 'react-router-last-location';
+import { ScrollToTop } from 'react-router-scroll-to-top';
 import { useDispatch, useSelector } from 'react-redux';
 import HomePage from './Components/HomePage/HomePage';
 import Footer from './Components/Footer/Footer';
@@ -12,15 +13,15 @@ import OwnGameChooseLevel from './Components/OwnGame/OwnGameChooseLevel/OwnGameC
 import LeoSprintGame from './Components/Leo-Sprint/LeoSprintGame';
 import TextBook from './Components/TextBook/TextBook';
 import MyTextBook from './Components/MyTextBook/MyTextBook';
-import Register from './pages/Register';
-import Login from './pages/Login';
+import Register from './pages/Auth/Register';
+import Login from './pages/Auth/Login';
 import AudiocallStartScreen from './Components/Audiocall/AudiocallStartScreen/AudiocallStartScreen';
 import SavannahChooseLevel from './Components/Savannah/SavannahChooseLevel/SavannahChooseLevel';
 import Header from './Components/Header/Header';
 import Settings from './Components/Settings/Settings';
 import Games from './Components/common/Games/Games';
 import Statistic from './Components/Statistic/Statistic';
-import Account from './pages/Account';
+import Account from './pages/Account/Account';
 import { initialize } from './store/appReducer';
 import { RootState } from './store/rootReducer';
 import Preloader from './Components/common/Preloader/Preloader';
@@ -42,6 +43,7 @@ function App() {
 
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <ScrollToTop />
       <LastLocationProvider>
         <Header />
         <Switch>

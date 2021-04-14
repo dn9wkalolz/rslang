@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import { selectSavannah } from './SavannahWord/SavannahWordSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { SavannahResetResults, selectSavannah } from './SavannahWord/SavannahWordSlice';
 import SavannahWord from './SavannahWord/SavannahWord';
 import './Savannah.scss';
 import { ownGameContent } from '../../data/content';
@@ -15,6 +15,11 @@ function Savannah() {
   const [fullscreen, setFullscreen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   const { screen } = ownGameContent;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(SavannahResetResults());
+  }, []);
 
   useEffect(() => {
     function handleChange() {

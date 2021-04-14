@@ -49,7 +49,7 @@ const Statistic: React.FC = () => {
         height="70vh"
         className="statistics__chart"
         chartType="AreaChart"
-        loader={<div>Loading Chart</div>}
+        loader={<div>Идет загрузка статистики</div>}
         data={statistic}
         options={{
           title: 'Количество изученных слов по дням',

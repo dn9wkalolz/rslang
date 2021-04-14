@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { selectOwnGame } from './OwnGameCard/OwnGameCardSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { OwnGameCardResetResults, selectOwnGame } from './OwnGameCard/OwnGameCardSlice';
 import OwnGameCard from './OwnGameCard/OwnGameCard';
 import OwnGameReuslts from './OwnGameResults/OwnGameResults';
 import { ownGameContent } from '../../data/content';
@@ -13,6 +13,11 @@ function OwnGame() {
   const [fullscreen, setFullscreen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   const { screen } = ownGameContent;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(OwnGameCardResetResults());
+  }, []);
 
   useEffect(() => {
     function handleChange() {
