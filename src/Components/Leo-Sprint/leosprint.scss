@@ -1,0 +1,33 @@
+.leosprint {
+    &__container {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+    &__gamestatistic {
+        display: flex;
+    }
+    &__timer {
+        margin-left: 10px;
+    }
+    &__language-quest {
+        &__ru {
+            margin: 10px 0;
+        }
+    }
+    &__words {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    &__buttons {
+        display: flex;
+        justify-content: center;
+        &__right {
+            margin-left: 10px;
+        }
+    }
+}

@@ -1,0 +1,45 @@
+@import '../../assets/css/base/variables.scss';
+@import '../../assets/css/base/extends.scss';
+
+.registration {
+  align-items: center;
+  justify-content: center;
+
+  .css-18ft2kn-MuiTypography-root {
+    color: $color-black;
+    font-size: $font-size-30;
+    margin-bottom: 30px;
+  }
+
+  .css-12wjmzy-MuiTypography-root {
+    font-size: $font-size-20;
+  }
+  
+  .css-172xe6t-MuiButtonBase-root-MuiButton-root {
+    @extend %button;
+  }
+
+  .css-1pnmrwp-MuiTypography-root {
+    margin-top: 20px;
+    font-size: $font-size-20;
+  }
+
+  .css-1s61lt3-MuiTypography-root-MuiLink-root {
+    color: $color-blue;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .css-emi4wi-MuiFormLabel-root-MuiInputLabel-root.Mui-focused,
+  .css-1fb9onp-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+    color: $color-blue;
+  }
+
+  .css-zokxp0-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
+  .css-zokxp0-MuiInputBase-root-MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: $color-blue;
+    border-width: 1px;
+  }
+}

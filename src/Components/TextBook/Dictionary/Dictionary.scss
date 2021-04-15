@@ -1,0 +1,11 @@
+@import '../../../assets/css/base/variables.scss';
+@import '../../../assets/css/base/extends.scss';
+
+.textbook {
+  &__dictionary {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-top: 30px;
+  }
+}

@@ -1,0 +1,130 @@
+@import '../../../assets/css/base/variables.scss';
+@import '../../../assets/css/base/extends.scss';
+
+.audiocall {
+  &__card {
+    position: relative;
+    width: 80vw;
+    min-height: 450px;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: $font-size-20;
+
+    @extend %card;
+
+    @media (min-width: 768px) {
+      width: 50%;
+      max-width: 550px;      
+    }
+
+
+    &--content {
+      display: flex;
+      margin: 10px 0;
+    }
+
+    &--buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      margin: -5px -5px;
+    }
+
+    &--button {
+      @extend %word;
+      height: 58px;
+      font-size: $font-size-20;
+      color: $color-black;
+      margin: 10px 20px;
+
+      &.correct {
+        background-color: $color-blue;
+        color: $color-white;
+      }
+
+      &.incorrect {
+        background-color: $color-red;
+        color: $color-white;
+      }
+    }
+
+    &--image {
+      width: 60vw;
+      height: 40vw;
+      margin: 5px 0;
+
+      @media (min-width: 768px) {
+        width: 300px;
+        height: 200px;   
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+        border-radius: 15px;
+        cursor: pointer;
+      }
+    }
+
+    &--word,
+    &--translation {
+      &::first-letter {
+        text-transform: lowercase;
+      }
+    }
+
+    &--word,
+    &--transcription,
+    &--translation,
+    &--next {
+      margin: 0 10px;
+      display: none;
+    }
+
+    &--next {
+      padding: 5px 10px;
+      margin: 0 5px;
+      border: none;
+      border-radius: 5px;
+      color: $color-white;
+      margin-top: 10px;
+      height: 50px;
+      font-weight: 700;
+
+      @extend %gradient;
+
+      &:hover {
+        background: linear-gradient(152.07deg, #009FE3 -19.19%, #16F1FE 153.49%);
+      }
+    }
+
+    &.checking,
+    &.checked {
+      .audiocall__card {
+        &--word,
+        &--transcription,
+        &--translation,
+        &--next {
+          display: block;
+        }
+      }
+    }
+
+    &.checked {
+      animation: slideRight .7s ease-in-out;
+    }
+  }
+}
+
+@keyframes slideRight {
+  to {
+    transform: scale(0.7, 0.7) rotate(45deg) translateX(300vw);
+  }
+}

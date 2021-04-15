@@ -1,0 +1,78 @@
+@import '../../../assets/css/base/variables.scss';
+@import '../../../assets/css/base/extends.scss';
+
+.own-game__results {
+  padding: 50px 20px 20px;
+  width: 100%;
+  align-self: flex-start;
+
+  &--wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @extend %card;
+  }
+
+  &--title {
+    text-align: center;
+    font-size: $font-size-30;
+    margin-bottom: 10px;
+  }
+
+  &--subtitle {
+    font-size: $font-size-20;
+    margin: 20px 0;
+    font-weight: 700;
+
+    img {
+      padding: 0 6px;
+      margin-right: 5px;
+    }
+    
+    span {
+      margin-left: 5px;
+    }
+  }
+
+  &--lists {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+
+  &--list {
+    width: 100%;
+
+    @media (min-width: 768px) {
+      width: 50%;
+    }
+  }
+
+  &--restart {
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: $color-white;
+    margin-top: 30px;
+    height: 50px;
+    font-weight: 700;
+    min-width: 225px;
+
+    @extend %gradient;
+
+    &:hover {
+      background: linear-gradient(152.07deg, #009FE3 -19.19%, #16F1FE 153.49%);
+    }
+  }
+}

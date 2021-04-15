@@ -1,0 +1,64 @@
+@import '../../../assets/css/base/variables.scss';
+@import '../../../assets/css/base/extends.scss';
+
+.textbook {
+  &__groups {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 30px;
+    font-size: $font-size-20;
+
+    &-section {
+      width: 33.33%;
+      margin-bottom: 15px;
+      text-align: center;
+
+      @media (min-width: 1024px) {
+        width: auto;
+        margin-bottom: 0;
+      }
+    }
+
+    &--button {
+      color: $color-gray;
+      border: none;
+      background: transparent;
+      font-weight: 700;
+      transition: all .2s ease-in-out;
+  
+      &.active {
+        color: $color-blue;
+      }
+
+      &:hover {
+        color: $color-blue;
+      }
+    }
+  }
+
+  &__statistics {
+    display: flex;
+    flex-direction: column;
+    font-size: $font-size-20;
+
+    @media (min-width: 1024px) {
+      flex-direction: row;
+    }
+
+    &--item {
+      margin: 0 20px 15px 0;
+
+      @media (min-width: 1024px) {
+        flex-direction: row;
+        margin: 0 20px 0 0;
+      }
+
+      span {
+        font-weight: 700;
+        display: inline-block;
+        margin-left: 10px;
+      }
+    }
+  }
+}

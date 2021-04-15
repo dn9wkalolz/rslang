@@ -1,0 +1,94 @@
+@import '../../../assets/css/base/variables.scss';
+@import '../../../assets/css/base/extends.scss';
+
+.savannah {
+  position: relative;
+
+  &__card {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    flex-direction: column;
+
+    &--task {
+      position: absolute;
+      z-index: 0;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: wordFall 7.5s linear forwards;
+      border: 1px solid $color-gray;
+      border-radius: 20px;
+      font-weight: 700;
+      padding: 15px 20px;
+      color: $color-black;
+      font-size: $font-size-20;
+    }
+
+    &--options {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+
+      @media (min-width: 1024px) {
+        flex-direction: row;
+      }
+
+      input {
+        @extend %word;
+        height: 58px;
+        font-size: $font-size-20;
+        color: $color-black;
+        margin: 10px 20px;
+
+        @media (min-width: 1024px) {
+          margin: 0 20px;
+        }
+      }
+    }
+  }
+
+  &__lives,
+  &__pseudolives {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+  }
+
+  &__lives {
+    z-index: 2;
+  }
+
+  &__pseudolives {
+    z-index: 1;
+  }
+
+  &__life,
+  &__pseudolife {
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left: 15px;
+  }
+
+  &__life {
+    background-image: url('../../../assets/img/Savannah-life.png');
+  }
+
+  &__pseudolife {
+    background-image: url('../../../assets/img/Savannah-minus-life.png');
+  }
+}
+
+@keyframes wordFall {
+  from {
+    top: 20px;
+  } to {
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: .1;
+  }
+}

@@ -1,0 +1,156 @@
+@import '../../../assets/css/base/variables.scss';
+@import '../../../assets/css/base/extends.scss';
+
+.own-game {
+  &__card {
+    position: relative;
+    width: 80vw;
+    min-height: 450px;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: $font-size-20;
+
+    @extend %card;
+
+    @media (min-width: 768px) {
+      width: 50%;
+      max-width: 550px;      
+    }
+
+    &--content {
+      display: flex;
+      margin: 10px 0;
+    }
+
+    &--image {
+      width: 70vw;
+      height: 50vw;
+
+      @media (min-width: 768px) {
+        width: 300px;
+        height: 200px;   
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 15px;
+      }
+    }
+
+    &--image,
+    &--form {
+      margin: 5px 0;
+    }
+
+    &--translation {
+      margin: 0 10px;
+      font-weight: 700;
+    }
+
+    &--word,
+    &--translation {
+      &::first-letter {
+        text-transform: lowercase;
+      }
+    }
+
+    &--word,
+    &--transcription {
+      margin: 0 10px;
+      display: none;
+    }
+
+    &--form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &--input,
+    &--check,
+    &--next {
+      padding: 5px 10px;
+    }
+
+    &--input {
+      outline: none;
+      border-radius: 5px;
+      border: 1px solid $color-black;
+      background: transparent;
+      height: 50px;
+
+      &.disabled {
+        pointer-events: none;
+      }
+    }
+
+    &--check,
+    &--next {
+      border: none;
+      border-radius: 5px;
+      color: $color-white;
+      margin-top: 10px;
+      height: 50px;
+      font-weight: 700;
+
+      @extend %gradient;
+
+      &:hover {
+        background: linear-gradient(152.07deg, #009FE3 -19.19%, #16F1FE 153.49%);
+      }
+    }
+
+    &--check {
+      &.hidden {
+        display: none;
+      }
+    }
+
+    &--next {
+      display: none;
+    }
+
+    &.checking,
+    &.checked {
+      .own-game__card {
+        &--word,
+        &--transcription,
+        &--next {
+          display: block;
+        }
+      }
+    }
+
+    &.checked {
+      animation: slideRight .7s ease-in-out;
+    }
+
+    &.correct {
+      .own-game__card {
+        &--input {
+          border: 1px solid $color-blue;
+        }
+      }
+    }
+
+    &.incorrect {
+      .own-game__card {
+        &--input {
+          border: 1px solid $color-red;
+        }
+      }
+    }
+  }
+}
+
+@keyframes slideRight {
+  to {
+    transform: scale(0.7, 0.7) rotate(45deg) translateX(300vw);
+  }
+}

@@ -1,0 +1,44 @@
+@import '../../../assets/css/base/variables.scss';
+@import '../../../assets/css/base/extends.scss';
+
+.textbook {
+  &__page-switcher {
+    display: flex;
+    justify-content: center;
+
+    &--status {
+      text-align: center;
+      margin: 0 20px;
+
+      @media (min-width: 1024px) {
+        margin: 0 60px;
+      }
+    }
+
+    &--group {
+      font-size: $font-size-20;
+      margin-bottom: 20px;
+
+      @media (min-width: 1024px) {
+        font-size: $font-size-30;
+      }
+    }
+
+    &--page {
+      font-size: $font-size-18;
+
+      @media (min-width: 1024px) {
+        font-size: $font-size-20;
+      }
+    }
+
+    button {
+      background: transparent;
+      border: none;
+
+      &[disabled] {
+        opacity: .5;
+      }
+    }
+  }
+}
