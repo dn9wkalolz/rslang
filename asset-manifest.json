@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/rslang/static/css/main.c50c6ec3.chunk.css",
-    "main.js": "/rslang/static/js/main.317b12c1.chunk.js",
-    "main.js.map": "/rslang/static/js/main.317b12c1.chunk.js.map",
+    "main.css": "/rslang/static/css/main.2553d18f.chunk.css",
+    "main.js": "/rslang/static/js/main.792cea3e.chunk.js",
+    "main.js.map": "/rslang/static/js/main.792cea3e.chunk.js.map",
     "runtime-main.js": "/rslang/static/js/runtime-main.ae423699.js",
     "runtime-main.js.map": "/rslang/static/js/runtime-main.ae423699.js.map",
     "static/js/2.8112c145.chunk.js": "/rslang/static/js/2.8112c145.chunk.js",
     "static/js/2.8112c145.chunk.js.map": "/rslang/static/js/2.8112c145.chunk.js.map",
     "index.html": "/rslang/index.html",
-    "static/css/main.c50c6ec3.chunk.css.map": "/rslang/static/css/main.c50c6ec3.chunk.css.map",
+    "static/css/main.2553d18f.chunk.css.map": "/rslang/static/css/main.2553d18f.chunk.css.map",
     "static/js/2.8112c145.chunk.js.LICENSE.txt": "/rslang/static/js/2.8112c145.chunk.js.LICENSE.txt",
     "static/media/OwnGame.scss": "/rslang/static/media/Sprint-bg.39b47d61.jpg",
     "static/media/Dev1.71ac7442.jpg": "/rslang/static/media/Dev1.71ac7442.jpg",
@@ -35,7 +35,7 @@
   "entrypoints": [
     "static/js/runtime-main.ae423699.js",
     "static/js/2.8112c145.chunk.js",
-    "static/css/main.c50c6ec3.chunk.css",
-    "static/js/main.317b12c1.chunk.js"
+    "static/css/main.2553d18f.chunk.css",
+    "static/js/main.792cea3e.chunk.js"
   ]
 }
